@@ -1,8 +1,15 @@
 module.exports = function(app, db) {
-  app.get('/getuser', (req, res) => {
+  app.post('/getuser', (req, res) => {
+    console.log(req);
     const collection = db.collection('users');
-    collection.find().toArray((err, items) => {
-      res.send(items);
+    collection.findOne({ username: req.body.username, password: req.body.password }, (err, items) => {
+      let response;
+      if (items !== null) {
+        response = { ...items, success: true };
+        res.send(response);
+      }
+      response = { success: false };
+      res.send(response);
     });
   });
   app.post('/createuser', (req, res) => {
