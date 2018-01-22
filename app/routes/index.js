@@ -1,6 +1,6 @@
-const noteRoutes = require('./note_routes');
+const messageRoutes = require('./messageRoutes');
 
 module.exports = function(app, db) {
-  noteRoutes(app, db);
+  messageRoutes(app, db);
     // Тут, позже, будут и другие обработчики маршрутов
 };
