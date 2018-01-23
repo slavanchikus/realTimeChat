@@ -1,14 +1,18 @@
 module.exports = function(app, db) {
   app.post('/getuser', (req, res) => {
-    console.log(req);
     const collection = db.collection('users');
     collection.findOne({ username: req.body.username, password: req.body.password }, (err, items) => {
       let response;
       if (items !== null) {
-        response = { ...items, success: true };
-        res.send(response);
+        response = {
+          userId: items._id,
+          username: items.username
+        };
+      } else {
+        response = {
+          error: 'invalid data'
+        };
       }
-      response = { success: false };
       res.send(response);
     });
   });
@@ -17,9 +21,9 @@ module.exports = function(app, db) {
     const collection = db.collection('users');
     collection.insert(user, (err, result) => {
       if (err) {
-        res.send({ error: 'An error has occurred' });
+        res.send({ error: 'user exists' });
       } else {
-        res.send(result.ops[0]);
+        res.send({ userId: result.ops[0]._id, username: result.ops[0].username });
       }
     });
   });
