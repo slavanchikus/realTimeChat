@@ -6,7 +6,7 @@ import styles from './ChatContainer.module.styl';
 export default class ChatContainer extends Component {
   render() {
     return (
-      <div>
+      <div className={styles.container}>
         Chat
       </div>
     );

@@ -19,3 +19,8 @@ export const createUser = (username, password) => fetch('http://localhost:8000/c
     .catch((error) => {
       throw error;
     });
+
+export const getMeassages = () => fetch('http://localhost:8000/getmessages').then(response => response.json())
+    .catch((error) => {
+      throw error;
+    });
