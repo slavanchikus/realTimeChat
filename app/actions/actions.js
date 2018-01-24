@@ -13,3 +13,10 @@ export const userCreate = (username, password) => ({
 export const getMessages = () => ({
   type: 'MESSAGES_GET',
 });
+
+export const createMessage = (content, userId, username) => ({
+  type: 'MESSAGE_CREATE',
+  content,
+  userId,
+  username
+});

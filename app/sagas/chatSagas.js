@@ -1,5 +1,5 @@
 import { fork, call, put, takeEvery } from 'redux-saga/effects';
-import { getUser, createUser, getMeassages } from '../api/chatApi';
+import { getUser, createUser, getMeassages, createMessage } from '../api/chatApi';
 
 export function* fetchUser({ username, password }) {
   try {
@@ -30,11 +30,21 @@ export function* fetchMessages() {
   }
 }
 
+export function* fetchNewMessage({ content, userId, username }) {
+  try {
+    const payload = yield call(createMessage, content, userId, username);
+    yield put({ type: 'MESSAGE_CREATE_COMPLETE', payload });
+  } catch (error) {
+    yield put({ type: 'MESSAGE_CREATE_ERROR' });
+  }
+}
+
 
 export function* watchChatRequest() {
   yield takeEvery('USER_REQUEST', fetchUser);
   yield takeEvery('USER_CREATE', fetchNewUser);
   yield takeEvery('MESSAGES_GET', fetchMessages);
+  yield takeEvery('MESSAGE_CREATE', fetchNewMessage);
 }
 
 export function* chatSagas() {

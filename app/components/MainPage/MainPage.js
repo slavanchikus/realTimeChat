@@ -4,7 +4,7 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 
-import { userRequest, userCreate, getMessages } from '../../actions/actions';
+import { userRequest, userCreate, getMessages, createMessage } from '../../actions/actions';
 import { userSelector, messagesSelector } from '../../selectors/mainSelector';
 
 import ChatContainer from '../ChatContainer/ChatContainer';
@@ -19,7 +19,7 @@ const mapStateToProps = state => ({
 });
 
 const mapDispatchToProps = dispatch =>
-    bindActionCreators({ userRequest, userCreate, getMessages }, dispatch);
+    bindActionCreators({ userRequest, userCreate, getMessages, createMessage }, dispatch);
 
 const storageUsername = localStorage.getItem('username_chat');
 const storagePassword = localStorage.getItem('password_chat');
@@ -53,7 +53,9 @@ class MainPage extends Component {
           />}
         {user.userId &&
           <ChatContainer
+            user={user}
             messages={messages}
+            onCreateMessage={this.props.createMessage}
           />}
       </div>
     );
