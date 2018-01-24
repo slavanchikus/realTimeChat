@@ -1,9 +1,9 @@
-import React, { Component } from 'react';
+import React, { PureComponent } from 'react';
 import PropTypes from 'prop-types';
 
 import styles from './Authentication.module.styl';
 
-export default class Authentication extends Component {
+export default class Authentication extends PureComponent {
   static propTypes = {
     onUserRequest: PropTypes.func.isRequired,
     onUserCreate: PropTypes.func.isRequired,

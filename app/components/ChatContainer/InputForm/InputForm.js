@@ -1,9 +1,9 @@
-import React, { Component } from 'react';
+import React, { PureComponent } from 'react';
 import PropTypes from 'prop-types';
 
 import styles from './InputForm.module.styl';
 
-export default class InputForm extends Component {
+export default class InputForm extends PureComponent {
   static propTypes = {
     user: PropTypes.object.isRequired,
     onCreateMessage: PropTypes.func.isRequired

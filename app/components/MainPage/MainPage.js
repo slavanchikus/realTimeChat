@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, { PureComponent } from 'react';
 import PropTypes from 'prop-types';
 
 import { connect } from 'react-redux';
@@ -24,7 +24,7 @@ const mapDispatchToProps = dispatch =>
 const storageUsername = localStorage.getItem('username_chat');
 const storagePassword = localStorage.getItem('password_chat');
 
-class MainPage extends Component {
+class MainPage extends PureComponent {
   componentWillMount() {
     if (storageUsername && storagePassword) {
       this.props.userRequest(storageUsername, storagePassword);
