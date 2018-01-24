@@ -19,6 +19,7 @@ export default class ChatContainer extends PureComponent {
       <div className={styles.container}>
         {messages.length > 0 &&
         <MessagesContainer
+          userId={user.userId}
           messages={messages}
         />}
         <InputForm
