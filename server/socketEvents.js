@@ -5,8 +5,8 @@ module.exports = function(io) {
       socket.emit('success', new Date());
     });
 
-    socket.on('new message', () => {
-      socket.broadcast.emit('fetch message');
+    socket.on('new message', (id) => {
+      socket.broadcast.emit('fetch message', id);
     });
   });
 };

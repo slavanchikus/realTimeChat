@@ -1,8 +1,24 @@
+const ObjectId = require('mongodb').ObjectId;
+
 module.exports = function(app, db) {
   app.get('/getmessages', (req, res) => {
     const collection = db.collection('message');
     collection.find().toArray((err, items) => {
       res.send(items);
+    });
+  });
+  app.get('/getmessages/:id', (req, res) => {
+    const collection = db.collection('message');
+    collection.findOne({ _id: new ObjectId(req.params.id) }, (err, items) => {
+      let response;
+      if (items !== null) {
+        response = items;
+      } else {
+        response = {
+          error: 'invalid data'
+        };
+      }
+      res.send([response]);
     });
   });
   app.post('/createmessage', (req, res) => {

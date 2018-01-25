@@ -1,8 +1,9 @@
 import React, { PureComponent } from 'react';
-import PropTypes from 'prop-types';
 
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
+
+import { socket } from '../../sagas/chatSagas';
 
 import { userRequest, userCreate, getMessages, createMessage } from '../../actions/actions';
 import { userSelector, messagesSelector } from '../../selectors/mainSelector';
@@ -25,10 +26,17 @@ const storageUsername = localStorage.getItem('username_chat');
 const storagePassword = localStorage.getItem('password_chat');
 
 class MainPage extends PureComponent {
+
   componentWillMount() {
     if (storageUsername && storagePassword) {
       this.props.userRequest(storageUsername, storagePassword);
     }
+  }
+
+  componentDidMount() {
+    socket.on('fetch message', (data) => {
+      this.props.getMessages(data.id);
+    });
   }
 
   componentWillReceiveProps({ user }) {

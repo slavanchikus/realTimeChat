@@ -1,5 +1,3 @@
-
-
 export const getUser = (username, password) => fetch('http://localhost:8000/getuser', {
   method: 'POST',
   headers: {
@@ -35,6 +33,11 @@ export const createMessage = (content, userId, username) => fetch('http://localh
   },
   body: JSON.stringify({ content, userId, username }),
 }).then(response => response.json())
+    .catch((error) => {
+      throw error;
+    });
+
+export const getMessage = id => fetch(`http://localhost:8000/getmessages/${id}`).then(response => response.json())
     .catch((error) => {
       throw error;
     });
