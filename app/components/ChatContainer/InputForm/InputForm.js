@@ -9,6 +9,7 @@ export default class InputForm extends PureComponent {
     onCreateMessage: PropTypes.func.isRequired
   };
 
+
   handleClick = () => {
     const content = this.input.innerText;
     const { userId, username } = this.props.user;

@@ -2,8 +2,7 @@ module.exports = function(app, db) {
   app.get('/getmessages', (req, res) => {
     const collection = db.collection('message');
     collection.find().toArray((err, items) => {
-      const messages = items.sort((a, b) => b.date - a.date);
-      res.send(messages);
+      res.send(items);
     });
   });
   app.post('/createmessage', (req, res) => {
