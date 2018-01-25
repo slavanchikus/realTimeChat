@@ -4,7 +4,8 @@ module.exports = function(app, db) {
   app.get('/getmessages', (req, res) => {
     const collection = db.collection('message');
     collection.find().toArray((err, items) => {
-      res.send(items);
+      const messages = items.sort();
+      res.send(messages);
     });
   });
   app.get('/getmessages/:id', (req, res) => {
