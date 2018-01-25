@@ -1,22 +1,34 @@
 .container
-  display: flex
-  flex-direction: row
-  justify-content: space-between
-  align-items: flex-end
-  height: 100px
-  padding-right: 20px
-  padding-left: 10px
-  margin-top: 10px
+  max-height: 220px
+  width: 570px
+  margin: 0 auto
+  padding-top: 10px
+  border-top: 1px solid
+  border-color: hsla(0,0%,100%,.1)
 
 .input
-  min-height: 20px
+  display: inline-block
   width: 485px
+  max-height: 220px
   border: 1px solid #ffdb4d
   border-radius: 5px
   outline: 0
   padding: 10px
+  overflow: overlay
+  &::-webkit-scrollbar-track
+    background-color: #181818
+  &::-webkit-scrollbar
+    width: 7px
+    background-color: #181818
+  &::-webkit-scrollbar-thumb
+    border-radius: 10px
+    background-color: rgb(163, 162, 162, 0.53)
 
 .post
+  display: inline-block
+  position: relative
+  top: 0
+  left: 20px
   width: 40px
   height: 40px
   background: url("../../../img/post.svg") no-repeat

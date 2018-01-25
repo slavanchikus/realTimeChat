@@ -1,6 +1,7 @@
 .container
+  height: 700px
   overflow: overlay
-  padding: 0 20px 0 10px
+  padding: 0 15px 0 15px
   &::-webkit-scrollbar-track
     background-color: #181818
   &::-webkit-scrollbar
@@ -9,9 +10,6 @@
   &::-webkit-scrollbar-thumb
     border-radius: 10px
     background-color: rgb(163, 162, 162, 0.53)
-  .message
-    &:last-child
-      margin-bottom: 0
 
 .message
   display: table
@@ -28,6 +26,9 @@
   p
     margin: 2px 0 0 0
     padding-right: 30px
+    max-width: 520px
+    overflow: hidden
+    text-overflow: ellipsis
   .username
     font-weight: 600
     color: #ECC948

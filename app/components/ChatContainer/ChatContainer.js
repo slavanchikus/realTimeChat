@@ -17,6 +17,9 @@ export default class ChatContainer extends PureComponent {
     const { user, messages, onCreateMessage } = this.props;
     return (
       <div className={styles.container}>
+        <div className={styles.header}>
+          <h2>Чатик</h2>
+        </div>
         {messages.length > 0 &&
           <MessagesContainer
             currentUserId={user.userId}
