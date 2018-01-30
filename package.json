@@ -4,8 +4,8 @@
   "description": "chat",
   "main": "index.js",
   "scripts": {
-    "start": "npm run build",
-    "build": "webpack -d && webpack-dev-server --content-base build/ --inline --hot",
+    "start": "webpack -d && webpack-dev-server --content-base build/ --inline --hot",
+    "build": "webpack --config=webpack.build.config.babel.js",
     "dev": "nodemon ./server/server.js"
   },
   "keywords": [],
@@ -51,6 +51,7 @@
     "style-loader": "^0.19.0",
     "stylus": "^0.54.5",
     "stylus-loader": "^3.0.1",
+    "uglifyjs-webpack-plugin": "^1.1.6",
     "webpack": "^3.4.1",
     "webpack-dev-server": "^2.4.5"
   }
