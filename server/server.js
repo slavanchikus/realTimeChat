@@ -19,7 +19,7 @@ app.use((req, res, next) => {
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 
-const server = app.listen(port, () => {
+const server = app.listen(process.env.PORT || port, () => {
   console.log(`We are live on ${port}`);
 });
 
