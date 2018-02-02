@@ -22,11 +22,16 @@ export const createUser = (username, password) => fetch('http://localhost:8000/c
       throw error;
     });
 
-export const getMeassages = () => fetch('http://localhost:8000/getmessages').then(response => response.json())
+export const getMeassages = offset => fetch(`http://localhost:8000/getmessages/${offset}`).then(response => response.json())
     .catch((error) => {
       throw error;
     });
 
+
+export const getOneMessage = id => fetch(`http://localhost:8000/getmessage/${id}`).then(response => response.json())
+    .catch((error) => {
+      throw error;
+    });
 
 export const createMessage = (content, userId, username) => fetch('http://localhost:8000/createmessage', {
   method: 'POST',
@@ -35,11 +40,6 @@ export const createMessage = (content, userId, username) => fetch('http://localh
   },
   body: JSON.stringify({ content, userId, username }),
 }).then(response => response.json())
-    .catch((error) => {
-      throw error;
-    });
-
-export const getMessage = id => fetch(`http://localhost:8000/getmessages/${id}`).then(response => response.json())
     .catch((error) => {
       throw error;
     });

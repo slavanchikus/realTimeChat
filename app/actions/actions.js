@@ -10,9 +10,14 @@ export const userCreate = (username, password) => ({
   password
 });
 
-export const getMessages = id => ({
+export const getMessages = offset => ({
   type: 'MESSAGES_GET',
-  id
+  offset
+});
+
+export const getOneMessage = id => ({
+  type: 'ONE_MESSAGE_GET',
+  id,
 });
 
 export const createMessage = (content, userId, username) => ({

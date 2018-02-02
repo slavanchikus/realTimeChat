@@ -1,7 +1,7 @@
 import { fork, call, put, takeEvery } from 'redux-saga/effects';
 import openSocket from 'socket.io-client';
 
-import { getUser, createUser, getMeassages, createMessage, getMessage } from '../api/chatApi';
+import { getUser, createUser, getMeassages, createMessage, getOneMessage } from '../api/chatApi';
 
 export const socket = openSocket('http://localhost:8000');
 
@@ -25,21 +25,21 @@ export function* fetchNewUser({ username, password }) {
   }
 }
 
-export function* fetchMessages({ id }) {
-  if (id) {
-    try {
-      const payload = yield call(getMessage, id);
-      yield put({ type: 'MESSAGES_GET_COMPLETE', payload });
-    } catch (error) {
-      yield put({ type: 'MESSAGES_GET_ERROR' });
-    }
-  } else {
-    try {
-      const payload = yield call(getMeassages);
-      yield put({ type: 'MESSAGES_GET_COMPLETE', payload });
-    } catch (error) {
-      yield put({ type: 'MESSAGES_GET_ERROR' });
-    }
+export function* fetchMessages({ offset }) {
+  try {
+    const payload = yield call(getMeassages, offset);
+    yield put({ type: 'MESSAGES_GET_COMPLETE', payload });
+  } catch (error) {
+    yield put({ type: 'MESSAGES_GET_ERROR' });
+  }
+}
+
+export function* fetchOneMessages({ id }) {
+  try {
+    const payload = yield call(getOneMessage, id);
+    yield put({ type: 'ONE_MESSAGE_GET_COMPLETE', payload });
+  } catch (error) {
+    yield put({ type: 'ONE_MESSAGE_GET_ERROR' });
   }
 }
 
@@ -58,6 +58,7 @@ export function* watchChatRequest() {
   yield takeEvery('USER_REQUEST', fetchUser);
   yield takeEvery('USER_CREATE', fetchNewUser);
   yield takeEvery('MESSAGES_GET', fetchMessages);
+  yield takeEvery('ONE_MESSAGE_GET', fetchOneMessages);
   yield takeEvery('MESSAGE_CREATE', fetchNewMessage);
 }
 

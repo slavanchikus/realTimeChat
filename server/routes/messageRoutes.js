@@ -1,14 +1,15 @@
 const ObjectId = require('mongodb').ObjectId;
 
 module.exports = function(app, db) {
-  app.get('/getmessages', (req, res) => {
+  app.get('/getmessages/:offset', (req, res) => {
     const collection = db.collection('message');
-    collection.find().toArray((err, items) => {
-      const messages = items.sort();
-      res.send(messages);
-    });
+    const offset = parseInt(req.params.offset, 10);
+    collection.find().skip(offset).sort({ date: -1 }).limit(12)
+        .toArray((err, items) => {
+          res.send(items.reverse());
+        });
   });
-  app.get('/getmessages/:id', (req, res) => {
+  app.get('/getmessage/:id', (req, res) => {
     const collection = db.collection('message');
     collection.findOne({ _id: new ObjectId(req.params.id) }, (err, items) => {
       let response;

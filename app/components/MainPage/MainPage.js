@@ -5,7 +5,7 @@ import { bindActionCreators } from 'redux';
 
 import { socket } from '../../sagas/chatSagas';
 
-import { userRequest, userCreate, getMessages, createMessage } from '../../actions/actions';
+import { userRequest, userCreate, getMessages, getOneMessage, createMessage } from '../../actions/actions';
 import { userSelector, messagesSelector } from '../../selectors/mainSelector';
 
 import ChatContainer from '../ChatContainer/ChatContainer';
@@ -20,7 +20,7 @@ const mapStateToProps = state => ({
 });
 
 const mapDispatchToProps = dispatch =>
-    bindActionCreators({ userRequest, userCreate, getMessages, createMessage }, dispatch);
+    bindActionCreators({ userRequest, userCreate, getMessages, getOneMessage, createMessage }, dispatch);
 
 const storageUsername = localStorage.getItem('username_chat');
 const storagePassword = localStorage.getItem('password_chat');
@@ -35,13 +35,13 @@ class MainPage extends PureComponent {
 
   componentDidMount() {
     socket.on('fetch message', (data) => {
-      this.props.getMessages(data.id);
+      this.props.getOneMessage(data.id);
     });
   }
 
   componentWillReceiveProps({ user }) {
     if (!this.props.user.userId && user.userId) {
-      this.props.getMessages();
+      this.props.getMessages(0);
     }
   }
 
@@ -64,6 +64,7 @@ class MainPage extends PureComponent {
             user={user}
             messages={messages}
             onCreateMessage={this.props.createMessage}
+            onGetMessages={this.props.getMessages}
           />}
       </div>
     );
