@@ -1,4 +1,6 @@
-export const getUser = (username, password) => fetch('https://real-time-chat-slavanchikus.herokuapp.com/getuser', {
+const heroku = 'https://real-time-chat-slavanchikus.herokuapp.com';
+
+export const getUser = (username, password) => fetch('http://localhost:8000/getuser', {
   method: 'POST',
   headers: {
     'Content-Type': 'application/json'
@@ -9,7 +11,7 @@ export const getUser = (username, password) => fetch('https://real-time-chat-sla
       throw error;
     });
 
-export const createUser = (username, password) => fetch('https://real-time-chat-slavanchikus.herokuapp.com/createuser', {
+export const createUser = (username, password) => fetch('http://localhost:8000/createuser', {
   method: 'POST',
   headers: {
     'Content-Type': 'application/json'
@@ -20,13 +22,13 @@ export const createUser = (username, password) => fetch('https://real-time-chat-
       throw error;
     });
 
-export const getMeassages = () => fetch('https://real-time-chat-slavanchikus.herokuapp.com/getmessages').then(response => response.json())
+export const getMeassages = () => fetch('http://localhost:8000/getmessages').then(response => response.json())
     .catch((error) => {
       throw error;
     });
 
 
-export const createMessage = (content, userId, username) => fetch('https://real-time-chat-slavanchikus.herokuapp.com/createmessage', {
+export const createMessage = (content, userId, username) => fetch('http://localhost:8000/createmessage', {
   method: 'POST',
   headers: {
     'Content-Type': 'application/json'
@@ -37,7 +39,7 @@ export const createMessage = (content, userId, username) => fetch('https://real-
       throw error;
     });
 
-export const getMessage = id => fetch(`https://real-time-chat-slavanchikus.herokuapp.com/getmessages/${id}`).then(response => response.json())
+export const getMessage = id => fetch(`http://localhost:8000/getmessages/${id}`).then(response => response.json())
     .catch((error) => {
       throw error;
     });

@@ -36,7 +36,7 @@ export default class InputForm extends PureComponent {
 
   handleBlur = () => {
     const content = this.input.innerText;
-    if (content.length < 1) {
+    if (!content || content === ' ') {
       this.input.innerHTML = placeholder;
     }
     this.input.removeEventListener('keydown', this.handleKeyDown);

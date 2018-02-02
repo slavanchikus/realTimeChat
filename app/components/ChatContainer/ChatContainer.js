@@ -20,11 +20,10 @@ export default class ChatContainer extends PureComponent {
         <div className={styles.header}>
           <h2>Чатик</h2>
         </div>
-        {messages.length > 0 &&
-          <MessagesContainer
-            currentUserId={user.userId}
-            messages={messages}
-          />}
+        <MessagesContainer
+          currentUserId={user.userId}
+          messages={messages}
+        />
         <InputForm
           user={user}
           onCreateMessage={onCreateMessage}
