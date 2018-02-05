@@ -1,6 +1,6 @@
 const heroku = 'https://real-time-chat-slavanchikus.herokuapp.com';
 
-export const getUser = (username, password) => fetch('http://localhost:8000/getuser', {
+export const getUser = (username, password) => fetch(`${heroku}/getuser`, {
   method: 'POST',
   headers: {
     'Content-Type': 'application/json'
@@ -11,7 +11,7 @@ export const getUser = (username, password) => fetch('http://localhost:8000/getu
       throw error;
     });
 
-export const createUser = (username, password) => fetch('http://localhost:8000/createuser', {
+export const createUser = (username, password) => fetch(`${heroku}/createuser`, {
   method: 'POST',
   headers: {
     'Content-Type': 'application/json'
@@ -22,18 +22,18 @@ export const createUser = (username, password) => fetch('http://localhost:8000/c
       throw error;
     });
 
-export const getMeassages = offset => fetch(`http://localhost:8000/getmessages/${offset}`).then(response => response.json())
+export const getMeassages = offset => fetch(`${heroku}/getmessages/${offset}`).then(response => response.json())
     .catch((error) => {
       throw error;
     });
 
 
-export const getOneMessage = id => fetch(`http://localhost:8000/getmessage/${id}`).then(response => response.json())
+export const getOneMessage = id => fetch(`${heroku}/getmessage/${id}`).then(response => response.json())
     .catch((error) => {
       throw error;
     });
 
-export const createMessage = (content, userId, username) => fetch('http://localhost:8000/createmessage', {
+export const createMessage = (content, userId, username) => fetch(`${heroku}/createmessage`, {
   method: 'POST',
   headers: {
     'Content-Type': 'application/json'
