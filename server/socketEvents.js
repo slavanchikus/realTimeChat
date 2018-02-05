@@ -1,14 +1,25 @@
 module.exports = function(io) {
-  let clients = [];
+  let online = [];
+  let typing = [];
   io.on('connection', (socket) => {
     socket.on('join chat', (username) => {
-      clients.push(username);
-      io.sockets.emit('user connect', clients);
+      online.push(username);
+      io.sockets.emit('user connect', online);
     });
 
     socket.on('quit chat', (username) => {
-      clients = clients.filter(item => item !== username);
-      socket.broadcast.emit('user disconnect', clients);
+      online = online.filter(item => item !== username);
+      socket.broadcast.emit('user disconnect', online);
+    });
+
+    socket.on('start typing', (username) => {
+      typing.push(username);
+      socket.broadcast.emit('user typing', typing);
+    });
+
+    socket.on('stop typing', (username) => {
+      typing = typing.filter(item => item !== username);
+      socket.broadcast.emit('user stop typing', typing);
     });
 
     socket.on('new message', (id) => {

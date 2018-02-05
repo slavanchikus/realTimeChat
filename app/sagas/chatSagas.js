@@ -8,12 +8,11 @@ export const socket = openSocket('http://localhost:8000');
 export function* fetchUser({ username, password }) {
   try {
     const payload = yield call(getUser, username, password);
-    if (!localStorage.getItem('username_chat')) {
+    if (!localStorage.getItem('username_chat') && payload.username) {
       localStorage.setItem('username_chat', username);
       localStorage.setItem('password_chat', password);
     }
-    console.log(payload.username);
-    socket.emit('join chat', payload.username);
+    if (payload.username) socket.emit('join chat', payload.username);
     yield put({ type: 'USER_REQUEST_COMPLETE', payload });
   } catch (error) {
     yield put({ type: 'USER_REQUEST_ERROR' });

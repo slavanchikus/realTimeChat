@@ -1,6 +1,8 @@
 import React, { PureComponent } from 'react';
 import PropTypes from 'prop-types';
 
+import { socket } from '../../../sagas/chatSagas';
+
 import styles from './InputForm.module.styl';
 
 const placeholder = 'Напишите сообщение...';
@@ -11,19 +13,40 @@ export default class InputForm extends PureComponent {
     onCreateMessage: PropTypes.func.isRequired
   };
 
+  state = {
+    isTyping: false
+  };
+
+  componentDidUpdate(prevProps, prevState) {
+    if (!prevState.isTyping && this.state.isTyping) {
+      socket.emit('start typing', this.props.user.username);
+    } else {
+      socket.emit('stop typing', this.props.user.username);
+    }
+  }
+
   handleClick = () => {
     const content = this.input.innerText;
     const { userId, username } = this.props.user;
 
-    this.props.onCreateMessage(content, userId, username);
-    this.input.innerHTML = '';
-    this.input.focus();
+    if (content !== placeholder && content.length > 0) {
+      this.props.onCreateMessage(content, userId, username);
+      this.input.innerHTML = '';
+      this.input.focus();
+    }
   };
 
   handleKeyDown = (e) => {
+    if (!this.state.isTyping) {
+      this.setState({ isTyping: true });
+    }
     if (e.ctrlKey && e.keyCode === 13) {
       this.post.click();
     }
+    if (this.typingDelay !== undefined) {
+      clearTimeout(this.typingDelay);
+    }
+    this.typingDelay = setTimeout(() => this.setState({ isTyping: false }), 1000);
   };
 
   handleFocus = () => {
@@ -36,7 +59,7 @@ export default class InputForm extends PureComponent {
 
   handleBlur = () => {
     const content = this.input.innerText;
-    if (!content || content === ' ') {
+    if (!content || content === '') {
       this.input.innerHTML = placeholder;
     }
     this.input.removeEventListener('keydown', this.handleKeyDown);
