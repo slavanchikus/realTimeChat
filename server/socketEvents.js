@@ -1,8 +1,14 @@
 module.exports = function(io) {
+  let clients = [];
   io.on('connection', (socket) => {
-    console.log('user connect');
-    socket.on('join chat', () => {
-      socket.emit('success', new Date());
+    socket.on('join chat', (userId) => {
+      clients.push(userId);
+      io.sockets.emit('user connect', clients);
+    });
+
+    socket.on('quit chat', (userId) => {
+      clients = clients.filter(item => item !== userId);
+      socket.broadcast.emit('user disconnect', clients);
     });
 
     socket.on('new message', (id) => {

@@ -37,6 +37,15 @@ class MainPage extends PureComponent {
     socket.on('fetch message', (data) => {
       this.props.getOneMessage(data.id);
     });
+    socket.on('user connect', (users) => {
+      console.log(users);
+    });
+    socket.on('user disconnect', (users) => {
+      console.log(users);
+    });
+    window.onbeforeunload = () => {
+      socket.emit('quit chat', this.props.user.userId);
+    };
   }
 
   componentWillReceiveProps({ user }) {

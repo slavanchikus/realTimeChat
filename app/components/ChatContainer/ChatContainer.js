@@ -1,6 +1,7 @@
 import React, { PureComponent } from 'react';
 import PropTypes from 'prop-types';
 
+import Header from './Header/Header';
 import InputForm from './InputForm/InputForm';
 import MessagesContainer from './MessagesContainer/MessagesContainer';
 
@@ -18,9 +19,7 @@ export default class ChatContainer extends PureComponent {
     const { user, messages, onCreateMessage, onGetMessages } = this.props;
     return (
       <div className={styles.container}>
-        <div className={styles.header}>
-          <h2>Чатик</h2>
-        </div>
+        <Header />
         {messages.length > 0 && <MessagesContainer
           currentUserId={user.userId}
           messages={messages}
