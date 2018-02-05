@@ -3,8 +3,6 @@ import PropTypes from 'prop-types';
 
 import cx from 'classnames';
 
-import { unixstampConverter } from '../../../utils/convertUnixstamp';
-
 import styles from './MessagesContainer.module.styl';
 
 export default class MessagesContainer extends PureComponent {
@@ -19,9 +17,9 @@ export default class MessagesContainer extends PureComponent {
   }
 
   componentDidUpdate(prevProps) {
-    const prevLen = prevProps.messages.length;
-    const currLen = this.props.messages.length;
-    if (prevLen + 1 === currLen) {
+    const prevLast = prevProps.messages[prevProps.messages.length - 1];
+    const currLast = this.props.messages[this.props.messages.length - 1];
+    if (prevLast._id !== currLast._id) {
       this.container.scrollTop = this.container.scrollHeight;
     } else {
       this.container.scrollTop = this.container.scrollHeight - this.previousScrollHeight;
@@ -44,18 +42,26 @@ export default class MessagesContainer extends PureComponent {
     const { messages } = this.props;
     return (
       <div ref={node => (this.container = node)} className={styles.container} onScroll={this.handleScroll}>
-        {messages.map(message =>
-          <div key={message._id} className={this.setClassName(message.userId)}>
-            <span className={styles.username}>
-              {message.username}
-            </span>
-            <p>
-              {message.content}
-            </p>
-            <span className={styles.date}>
-              {unixstampConverter(message.date)}
-            </span>
-          </div>)}
+        {messages.map((message) => {
+          if (message instanceof Object) {
+            return (
+              <div key={message._id} className={this.setClassName(message.userId)}>
+                <span className={styles.username}>
+                  {message.username}
+                </span>
+                <p>
+                  {message.content}
+                </p>
+                <span className={styles.date}>
+                  {message.date}
+                </span>
+              </div>
+            );
+          }
+          return (
+            <div className={styles.day} key={message}>{message}</div>
+          );
+        })}
       </div>
     );
   }

@@ -1,9 +1,12 @@
 export const unixstampConverter = (stamp) => {
-  const months = ['янв.', 'февр.', 'марта', 'апр', 'мая', 'июня', 'июля', 'авг.', 'сент.', 'окт.', 'нояб.', 'дек.'];
+  const months = ['января', 'февраля', 'марта', 'апреля', 'мая', 'июня', 'июля', 'августа', 'сентября', 'октября', 'ноября', 'декабря'];
   const date = new Date(stamp);
-  /* const month = months[date.getMonth()];
-  const day = date.getDate(); */
+  const month = months[date.getMonth()];
+  const day = date.getDate();
   const hours = date.getHours();
   const min = `0${date.getMinutes()}`;
-  return `${hours}:${min.substr(-2)}`;
+  return {
+    day: `${day} ${month}`,
+    hour: `${hours}:${min.substr(-2)}`
+  };
 };
