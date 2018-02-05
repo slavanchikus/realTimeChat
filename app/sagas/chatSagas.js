@@ -12,7 +12,8 @@ export function* fetchUser({ username, password }) {
       localStorage.setItem('username_chat', username);
       localStorage.setItem('password_chat', password);
     }
-    socket.emit('join chat', payload.userId);
+    console.log(payload.username);
+    socket.emit('join chat', payload.username);
     yield put({ type: 'USER_REQUEST_COMPLETE', payload });
   } catch (error) {
     yield put({ type: 'USER_REQUEST_ERROR' });

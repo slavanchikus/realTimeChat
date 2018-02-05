@@ -16,7 +16,7 @@ import styles from './MainPage.module.styl';
 
 const mapStateToProps = state => ({
   user: userSelector(state),
-  messages: messagesSelector(state)
+  messages: messagesSelector(state),
 });
 
 const mapDispatchToProps = dispatch =>
@@ -37,14 +37,8 @@ class MainPage extends PureComponent {
     socket.on('fetch message', (data) => {
       this.props.getOneMessage(data.id);
     });
-    socket.on('user connect', (users) => {
-      console.log(users);
-    });
-    socket.on('user disconnect', (users) => {
-      console.log(users);
-    });
     window.onbeforeunload = () => {
-      socket.emit('quit chat', this.props.user.userId);
+      socket.emit('quit chat', this.props.user.username);
     };
   }
 

@@ -1,6 +1,30 @@
 .container
+  display: flex
+  flex-direction: row
+  align-items: center
+  justify-content: space-between
   padding: 0 15px
   border-bottom: 1px solid #ffdb4d
+  position: relative
   h2
     margin: 0
     margin-bottom: 10px
+
+.info
+  font-size: 13px
+  cursor: pointer
+  user-select: none
+
+.list
+  font-size: 13px
+  display: flex
+  flex-direction: row
+  flex-wrap: wrap
+  align-items: center
+  justify-content: flex-end
+  max-width: 400px
+  max-height: 15px
+  overflow: hidden
+  cursor: pointer
+  div
+    margin: 1px 1px
