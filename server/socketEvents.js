@@ -3,7 +3,7 @@ module.exports = function(io) {
   let typing = [];
   io.on('connection', (socket) => {
     socket.on('join chat', (username) => {
-      online.push(username);
+      if (!online.includes(username)) online.push(username);
       io.sockets.emit('user connect', online);
     });
 
@@ -13,7 +13,7 @@ module.exports = function(io) {
     });
 
     socket.on('start typing', (username) => {
-      typing.push(username);
+      if (!typing.includes(username)) typing.push(username);
       socket.broadcast.emit('user typing', typing);
     });
 

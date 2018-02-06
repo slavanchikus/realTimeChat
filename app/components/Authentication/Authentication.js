@@ -17,10 +17,12 @@ export default class Authentication extends PureComponent {
 
   handleClick = () => {
     const { username, password, isRegistration } = this.state;
-    if (isRegistration) {
-      this.props.onUserCreate(username, password);
-    } else {
-      this.props.onUserRequest(username, password);
+    if (username.length > 1 || password.length > 1) {
+      if (isRegistration) {
+        this.props.onUserCreate(username, password);
+      } else {
+        this.props.onUserRequest(username, password);
+      }
     }
   };
 
