@@ -5,7 +5,7 @@ import UglifyJsPlugin from 'uglifyjs-webpack-plugin';
 
 export default () => ({
   entry: {
-    apps: ['babel-polyfill', './apps/index.js']
+    app: ['babel-polyfill', './app/index.js']
   },
   output: {
     path: path.resolve(__dirname, 'build/assets'),
