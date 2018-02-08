@@ -7,3 +7,12 @@ body{
     align-items: center;
     justify-content: center;
 }
+#root {
+    height: 96%;
+    width: 600px;
+}
+@media (max-width: 660px) {
+    #root {
+        width: 96%;
+    }
+}
