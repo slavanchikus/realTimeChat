@@ -41,3 +41,18 @@ export const pasteNodeAtCaret = (nodeName, savedRange, elementAtr, parentNode, h
     savedRange.setEndAfter(node);
   }
 };
+
+export const formatContent = (html) => {
+  const textWithImg = html.match(/<img .*?>/g);
+  let content = html.replace(/<span[^>]*>|<\/span[^>]*>/g, '').replace(/<br><\/?\w+?>\s*?(<\/?\w+?>)/g, '\n').replace(/(<\/?\w+?>)\s*?(<\/?\w+?>)|(<\/?\w+?>)/g, '\n');
+  if (textWithImg) {
+    textWithImg.map((item) => {
+      const imgId = /id="([^"]+)"/.exec(item)[1];
+      console.log(imgId);
+      if (imgId && /!#[\w]*#/g.test(imgId)) {
+        content = content.replace(item, imgId);
+      }
+    });
+  }
+  return content.trim();
+};

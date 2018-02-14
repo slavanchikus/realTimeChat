@@ -4,7 +4,7 @@ import PropTypes from 'prop-types';
 import EmojiPicker from './EmojiPicker/EmojiPicker';
 
 import { socket } from '../../../sagas/chatSagas';
-import { saveSelection, pasteNodeAtCaret } from './inputUtils/inputUtils';
+import { saveSelection, pasteNodeAtCaret, formatContent } from './inputUtils/inputUtils';
 
 import styles from './InputForm.module.styl';
 
@@ -38,8 +38,9 @@ export default class InputForm extends PureComponent {
   handleClick = () => {
     const contentLength = !/^\s+$/.test(this.input.innerText) ? this.input.innerText.length : 0;
     const { userId, username } = this.props.user;
+    const content = formatContent(this.input.innerHTML);
     if (this.input.innerText !== placeholder && contentLength > 0) {
-      this.props.onCreateMessage(this.input.innerText, userId, username);
+      this.props.onCreateMessage(content, userId, username);
       this.input.innerHTML = '';
       this.input.focus();
     }
