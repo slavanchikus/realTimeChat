@@ -1,12 +1,11 @@
-import React, { PureComponent } from 'react';
+import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 
 import { socket } from '../../../sagas/chatSagas';
 
 import styles from './Header.module.styl';
 
-export default class Header extends PureComponent {
-
+export default class Header extends Component {
   state = {
     onlineUsers: [],
     typingUsers: [],

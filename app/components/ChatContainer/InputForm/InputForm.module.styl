@@ -4,11 +4,12 @@
   border-top: 1px solid #ffdb4d
   display: flex
   flex-direction: row
-  align-items: center
+  align-items: flex-start
   justify-content: space-between
 
 .input
   font-size: 13px
+  line-height: 17px
   display: inline-block
   width: 495px
   max-height: 108px
@@ -17,6 +18,7 @@
   border-radius: 5px
   outline: 0
   padding: 10px
+  box-sizing: border-box
   overflow-y: scroll
   &::-webkit-scrollbar-track
     background-color: #181818
@@ -29,13 +31,37 @@
 
 .post
   display: inline-block
-  width: 35px
-  height: 35px
+  width: 30px
+  height: 30px
   margin-left: 10px
+  margin-top: 3px
   background: url("../../../img/post.svg") no-repeat
   background-size: contain
   cursor: pointer
   flex-shrink: 0
+
+.emoji_wrapper
+  display: inline-block
+  position: relative
+  margin-right: 10px
+  margin-top: 5px
+
+.emoji_picker
+  width: 25px
+  height: 25px
+  background: url("../../../img/emoji.svg") no-repeat
+  background-size: contain
+  cursor: pointer
+  flex-shrink: 0
+
+.emoji_input
+  background: url('../../../img/emoji_sheet.png')
+  display:inline-block
+  width: 16px
+  height: 16px
+  vertical-align: -4px
+  margin: 0 1px 0 1px
+  pointer-events: none
 
 @media (max-width: 660px)
   .input

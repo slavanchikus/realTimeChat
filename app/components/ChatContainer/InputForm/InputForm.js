@@ -1,11 +1,15 @@
 import React, { PureComponent } from 'react';
 import PropTypes from 'prop-types';
 
+import EmojiPicker from './EmojiPicker/EmojiPicker';
+
 import { socket } from '../../../sagas/chatSagas';
+import { saveSelection, pasteNodeAtCaret } from './inputUtils/inputUtils';
 
 import styles from './InputForm.module.styl';
 
 const placeholder = 'Напишите сообщение...';
+const emojiSrc = 'data:image/gif;base64,R0lGODlhAQABAPAAAAAAAP///yH5BAUAAAAALAAAAAABAAEAAAICRAEAOw==';
 
 export default class InputForm extends PureComponent {
   static propTypes = {
@@ -14,8 +18,14 @@ export default class InputForm extends PureComponent {
   };
 
   state = {
-    isTyping: false
+    inputRange: null,
+    isTyping: false,
+    expandEmoji: false
   };
+
+  componentDidMount() {
+    this.input.innerText = placeholder;
+  }
 
   componentDidUpdate(prevProps, prevState) {
     if (!prevState.isTyping && this.state.isTyping) {
@@ -26,11 +36,10 @@ export default class InputForm extends PureComponent {
   }
 
   handleClick = () => {
-    const content = this.input.innerText;
+    const contentLength = !/^\s+$/.test(this.input.innerText) ? this.input.innerText.length : 0;
     const { userId, username } = this.props.user;
-
-    if (content !== placeholder && content.length > 0) {
-      this.props.onCreateMessage(content, userId, username);
+    if (this.input.innerText !== placeholder && contentLength > 0) {
+      this.props.onCreateMessage(this.input.innerText, userId, username);
       this.input.innerHTML = '';
       this.input.focus();
     }
@@ -58,16 +67,39 @@ export default class InputForm extends PureComponent {
   };
 
   handleBlur = () => {
-    const content = this.input.innerText;
-    if (!content || content === '') {
+    const contentLength = !/^\s+$/.test(this.input.innerText) ? this.input.innerText.length : 0;
+    if (contentLength < 1) {
       this.input.innerHTML = placeholder;
     }
     this.input.removeEventListener('keydown', this.handleKeyDown);
   };
 
+  handleSelection = () => {
+    this.setState({ inputRange: saveSelection() });
+  };
+
+  handleEmojiPick = (target) => {
+    const emojAtr = {
+      id: target.id,
+      src: emojiSrc,
+      class: styles.emoji_input,
+      style: target.style.cssText
+    };
+    pasteNodeAtCaret('img', this.state.inputRange, emojAtr);
+  };
+
+  toggleExpandState = () => {
+    this.setState({ expandEmoji: !this.state.expandEmoji });
+  };
+
   render() {
+    const { expandEmoji } = this.state;
     return (
       <div className={styles.container}>
+        <div className={styles.emoji_wrapper}>
+          <div className={styles.emoji_picker} onMouseEnter={this.toggleExpandState} />
+          {expandEmoji && <EmojiPicker onClick={this.handleEmojiPick} onMouseLeave={this.toggleExpandState} />}
+        </div>
         <div
           contentEditable
           ref={node => (this.input = node)}
@@ -75,9 +107,8 @@ export default class InputForm extends PureComponent {
           spellCheck={false}
           onFocus={this.handleFocus}
           onBlur={this.handleBlur}
-        >
-          {placeholder}
-        </div>
+          onSelect={this.handleSelection}
+        />
         <div
           ref={node => (this.post = node)}
           className={styles.post}
