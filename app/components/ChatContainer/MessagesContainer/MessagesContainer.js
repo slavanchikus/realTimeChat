@@ -7,7 +7,7 @@ import styles from './MessagesContainer.module.styl';
 
 export default class MessagesContainer extends PureComponent {
   static propTypes = {
-    currentUserId: PropTypes.string.isRequired,
+    user: PropTypes.object.isRequired,
     messages: PropTypes.array.isRequired,
     onGetMessages: PropTypes.func.isRequired
   };
@@ -20,7 +20,7 @@ export default class MessagesContainer extends PureComponent {
     const prevLast = prevProps.messages[prevProps.messages.length - 1];
     const currLast = this.props.messages[this.props.messages.length - 1];
     if (prevLast._id !== currLast._id) {
-      this.container.scrollTop = this.container.scrollHeight;
+      if (document.hasFocus() === true) this.container.scrollTop = this.container.scrollHeight;
     } else {
       this.container.scrollTop = this.container.scrollHeight - this.previousScrollHeight;
     }
@@ -30,18 +30,18 @@ export default class MessagesContainer extends PureComponent {
     const { onGetMessages, messages } = this.props;
     if (this.container.scrollTop === 0) {
       this.previousScrollHeight = this.container.scrollHeight - this.container.scrollTop;
-      onGetMessages(messages.length);
+      onGetMessages(messages.length, this.props.user.username);
     }
   };
 
   render() {
-    const { messages, currentUserId } = this.props;
+    const { messages, user } = this.props;
     return (
       <div ref={node => (this.container = node)} className={styles.container} onScroll={this.handleScroll}>
         {messages.map((message) => {
           if (message instanceof Object) {
             return (
-              <Message key={message._id} currentUserId={currentUserId} message={message} />
+              <Message key={message._id} currentUserId={user.userId} message={message} />
             );
           }
           return (

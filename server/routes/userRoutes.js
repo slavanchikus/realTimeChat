@@ -6,7 +6,8 @@ module.exports = function(app, db) {
       if (items !== null) {
         response = {
           userId: items._id,
-          username: items.username
+          username: items.username,
+          lastViewedMessage: items.lastViewedMessage
         };
       } else {
         response = {

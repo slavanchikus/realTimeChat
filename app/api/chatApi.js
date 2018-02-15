@@ -1,4 +1,6 @@
 const heroku = 'https://real-time-chat-slavanchikus.herokuapp.com';
+/* https://real-time-chat-slavanchikus.herokuapp.com */
+/* http://localhost:8000 */
 
 export const getUser = (username, password) => fetch(`${heroku}/getuser`, {
   method: 'POST',
@@ -22,13 +24,13 @@ export const createUser = (username, password) => fetch(`${heroku}/createuser`, 
       throw error;
     });
 
-export const getMeassages = offset => fetch(`${heroku}/getmessages/${offset}`).then(response => response.json())
+export const getMeassages = (offset, username) => fetch(`${heroku}/getmessages/${offset}/user/${username}`).then(response => response.json())
     .catch((error) => {
       throw error;
     });
 
 
-export const getOneMessage = id => fetch(`${heroku}/getmessage/${id}`).then(response => response.json())
+export const getOneMessage = (id, username) => fetch(`${heroku}/getmessage/${id}/user/${username}`).then(response => response.json())
     .catch((error) => {
       throw error;
     });

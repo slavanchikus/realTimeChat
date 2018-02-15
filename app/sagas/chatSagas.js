@@ -4,6 +4,8 @@ import openSocket from 'socket.io-client';
 import { getUser, createUser, getMeassages, createMessage, getOneMessage } from '../api/chatApi';
 
 const heroku = 'https://real-time-chat-slavanchikus.herokuapp.com';
+/* https://real-time-chat-slavanchikus.herokuapp.com */
+/* http://localhost:8000 */
 
 export const socket = openSocket(heroku);
 
@@ -30,18 +32,18 @@ export function* fetchNewUser({ username, password }) {
   }
 }
 
-export function* fetchMessages({ offset }) {
+export function* fetchMessages({ offset, username }) {
   try {
-    const payload = yield call(getMeassages, offset);
+    const payload = yield call(getMeassages, offset, username);
     yield put({ type: 'MESSAGES_GET_COMPLETE', payload });
   } catch (error) {
     yield put({ type: 'MESSAGES_GET_ERROR' });
   }
 }
 
-export function* fetchOneMessages({ id }) {
+export function* fetchOneMessages({ id, username }) {
   try {
-    const payload = yield call(getOneMessage, id);
+    const payload = yield call(getOneMessage, id, username);
     yield put({ type: 'ONE_MESSAGE_GET_COMPLETE', payload });
   } catch (error) {
     yield put({ type: 'ONE_MESSAGE_GET_ERROR' });

@@ -34,7 +34,7 @@ class MainPage extends PureComponent {
 
   componentDidMount() {
     socket.on('fetch message', (data) => {
-      this.props.getOneMessage(data.id);
+      this.props.getOneMessage(data.id, this.props.user.username);
     });
     window.onbeforeunload = () => {
       socket.emit('quit chat', this.props.user.username);
@@ -43,7 +43,7 @@ class MainPage extends PureComponent {
 
   componentWillReceiveProps({ user }) {
     if (!this.props.user.userId && user.userId) {
-      this.props.getMessages(0);
+      this.props.getMessages(0, user.username);
     }
   }
 

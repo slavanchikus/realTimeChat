@@ -21,7 +21,7 @@ export default class ChatContainer extends PureComponent {
       <div className={styles.container}>
         <Header />
         {messages.length > 0 && <MessagesContainer
-          currentUserId={user.userId}
+          user={user}
           messages={messages}
           onGetMessages={onGetMessages}
         />}

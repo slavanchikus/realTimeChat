@@ -1,20 +1,28 @@
 const ObjectId = require('mongodb').ObjectId;
 
 module.exports = function(app, db) {
-  app.get('/getmessages/:offset', (req, res) => {
-    const collection = db.collection('message');
+  app.get('/getmessages/:offset/user/:user', (req, res) => {
+    const messageCollection = db.collection('message');
     const offset = parseInt(req.params.offset, 10);
-    collection.find().skip(offset).sort({ date: -1 }).limit(12)
+    messageCollection.find().skip(offset).sort({ date: -1 }).limit(18)
         .toArray((err, items) => {
-          res.send(items.reverse());
+          const revArr = items.reverse();
+          res.send(revArr);
+          if (offset === 0) {
+            const usersCollection = db.collection('users');
+            usersCollection.updateOne({ username: req.params.user }, { $set: { lastViewedMessage: revArr[revArr.length - 1].date }});
+          }
         });
   });
-  app.get('/getmessage/:id', (req, res) => {
-    const collection = db.collection('message');
-    collection.findOne({ _id: new ObjectId(req.params.id) }, (err, items) => {
+
+  app.get('/getmessage/:id/user/:user', (req, res) => {
+    const messageCollection = db.collection('message');
+    messageCollection.findOne({ _id: new ObjectId(req.params.id) }, (err, item) => {
       let response;
-      if (items !== null) {
-        response = items;
+      if (item !== null) {
+        response = item;
+        const usersCollection = db.collection('users');
+        usersCollection.updateOne({ username: req.params.user }, { $set: { lastViewedMessage: response.date }});
       } else {
         response = {
           error: 'invalid data'
@@ -23,6 +31,7 @@ module.exports = function(app, db) {
       res.send([response]);
     });
   });
+
   app.post('/createmessage', (req, res) => {
     const message = {
       content: req.body.content,
@@ -36,6 +45,8 @@ module.exports = function(app, db) {
         res.send({ error: 'An error has occurred' });
       } else {
         res.send(result.ops[0]);
+        const usersCollection = db.collection('users');
+        usersCollection.updateOne({ username: message.username }, { $set: { lastViewedMessage: message.date }});
       }
     });
   });

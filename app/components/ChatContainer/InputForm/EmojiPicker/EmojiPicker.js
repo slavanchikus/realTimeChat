@@ -6,16 +6,17 @@ import styles from './EmojiPicker.module.styl';
 
 export default class EmojiPicker extends Component {
 
-  handleClick = (e) => {
+  handleMouseDown = (e) => {
+    e.preventDefault();
     const attr = e.target.getAttribute('data');
     if (attr === 'emoji') {
-      this.props.onClick(e.target);
+      this.props.onMouseDown(e.target);
     }
   };
 
   render() {
     return (
-      <div className={styles.container} onClick={this.handleClick} onMouseLeave={this.props.onMouseLeave} onMouseEnter={this.props.onMouseEnter}>
+      <div className={styles.container} onMouseDown={this.handleMouseDown} onMouseLeave={this.props.onMouseLeave} onMouseEnter={this.props.onMouseEnter}>
         {Object.keys(emojiData).map(key =>
           <div
             key={key}

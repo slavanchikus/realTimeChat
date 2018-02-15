@@ -31,7 +31,7 @@ export default class InputForm extends PureComponent {
   componentDidUpdate(prevProps, prevState) {
     if (!prevState.isTyping && this.state.isTyping) {
       socket.emit('start typing', this.props.user.username);
-    } else {
+    } else if (prevState.isTyping && !this.state.isTyping) {
       socket.emit('stop typing', this.props.user.username);
     }
   }
@@ -48,19 +48,19 @@ export default class InputForm extends PureComponent {
   };
 
   handleKeyDown = (e) => {
-    if (!this.state.isTyping) {
-      this.setState({ isTyping: true });
-    }
     if (e.ctrlKey && e.keyCode === 13) {
       this.post.click();
+    }
+  };
+
+  handleKeyPress = (e) => {
+    if (!this.state.isTyping) {
+      this.setState({ isTyping: true });
     }
     if (this.typingDelay !== undefined) {
       clearTimeout(this.typingDelay);
     }
     this.typingDelay = setTimeout(() => this.setState({ isTyping: false }), 1000);
-  };
-
-  handleKeyPress = (e) => {
     if (this.state.contentLength > 199) e.preventDefault();
   };
 
@@ -108,6 +108,10 @@ export default class InputForm extends PureComponent {
   };
 
   handleMouseEnter = () => {
+    const content = this.input.innerText;
+    if (content === placeholder) {
+      this.input.focus();
+    }
     if (!this.state.expandEmoji) this.showTimer = setTimeout(() => this.setState({ expandEmoji: true }), 100);
     if (this.hideTimer) {
       clearTimeout(this.hideTimer);
@@ -150,7 +154,7 @@ export default class InputForm extends PureComponent {
           />
           {expandEmoji &&
           <EmojiPicker
-            onClick={this.handleEmojiPick}
+            onMouseDown={this.handleEmojiPick}
             onMouseEnter={this.handleMouseEnter}
             onMouseLeave={this.handleMouseLeave}
           />}
