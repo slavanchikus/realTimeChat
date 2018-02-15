@@ -10,7 +10,6 @@ import { userSelector, messagesSelector } from '../../selectors/mainSelector';
 
 import ChatContainer from '../ChatContainer/ChatContainer';
 import Authentication from '../Authentication/Authentication';
-import ErrorContainer from '../ErrorContainer/ErrorContainer';
 
 import styles from './MainPage.module.styl';
 
@@ -52,13 +51,9 @@ class MainPage extends PureComponent {
     const { user, messages } = this.props;
     return (
       <div className={styles.container}>
-        {user.error &&
-          <ErrorContainer
-            error={user.error}
-          />
-        }
         {(!user.userId && !storageUsername) &&
           <Authentication
+            user={this.props.user}
             onUserRequest={this.props.userRequest}
             onUserCreate={this.props.userCreate}
           />}

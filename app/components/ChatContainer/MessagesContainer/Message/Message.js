@@ -8,7 +8,7 @@ import styles from './Message.module.styl';
 
 const emojiSrc = 'data:image/gif;base64,R0lGODlhAQABAPAAAAAAAP///yH5BAUAAAAALAAAAAABAAEAAAICRAEAOw==';
 
-export default class MessagesContainer extends Component {
+export default class Message extends Component {
   static propTypes = {
     currentUserId: PropTypes.string.isRequired,
     message: PropTypes.object.isRequired,
@@ -41,7 +41,7 @@ export default class MessagesContainer extends Component {
   render() {
     const { message, currentUserId } = this.props;
     return (
-      <div className={this.setClassName(currentUserId, message.userId)}>
+      <div className={this.setClassName(message.userId)}>
         <span className={styles.username}>
           {message.username}
         </span>

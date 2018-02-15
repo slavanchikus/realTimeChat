@@ -42,6 +42,13 @@ export const pasteNodeAtCaret = (nodeName, savedRange, elementAtr, parentNode, h
   }
 };
 
+export const countLength = (element) => {
+  let inputImgCount = element.innerHTML.match(/<img .*?>/g);
+  const inputTextCount = !/^\s+$/.test(element.innerText) ? element.innerText.length : 0;
+  inputImgCount = inputImgCount ? inputImgCount.length : 0;
+  return inputTextCount + inputImgCount;
+};
+
 export const formatContent = (html) => {
   const textWithImg = html.match(/<img .*?>/g);
   let content = html.replace(/<span[^>]*>|<\/span[^>]*>/g, '').replace(/<br><\/?\w+?>\s*?(<\/?\w+?>)/g, '\n').replace(/(<\/?\w+?>)\s*?(<\/?\w+?>)|(<\/?\w+?>)/g, '\n');

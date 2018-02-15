@@ -4,7 +4,7 @@ import PropTypes from 'prop-types';
 import EmojiPicker from './EmojiPicker/EmojiPicker';
 
 import { socket } from '../../../sagas/chatSagas';
-import { saveSelection, pasteNodeAtCaret, formatContent } from './inputUtils/inputUtils';
+import { saveSelection, pasteNodeAtCaret, formatContent, countLength } from './inputUtils/inputUtils';
 
 import styles from './InputForm.module.styl';
 
@@ -20,7 +20,8 @@ export default class InputForm extends PureComponent {
   state = {
     inputRange: null,
     isTyping: false,
-    expandEmoji: false
+    expandEmoji: false,
+    contentLength: 0
   };
 
   componentDidMount() {
@@ -36,7 +37,7 @@ export default class InputForm extends PureComponent {
   }
 
   handleClick = () => {
-    const contentLength = !/^\s+$/.test(this.input.innerText) ? this.input.innerText.length : 0;
+    const { contentLength } = this.state;
     const { userId, username } = this.props.user;
     const content = formatContent(this.input.innerHTML);
     if (this.input.innerText !== placeholder && contentLength > 0) {
@@ -59,26 +60,52 @@ export default class InputForm extends PureComponent {
     this.typingDelay = setTimeout(() => this.setState({ isTyping: false }), 1000);
   };
 
+  handleKeyPress = (e) => {
+    if (this.state.contentLength > 199) e.preventDefault();
+  };
+
   handleFocus = () => {
     const content = this.input.innerText;
     if (content === placeholder) {
       this.input.innerText = '';
     }
     this.input.addEventListener('keydown', this.handleKeyDown);
+    this.input.addEventListener('paste', this.handlePaste);
   };
 
   handleBlur = () => {
-    const contentLength = !/^\s+$/.test(this.input.innerText) ? this.input.innerText.length : 0;
+    const { contentLength } = this.state;
     if (contentLength < 1) {
       this.input.innerHTML = placeholder;
     }
     this.input.removeEventListener('keydown', this.handleKeyDown);
+    this.input.removeEventListener('paste', this.handlePaste);
+  };
+
+  handlePaste = (e) => {
+    e.stopPropagation();
+    e.preventDefault();
+
+    const { contentLength } = this.state;
+    if (contentLength < 199) {
+      let pastedData = e.clipboardData.getData('text/plain') || window.clipboardData.getData('Text');
+      if (contentLength + pastedData.length > 199) {
+        pastedData = pastedData.slice(0, (199 - contentLength));
+      }
+      if (typeof e.clipboardData === 'undefined') {
+        this.state.inputRange.deleteContents();
+        this.state.inputRange.insertNode(document.createTextNode(pastedData));
+      } else {
+        this.state.inputRange.deleteContents();
+        document.execCommand('insertText', false, pastedData);
+      }
+    }
+    return null;
   };
 
   handleSelection = () => {
-    this.setState({ inputRange: saveSelection() });
+    this.setState({ inputRange: saveSelection(), contentLength: countLength(this.input) });
   };
-
 
   handleMouseEnter = () => {
     if (!this.state.expandEmoji) this.showTimer = setTimeout(() => this.setState({ expandEmoji: true }), 100);
@@ -95,13 +122,20 @@ export default class InputForm extends PureComponent {
   };
 
   handleEmojiPick = (target) => {
-    const emojAtr = {
-      id: target.id,
-      src: emojiSrc,
-      class: styles.emoji_input,
-      style: target.style.cssText
-    };
-    pasteNodeAtCaret('img', this.state.inputRange, emojAtr);
+    if (this.state.contentLength < 199) {
+      const content = this.input.innerText;
+      if (content === placeholder) {
+        this.input.focus();
+      }
+      const emojAtr = {
+        id: target.id,
+        src: emojiSrc,
+        class: styles.emoji_input,
+        style: target.style.cssText
+      };
+      pasteNodeAtCaret('img', this.state.inputRange, emojAtr);
+    }
+    return null;
   };
 
   render() {
@@ -129,6 +163,7 @@ export default class InputForm extends PureComponent {
           onFocus={this.handleFocus}
           onBlur={this.handleBlur}
           onSelect={this.handleSelection}
+          onKeyPress={this.handleKeyPress}
         />
         <div
           ref={node => (this.post = node)}
