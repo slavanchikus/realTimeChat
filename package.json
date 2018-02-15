@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "start": "webpack -d && webpack-dev-server --content-base build/ --inline --hot",
-    "build": "webpack --config=webpack.build.config.babel.js",
+    "build": "webpack --config=webpack.build.config.babel.js -p --define process.env.NODE_ENV='\"production\"' --progress --colors",
     "dev": "nodemon ./server/server.js"
   },
   "keywords": [],
