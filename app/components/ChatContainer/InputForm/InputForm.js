@@ -79,6 +79,21 @@ export default class InputForm extends PureComponent {
     this.setState({ inputRange: saveSelection() });
   };
 
+
+  handleMouseEnter = () => {
+    if (!this.state.expandEmoji) this.showTimer = setTimeout(() => this.setState({ expandEmoji: true }), 100);
+    if (this.hideTimer) {
+      clearTimeout(this.hideTimer);
+    }
+  };
+
+  handleMouseLeave = () => {
+    if (this.showTimer) {
+      clearTimeout(this.showTimer);
+    }
+    this.hideTimer = setTimeout(() => this.setState({ expandEmoji: false }), 600);
+  };
+
   handleEmojiPick = (target) => {
     const emojAtr = {
       id: target.id,
@@ -89,17 +104,22 @@ export default class InputForm extends PureComponent {
     pasteNodeAtCaret('img', this.state.inputRange, emojAtr);
   };
 
-  toggleExpandState = () => {
-    this.setState({ expandEmoji: !this.state.expandEmoji });
-  };
-
   render() {
     const { expandEmoji } = this.state;
     return (
       <div className={styles.container}>
         <div className={styles.emoji_wrapper}>
-          <div className={styles.emoji_picker} onMouseEnter={this.toggleExpandState} />
-          {expandEmoji && <EmojiPicker onClick={this.handleEmojiPick} onMouseLeave={this.toggleExpandState} />}
+          <div
+            className={styles.emoji_picker}
+            onMouseEnter={this.handleMouseEnter}
+            onMouseLeave={this.handleMouseLeave}
+          />
+          {expandEmoji &&
+          <EmojiPicker
+            onClick={this.handleEmojiPick}
+            onMouseEnter={this.handleMouseEnter}
+            onMouseLeave={this.handleMouseLeave}
+          />}
         </div>
         <div
           contentEditable

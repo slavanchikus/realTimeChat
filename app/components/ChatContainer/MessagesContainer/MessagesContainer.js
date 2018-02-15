@@ -1,7 +1,7 @@
 import React, { PureComponent } from 'react';
 import PropTypes from 'prop-types';
 
-import cx from 'classnames';
+import Message from './Message/Message';
 
 import styles from './MessagesContainer.module.styl';
 
@@ -26,10 +26,6 @@ export default class MessagesContainer extends PureComponent {
     }
   }
 
-  setClassName = userId => cx(styles.message, {
-    [styles.own_message]: userId === this.props.currentUserId
-  });
-
   handleScroll = () => {
     const { onGetMessages, messages } = this.props;
     if (this.container.scrollTop === 0) {
@@ -39,23 +35,13 @@ export default class MessagesContainer extends PureComponent {
   };
 
   render() {
-    const { messages } = this.props;
+    const { messages, currentUserId } = this.props;
     return (
       <div ref={node => (this.container = node)} className={styles.container} onScroll={this.handleScroll}>
         {messages.map((message) => {
           if (message instanceof Object) {
             return (
-              <div key={message._id} className={this.setClassName(message.userId)}>
-                <span className={styles.username}>
-                  {message.username}
-                </span>
-                <p>
-                  {message.content}
-                </p>
-                <span className={styles.date}>
-                  {message.date}
-                </span>
-              </div>
+              <Message key={message._id} currentUserId={currentUserId} message={message} />
             );
           }
           return (

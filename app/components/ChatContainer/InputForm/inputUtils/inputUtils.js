@@ -48,7 +48,6 @@ export const formatContent = (html) => {
   if (textWithImg) {
     textWithImg.map((item) => {
       const imgId = /id="([^"]+)"/.exec(item)[1];
-      console.log(imgId);
       if (imgId && /!#[\w]*#/g.test(imgId)) {
         content = content.replace(item, imgId);
       }

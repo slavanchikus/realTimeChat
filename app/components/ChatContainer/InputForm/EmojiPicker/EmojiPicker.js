@@ -15,7 +15,7 @@ export default class EmojiPicker extends Component {
 
   render() {
     return (
-      <div className={styles.container} onClick={this.handleClick} onMouseLeave={this.props.onMouseLeave}>
+      <div className={styles.container} onClick={this.handleClick} onMouseLeave={this.props.onMouseLeave} onMouseEnter={this.props.onMouseEnter}>
         {Object.keys(emojiData).map(key =>
           <div
             key={key}
