@@ -1,8 +1,7 @@
-const heroku = 'https://real-time-chat-slavanchikus.herokuapp.com';
-/* https://real-time-chat-slavanchikus.herokuapp.com */
+const host = 'http://varchipy.beget.tech';
 /* http://localhost:8000 */
 
-export const getUser = (username, password) => fetch(`${heroku}/getuser`, {
+export const getUser = (username, password) => fetch(`${host}/getuser`, {
   method: 'POST',
   headers: {
     'Content-Type': 'application/json'
@@ -13,7 +12,7 @@ export const getUser = (username, password) => fetch(`${heroku}/getuser`, {
       throw error;
     });
 
-export const createUser = (username, password) => fetch(`${heroku}/createuser`, {
+export const createUser = (username, password) => fetch(`${host}/createuser`, {
   method: 'POST',
   headers: {
     'Content-Type': 'application/json'
@@ -24,18 +23,18 @@ export const createUser = (username, password) => fetch(`${heroku}/createuser`, 
       throw error;
     });
 
-export const getMeassages = (offset, username) => fetch(`${heroku}/getmessages/${offset}/user/${username}`).then(response => response.json())
+export const getMeassages = (offset, username) => fetch(`${host}/getmessages/${offset}/user/${username}`).then(response => response.json())
     .catch((error) => {
       throw error;
     });
 
 
-export const getOneMessage = (id, username) => fetch(`${heroku}/getmessage/${id}/user/${username}`).then(response => response.json())
+export const getOneMessage = (id, username) => fetch(`${host}/getmessage/${id}/user/${username}`).then(response => response.json())
     .catch((error) => {
       throw error;
     });
 
-export const createMessage = (content, userId, username) => fetch(`${heroku}/createmessage`, {
+export const createMessage = (content, userId, username) => fetch(`${host}/createmessage`, {
   method: 'POST',
   headers: {
     'Content-Type': 'application/json'

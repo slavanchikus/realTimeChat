@@ -3,11 +3,10 @@ import openSocket from 'socket.io-client';
 
 import { getUser, createUser, getMeassages, createMessage, getOneMessage } from '../api/chatApi';
 
-const heroku = 'https://real-time-chat-slavanchikus.herokuapp.com';
-/* https://real-time-chat-slavanchikus.herokuapp.com */
+const host = 'http://varchipy.beget.tech';
 /* http://localhost:8000 */
 
-export const socket = openSocket(heroku);
+export const socket = openSocket(host);
 
 export function* fetchUser({ username, password }) {
   try {
