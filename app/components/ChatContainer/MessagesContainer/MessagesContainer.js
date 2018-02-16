@@ -41,7 +41,11 @@ export default class MessagesContainer extends PureComponent {
         {messages.map((message) => {
           if (message instanceof Object) {
             return (
-              <Message key={message._id} currentUserId={user.userId} message={message} />
+              <Message
+                key={message._id}
+                user={user}
+                message={message}
+              />
             );
           }
           return (

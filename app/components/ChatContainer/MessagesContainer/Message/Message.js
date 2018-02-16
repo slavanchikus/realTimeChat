@@ -10,7 +10,7 @@ const emojiSrc = 'data:image/gif;base64,R0lGODlhAQABAPAAAAAAAP///yH5BAUAAAAALAAA
 
 export default class Message extends Component {
   static propTypes = {
-    currentUserId: PropTypes.string.isRequired,
+    user: PropTypes.object.isRequired,
     message: PropTypes.object.isRequired,
   };
 
@@ -20,7 +20,7 @@ export default class Message extends Component {
   }
 
   setClassName = (userId, username) => cx(styles.message, {
-    [styles.own_message]: userId === this.props.currentUserId,
+    [styles.own_message]: userId === this.props.user.userId,
     [styles.same_author]: !username
   });
 
@@ -40,10 +40,14 @@ export default class Message extends Component {
   };
 
   render() {
-    const { message } = this.props;
+    const { message, user } = this.props;
+    const color = user.participants[message.username] && user.participants[message.username].color;
     return (
       <div className={this.setClassName(message.userId, message.username)}>
-        <span className={styles.username}>
+        <span
+          className={styles.username}
+          style={{ color: color ? `#${color}` : '' }}
+        >
           {message.username}
         </span>
         <p dangerouslySetInnerHTML={{ __html: this.handleText(message.content) }} />
