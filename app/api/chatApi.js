@@ -1,4 +1,4 @@
-const host = 'http://varchipy.beget.tech';
+const host = 'http://localhost:8000';
 /* http://localhost:8000 */
 
 export const getUser = (username, password) => fetch(`${host}/getuser`, {

@@ -3,7 +3,7 @@ import openSocket from 'socket.io-client';
 
 import { getUser, createUser, getMeassages, createMessage, getOneMessage } from '../api/chatApi';
 
-const host = 'http://varchipy.beget.tech';
+const host = 'http://localhost:8000';
 /* http://localhost:8000 */
 
 export const socket = openSocket(host);

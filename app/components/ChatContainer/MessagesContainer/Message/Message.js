@@ -19,8 +19,9 @@ export default class Message extends Component {
     return false;
   }
 
-  setClassName = userId => cx(styles.message, {
-    [styles.own_message]: userId === this.props.currentUserId
+  setClassName = (userId, username) => cx(styles.message, {
+    [styles.own_message]: userId === this.props.currentUserId,
+    [styles.same_author]: !username
   });
 
   handleText = (content) => {
@@ -39,9 +40,9 @@ export default class Message extends Component {
   };
 
   render() {
-    const { message, currentUserId } = this.props;
+    const { message } = this.props;
     return (
-      <div className={this.setClassName(message.userId)}>
+      <div className={this.setClassName(message.userId, message.username)}>
         <span className={styles.username}>
           {message.username}
         </span>

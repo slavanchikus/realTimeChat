@@ -8,12 +8,23 @@ export const messagesStateSelector = state => state.messages;
 
 export const messagesSelector = createSelector(
     messagesStateSelector,
-    messages => messages.reduce((sum, currentItem) => {
-      const date = unixstampConverter(currentItem.date);
-      if (!sum.includes(date.day)) {
-        sum.push(date.day);
-      }
-      sum.push({ ...currentItem, date: date.hour });
-      return sum;
-    }, [])
+    (messages) => {
+      let storedUsername = '';
+      return (
+            messages.reduce((sum, currentItem) => {
+              const date = unixstampConverter(currentItem.date);
+              if (!sum.includes(date.day)) {
+                sum.push(date.day);
+              }
+              let username = currentItem.username;
+              if (currentItem.username === storedUsername && (sum[sum.length - 1] instanceof Object)) {
+                username = null;
+              } else {
+                storedUsername = currentItem.username;
+              }
+              sum.push({ ...currentItem, username, date: date.hour });
+              return sum;
+            }, [])
+      );
+    }
 );
