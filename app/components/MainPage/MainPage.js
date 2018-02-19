@@ -6,7 +6,7 @@ import { bindActionCreators } from 'redux';
 import { socket } from '../../sagas/chatSagas';
 
 import { userRequest, userCreate, getMessages, getOneMessage, createMessage } from '../../actions/actions';
-import { userSelector, messagesSelector } from '../../selectors/mainSelector';
+import { userSelector, messagesSelector, settingsSelector } from '../../selectors/mainSelector';
 
 import ChatContainer from '../ChatContainer/ChatContainer';
 import Authentication from '../Authentication/Authentication';
@@ -16,6 +16,7 @@ import styles from './MainPage.module.styl';
 const mapStateToProps = state => ({
   user: userSelector(state),
   messages: messagesSelector(state),
+  settings: settingsSelector(state)
 });
 
 const mapDispatchToProps = dispatch =>
@@ -39,12 +40,6 @@ class MainPage extends PureComponent {
     window.onbeforeunload = () => {
       socket.emit('quit chat', this.props.user.username);
     };
-  }
-
-  componentWillReceiveProps({ user }) {
-    if (!this.props.user.userId && user.userId) {
-      this.props.getMessages(0, user.username);
-    }
   }
 
   render() {

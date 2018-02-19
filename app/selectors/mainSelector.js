@@ -4,7 +4,9 @@ import { unixstampConverter } from '../utils/convertUnixstamp';
 
 export const userSelector = state => state.user;
 
-export const messagesStateSelector = state => state.messages;
+const messagesStateSelector = state => state.messages;
+
+export const settingsSelector = state => state.settings;
 
 export const messagesSelector = createSelector(
     messagesStateSelector,

@@ -41,18 +41,18 @@ export default class Authentication extends PureComponent {
 
   render() {
     const { user } = this.props;
-    const { isRegistration } = this.state;
+    const { isRegistration, username, password } = this.state;
     return (
       <div className={styles.container}>
         <h2>
           {isRegistration ? 'Регистрация' : 'Авторизация'}
         </h2>
-        <input type="text" placeholder="Юзернейм" onChange={this.putUsername} maxLength={15} />
-        <input type="text" placeholder="Пароль" onChange={this.putPassword} maxLength={10} />
+        <input type="text" placeholder="Юзернейм" onChange={this.putUsername} value={username} maxLength={15} />
+        <input type="text" placeholder="Пароль" onChange={this.putPassword} value={password} maxLength={10} />
         <div className={styles.button} onClick={this.handleClick}>
           {isRegistration ? 'Регистрировать' : 'Войти'}
         </div>
-        <div className={styles.choose} onClick={() => this.setState({ isRegistration: !this.state.isRegistration })}>
+        <div className={styles.choose} onClick={() => this.setState({ isRegistration: !this.state.isRegistration, username: '', password: '' })}>
           {isRegistration ? 'Авторизоваться' : 'Зарегистрироваться'}
         </div>
         {user.error &&

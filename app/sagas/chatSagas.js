@@ -11,11 +11,13 @@ export const socket = openSocket(host);
 export function* fetchUser({ username, password }) {
   try {
     const payload = yield call(getUser, username, password);
-    if (!localStorage.getItem('username_chat') && payload.username) {
+    if (!localStorage.getItem('username_chat') && payload.user && payload.user.username) {
       localStorage.setItem('username_chat', username);
       localStorage.setItem('password_chat', password);
     }
-    if (payload.username) socket.emit('join chat', payload.username);
+    if (payload.user && payload.user.username) {
+      socket.emit('join chat', payload.user.username);
+    }
     yield put({ type: 'USER_REQUEST_COMPLETE', payload });
   } catch (error) {
     yield put({ type: 'USER_REQUEST_ERROR' });
@@ -25,7 +27,11 @@ export function* fetchUser({ username, password }) {
 export function* fetchNewUser({ username, password }) {
   try {
     const payload = yield call(createUser, username, password);
-    yield put({ type: 'USER_CREATE_COMPLETE', payload });
+    if (payload.userId) {
+      yield fetchUser({ username, password });
+    } else if (payload.error) {
+      yield put({ type: 'USER_CREATE_COMPLETE', payload });
+    }
   } catch (error) {
     yield put({ type: 'USER_CREATE_ERROR' });
   }
