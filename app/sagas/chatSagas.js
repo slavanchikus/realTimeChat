@@ -1,9 +1,9 @@
 import { fork, call, put, takeEvery } from 'redux-saga/effects';
 import openSocket from 'socket.io-client';
 
-import { getUser, createUser, getMeassages, createMessage, getOneMessage, newBackgroundSrc } from '../api/chatApi';
+import { getUser, createUser, getMeassages, createMessage, getOneMessage, createNewBackgroundSrc } from '../api/chatApi';
 
-const host = 'http://localhost:8000';
+const host = 'http://varchipy.beget.tech';
 /* http://localhost:8000 */
 
 export const socket = openSocket(host);
@@ -67,7 +67,7 @@ export function* fetchNewMessage({ content, userId, username }) {
 
 export function* fetchBackground({ backgroundSrc }) {
   try {
-    const payload = yield call(newBackgroundSrc, backgroundSrc);
+    const payload = yield call(createNewBackgroundSrc, backgroundSrc);
     yield put({ type: 'CREATE_BACKGROUND_COMPLETE', payload });
     socket.emit('new background', { backgroundSrc: payload.backgroundSrc });
   } catch (error) {

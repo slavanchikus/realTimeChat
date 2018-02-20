@@ -1,4 +1,4 @@
-const host = 'http://localhost:8000';
+const host = 'http://varchipy.beget.tech';
 /* http://localhost:8000 */
 
 export const getUser = (username, password) => fetch(`${host}/getuser`, {
@@ -45,7 +45,7 @@ export const createMessage = (content, userId, username) => fetch(`${host}/creat
       throw error;
     });
 
-export const newBackgroundSrc = backgroundSrc => fetch(`${host}/changebackground`, {
+export const createNewBackgroundSrc = backgroundSrc => fetch(`${host}/changebackground`, {
   method: 'POST',
   headers: {
     'Content-Type': 'application/json'
