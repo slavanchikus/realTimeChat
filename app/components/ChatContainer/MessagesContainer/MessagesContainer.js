@@ -18,12 +18,14 @@ export default class MessagesContainer extends PureComponent {
   }
 
   componentDidUpdate(prevProps) {
-    const prevLast = prevProps.messages[prevProps.messages.length - 1];
-    const currLast = this.props.messages[this.props.messages.length - 1];
-    if (prevLast._id !== currLast._id) {
-      if (document.hasFocus() === true) this.container.scrollTop = this.container.scrollHeight;
-    } else {
-      this.container.scrollTop = this.container.scrollHeight - this.previousScrollHeight;
+    if (prevProps.messages.length !== this.props.messages.length) {
+      const prevLast = prevProps.messages[prevProps.messages.length - 1];
+      const currLast = this.props.messages[this.props.messages.length - 1];
+      if (prevLast._id !== currLast._id) {
+        if (document.hasFocus() === true) this.container.scrollTop = this.container.scrollHeight;
+      } else {
+        this.container.scrollTop = this.container.scrollHeight - this.previousScrollHeight;
+      }
     }
   }
 
@@ -43,10 +45,7 @@ export default class MessagesContainer extends PureComponent {
         className={styles.container}
         onScroll={this.handleScroll}
         style={{
-          background: `url(${settings.backgroundSrc}) no-repeat`,
-          backgroundColor: 'rgba(54,54,54,1)',
-          backgroundSize: 'cover',
-          backgroundPosition: '50% 50%'
+          background: `url(${settings.backgroundSrc}) 50% 50% / cover no-repeat rgb(54, 54, 54)`
         }}
       >
         {messages.map((message) => {

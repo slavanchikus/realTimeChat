@@ -8,6 +8,10 @@ import SideBar from './SideBar/SideBar';
 import styles from './Header.module.styl';
 
 export default class Header extends Component {
+  static propTypes = {
+    onCreateBackgroundSrc: PropTypes.func.isRequired,
+  };
+
   state = {
     onlineUsers: [],
     typingUsers: [],
@@ -53,7 +57,7 @@ export default class Header extends Component {
         <div className={styles.typing}>
           <span className={styles.typping_names}>{typingUsers.join(', ')}</span> печатает
         </div>}
-        <SideBar />
+        <SideBar onCreateBackgroundSrc={this.props.onCreateBackgroundSrc} />
       </div>
     );
   }

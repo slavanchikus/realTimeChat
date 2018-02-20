@@ -44,3 +44,14 @@ export const createMessage = (content, userId, username) => fetch(`${host}/creat
     .catch((error) => {
       throw error;
     });
+
+export const newBackgroundSrc = backgroundSrc => fetch(`${host}/changebackground`, {
+  method: 'POST',
+  headers: {
+    'Content-Type': 'application/json'
+  },
+  body: JSON.stringify({ backgroundSrc }),
+}).then(response => response.json())
+    .catch((error) => {
+      throw error;
+    });

@@ -25,5 +25,9 @@ module.exports = function(io) {
     socket.on('new message', (id) => {
       socket.broadcast.emit('fetch message', id);
     });
+
+    socket.on('new background', (backgroundSrc) => {
+      socket.broadcast.emit('change background', backgroundSrc);
+    });
   });
 };

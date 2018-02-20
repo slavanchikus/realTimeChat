@@ -28,3 +28,13 @@ export const createMessage = (content, userId, username) => ({
   userId,
   username
 });
+
+export const createBackgroundSrc = backgroundSrc => ({
+  type: 'CREATE_BACKGROUND',
+  backgroundSrc
+});
+
+export const changeBackgroundSrc = backgroundSrc => ({
+  type: 'CHANGE_BACKGROUND',
+  backgroundSrc
+});
