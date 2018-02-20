@@ -11,12 +11,13 @@ export default class ChatContainer extends PureComponent {
   static propTypes = {
     user: PropTypes.object.isRequired,
     messages: PropTypes.array.isRequired,
+    settings: PropTypes.object.isRequired,
     onCreateMessage: PropTypes.func.isRequired,
     onGetMessages: PropTypes.func.isRequired
   };
 
   render() {
-    const { user, messages, onCreateMessage, onGetMessages } = this.props;
+    const { user, messages, settings, onCreateMessage, onGetMessages } = this.props;
     return (
       <div className={styles.container}>
         <Header />
@@ -24,6 +25,7 @@ export default class ChatContainer extends PureComponent {
         <MessagesContainer
           user={user}
           messages={messages}
+          settings={settings}
           onGetMessages={onGetMessages}
         />}
         <InputForm

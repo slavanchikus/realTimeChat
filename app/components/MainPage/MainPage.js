@@ -43,7 +43,7 @@ class MainPage extends PureComponent {
   }
 
   render() {
-    const { user, messages } = this.props;
+    const { user, messages, settings } = this.props;
     return (
       <div className={styles.container}>
         {(!user.userId && !storageUsername) &&
@@ -56,6 +56,7 @@ class MainPage extends PureComponent {
           <ChatContainer
             user={user}
             messages={messages}
+            settings={settings}
             onCreateMessage={this.props.createMessage}
             onGetMessages={this.props.getMessages}
           />}

@@ -9,6 +9,7 @@ export default class MessagesContainer extends PureComponent {
   static propTypes = {
     user: PropTypes.object.isRequired,
     messages: PropTypes.array.isRequired,
+    settings: PropTypes.object.isRequired,
     onGetMessages: PropTypes.func.isRequired
   };
 
@@ -35,9 +36,19 @@ export default class MessagesContainer extends PureComponent {
   };
 
   render() {
-    const { messages, user } = this.props;
+    const { messages, user, settings } = this.props;
     return (
-      <div ref={node => (this.container = node)} className={styles.container} onScroll={this.handleScroll}>
+      <div
+        ref={node => (this.container = node)}
+        className={styles.container}
+        onScroll={this.handleScroll}
+        style={{
+          background: `url(${settings.backgroundSrc}) no-repeat`,
+          backgroundColor: 'rgba(54,54,54,1)',
+          backgroundSize: 'cover',
+          backgroundPosition: '50% 50%'
+        }}
+      >
         {messages.map((message) => {
           if (message instanceof Object) {
             return (

@@ -1,0 +1,47 @@
+.container
+  display: inline-block
+  width: 21px
+  height: 15px
+  cursor: pointer
+  position: relative
+
+.menu_icon
+  width: inherit
+  height: inherit
+
+.hamburger
+  width: 21px
+  height: 2px
+  background-color: hsla(0,0%,100%,.85)
+  position: relative
+  &:before
+  &:after
+    content: ''
+    width: 100%
+    height: 2px
+    background-color: hsla(0,0%,100%,.85)
+    position: absolute
+  &:after
+    top: 7px
+  &:before
+    top: 14px
+
+.active_hamburger
+  background-color: #ffdb4d
+  &:before
+  &:after
+    background-color: #ffdb4d
+
+.items_conteiner
+  display: flex
+  width: 200px
+  padding: 10px
+  background: hsla(0,0%,100%,.90)
+  position: absolute
+  right: 0
+  top: 37px
+  z-index: 1
+  user-select: none
+  div
+    font-size: 13px
+    color: black
