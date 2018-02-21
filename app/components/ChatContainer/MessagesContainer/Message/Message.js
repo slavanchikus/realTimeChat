@@ -12,6 +12,7 @@ export default class Message extends Component {
   static propTypes = {
     user: PropTypes.object.isRequired,
     message: PropTypes.object.isRequired,
+    selectedRoom: PropTypes.object.isRequired,
   };
 
 
@@ -40,8 +41,8 @@ export default class Message extends Component {
   };
 
   render() {
-    const { message, user } = this.props;
-    const color = user.participants[message.username] && user.participants[message.username].color;
+    const { message, user, selectedRoom } = this.props;
+    const color = selectedRoom.participants[message.username] && selectedRoom.participants[message.username].color;
     return (
       <div className={this.setClassName(message.userId, message.username)}>
         <span

@@ -9,7 +9,7 @@ export default class MessagesContainer extends PureComponent {
   static propTypes = {
     user: PropTypes.object.isRequired,
     messages: PropTypes.array.isRequired,
-    settings: PropTypes.object.isRequired,
+    selectedRoom: PropTypes.object.isRequired,
     onGetMessages: PropTypes.func.isRequired
   };
 
@@ -38,14 +38,14 @@ export default class MessagesContainer extends PureComponent {
   };
 
   render() {
-    const { messages, user, settings } = this.props;
+    const { messages, user, selectedRoom } = this.props;
     return (
       <div
         ref={node => (this.container = node)}
         className={styles.container}
         onScroll={this.handleScroll}
         style={{
-          background: `url(${settings.backgroundSrc}) 50% 50% / cover no-repeat rgb(54, 54, 54)`
+          background: `url(https://cs6.pikabu.ru/post_img/big/2015/06/18/3/1434596941_632146314.jpg) 50% 50% / cover no-repeat rgb(54, 54, 54)`
         }}
       >
         {messages.map((message) => {
@@ -54,6 +54,7 @@ export default class MessagesContainer extends PureComponent {
               <Message
                 key={message._id}
                 user={user}
+                selectedRoom={selectedRoom}
                 message={message}
               />
             );

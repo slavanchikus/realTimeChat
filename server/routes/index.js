@@ -1,9 +1,7 @@
-const messageRoutes = require('./messageRoutes');
+const roomsRouters = require('./roomsRoutes');
 const userRoutes = require('./userRoutes');
-const settingsRoutes = require('./settingsRoutes');
 
 module.exports = function(app, db) {
-  messageRoutes(app, db);
+  roomsRouters(app, db);
   userRoutes(app, db);
-  settingsRoutes(app, db);
 };

@@ -2,12 +2,12 @@ import { combineReducers } from 'redux';
 
 import user from './userReducer';
 import messages from './messagesReducer';
-import settings from './settingsReducer';
+import rooms from './roomsReducer';
 
 const rootReducer = combineReducers({
   user,
   messages,
-  settings
+  rooms
 });
 
 export default rootReducer;

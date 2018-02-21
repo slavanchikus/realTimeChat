@@ -3,7 +3,7 @@ import openSocket from 'socket.io-client';
 
 import { getUser, createUser, getMeassages, createMessage, getOneMessage, createNewBackgroundSrc } from '../api/chatApi';
 
-const host = 'http://varchipy.beget.tech';
+const host = 'http://localhost:8000';
 /* http://localhost:8000 */
 
 export const socket = openSocket(host);
@@ -37,27 +37,27 @@ export function* fetchNewUser({ username, password }) {
   }
 }
 
-export function* fetchMessages({ offset, username }) {
+export function* fetchMessages({ offset, username, roomId }) {
   try {
-    const payload = yield call(getMeassages, offset, username);
+    const payload = yield call(getMeassages, offset, username, roomId);
     yield put({ type: 'MESSAGES_GET_COMPLETE', payload });
   } catch (error) {
     yield put({ type: 'MESSAGES_GET_ERROR' });
   }
 }
 
-export function* fetchOneMessages({ id, username }) {
+export function* fetchOneMessages({ id, username, roomId }) {
   try {
-    const payload = yield call(getOneMessage, id, username);
+    const payload = yield call(getOneMessage, id, username, roomId);
     yield put({ type: 'ONE_MESSAGE_GET_COMPLETE', payload });
   } catch (error) {
     yield put({ type: 'ONE_MESSAGE_GET_ERROR' });
   }
 }
 
-export function* fetchNewMessage({ content, userId, username }) {
+export function* fetchNewMessage({ content, userId, username, roomId }) {
   try {
-    const payload = yield call(createMessage, content, userId, username);
+    const payload = yield call(createMessage, content, userId, username, roomId);
     yield put({ type: 'MESSAGE_CREATE_COMPLETE', payload });
     socket.emit('new message', { id: payload._id });
   } catch (error) {
@@ -65,9 +65,9 @@ export function* fetchNewMessage({ content, userId, username }) {
   }
 }
 
-export function* fetchBackground({ backgroundSrc }) {
+export function* fetchBackground({ backgroundSrc, roomId }) {
   try {
-    const payload = yield call(createNewBackgroundSrc, backgroundSrc);
+    const payload = yield call(createNewBackgroundSrc, backgroundSrc, roomId);
     yield put({ type: 'CREATE_BACKGROUND_COMPLETE', payload });
     socket.emit('new background', { backgroundSrc: payload.backgroundSrc });
   } catch (error) {

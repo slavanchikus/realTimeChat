@@ -6,7 +6,7 @@ export const userSelector = state => state.user;
 
 const messagesStateSelector = state => state.messages;
 
-export const settingsSelector = state => state.settings;
+export const roomsSelector = state => state.rooms;
 
 export const messagesSelector = createSelector(
     messagesStateSelector,

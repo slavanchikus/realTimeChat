@@ -11,17 +11,11 @@ module.exports = function(app, db) {
             lastViewedMessage: userItems.lastViewedMessage
           }
         };
-        const messageCollection = db.collection('message');
-        messageCollection.find().skip(0).sort({ date: -1 }).limit(18)
-              .toArray((messErr, messItems) => {
-                const revArr = messItems.reverse();
-                response.messages = revArr;
-                usersCollection.updateOne({ username: req.params.user }, { $set: { lastViewedMessage: revArr[revArr.length - 1].date }});
-                const settingsCollection = db.collection('settings');
-                settingsCollection.findOne({}, (settErr, settItems) => {
-                  response.settings = { backgroundSrc: settItems.backgroundSrc };
-                  res.send(response);
-                });
+        const roomsCollection = db.collection('rooms');
+        roomsCollection.find().skip(0).limit(18)
+              .toArray((roomErr, roomsArr) => {
+                response.rooms = roomsArr;
+                res.send(response);
               });
       } else {
         response = {

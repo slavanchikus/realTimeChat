@@ -6,17 +6,18 @@ import { bindActionCreators } from 'redux';
 import { socket } from '../../sagas/chatSagas';
 
 import { userRequest, userCreate, getMessages, getOneMessage, createMessage, createBackgroundSrc, changeBackgroundSrc } from '../../actions/actions';
-import { userSelector, messagesSelector, settingsSelector } from '../../selectors/mainSelector';
+import { userSelector, messagesSelector, roomsSelector } from '../../selectors/mainSelector';
 
 import ChatContainer from '../ChatContainer/ChatContainer';
 import Authentication from '../Authentication/Authentication';
+import RoomSelector from '../RoomSelector/RoomSelector';
 
 import styles from './MainPage.module.styl';
 
 const mapStateToProps = state => ({
   user: userSelector(state),
   messages: messagesSelector(state),
-  settings: settingsSelector(state)
+  rooms: roomsSelector(state),
 });
 
 const mapDispatchToProps = dispatch =>
@@ -26,7 +27,6 @@ const storageUsername = localStorage.getItem('username_chat');
 const storagePassword = localStorage.getItem('password_chat');
 
 class MainPage extends PureComponent {
-
   componentWillMount() {
     if (storageUsername && storagePassword) {
       this.props.userRequest(storageUsername, storagePassword);
@@ -46,7 +46,7 @@ class MainPage extends PureComponent {
   }
 
   render() {
-    const { user, messages, settings } = this.props;
+    const { user, messages, rooms } = this.props;
     return (
       <div className={styles.container}>
         {(!user.userId && !storageUsername) &&
@@ -55,15 +55,21 @@ class MainPage extends PureComponent {
             onUserRequest={this.props.userRequest}
             onUserCreate={this.props.userCreate}
           />}
-        {user.userId &&
+        {messages.length > 0 &&
           <ChatContainer
             user={user}
             messages={messages}
-            settings={settings}
+            selectedRoom={rooms.selectedRoom}
             onCreateMessage={this.props.createMessage}
             onGetMessages={this.props.getMessages}
             onCreateBackgroundSrc={this.props.createBackgroundSrc}
           />}
+        {user.userId && messages.length < 1 &&
+        <RoomSelector
+          username={user.username}
+          allRooms={rooms.allRooms}
+          onGetMessages={this.props.getMessages}
+        />}
       </div>
     );
   }

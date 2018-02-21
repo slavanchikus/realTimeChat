@@ -10,31 +10,36 @@ export const userCreate = (username, password) => ({
   password
 });
 
-export const getMessages = (offset, username) => ({
+export const getMessages = (offset, username, roomId) => ({
   type: 'MESSAGES_GET',
   offset,
-  username
+  username,
+  roomId
 });
 
-export const getOneMessage = (id, username) => ({
+export const getOneMessage = (id, username, roomId) => ({
   type: 'ONE_MESSAGE_GET',
   id,
-  username
+  username,
+  roomId
 });
 
-export const createMessage = (content, userId, username) => ({
+export const createMessage = (content, userId, username, roomId) => ({
   type: 'MESSAGE_CREATE',
   content,
   userId,
-  username
+  username,
+  roomId
 });
 
-export const createBackgroundSrc = backgroundSrc => ({
+export const createBackgroundSrc = (backgroundSrc, roomId) => ({
   type: 'CREATE_BACKGROUND',
-  backgroundSrc
+  backgroundSrc,
+  roomId
 });
 
-export const changeBackgroundSrc = backgroundSrc => ({
+export const changeBackgroundSrc = (backgroundSrc, roomId) => ({
   type: 'CHANGE_BACKGROUND',
-  backgroundSrc
+  backgroundSrc,
+  roomId
 });
