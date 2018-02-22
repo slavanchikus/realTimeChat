@@ -1,6 +1,8 @@
 import React, { PureComponent } from 'react';
 import PropTypes from 'prop-types';
 
+import { socket } from '../../../sagas/chatSagas';
+
 import Message from './Message/Message';
 
 import styles from './MessagesContainer.module.styl';
@@ -10,11 +12,22 @@ export default class MessagesContainer extends PureComponent {
     user: PropTypes.object.isRequired,
     messages: PropTypes.array.isRequired,
     selectedRoom: PropTypes.object.isRequired,
-    onGetMessages: PropTypes.func.isRequired
+    onGetMessages: PropTypes.func.isRequired,
+    onGetOneMessage: PropTypes.func.isRequired,
   };
 
   componentDidMount() {
     this.container.scrollTop = this.container.scrollHeight;
+    socket.emit('join chat', this.props.user.username, this.props.selectedRoom.roomId);
+    socket.on('fetch message', (data) => {
+      this.props.onGetOneMessage(data.id, this.props.user.username, this.props.selectedRoom.roomId);
+    });
+    window.onbeforeunload = () => {
+      socket.emit('quit chat');
+    };
+    /* socket.on('change background', (data) => {
+     this.props.changeBackgroundSrc(data.backgroundSrc);
+     }); */
   }
 
   componentDidUpdate(prevProps) {
@@ -29,11 +42,17 @@ export default class MessagesContainer extends PureComponent {
     }
   }
 
+  componentWillUnmount() {
+    window.onbeforeunload = () => {
+      socket.emit('quit chat');
+    };
+  }
+
   handleScroll = () => {
-    const { onGetMessages, messages } = this.props;
+    const { messages, selectedRoom, onGetMessages } = this.props;
     if (this.container.scrollTop === 0) {
       this.previousScrollHeight = this.container.scrollHeight - this.container.scrollTop;
-      onGetMessages(messages.length, this.props.user.username);
+      onGetMessages(messages.length, this.props.user.username, selectedRoom.roomId);
     }
   };
 

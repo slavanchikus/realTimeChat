@@ -1,8 +1,8 @@
 const initialState = {};
 
-const handleParticipants = (messages, currentUsername, participants = {}) => messages.reduce((sum, currentItem) => {
+const handleParticipants = (messages, participants = {}) => messages.reduce((sum, currentItem) => {
   const username = currentItem.username;
-  if (!(username in participants) && username !== currentUsername) {
+  if (!(username in participants)) {
     sum[username] = {
       color: (`00000${(Math.random() * (1 << 24) | 0).toString(16)}`).slice(-6)
     };
@@ -18,15 +18,24 @@ export default function settingsReducer(state = initialState, action) {
         selectedRoom: {}
       };
     }
+    case 'ROOM_SELECT': {
+      return {
+        ...state,
+        selectedRoom: {
+          roomId: action.roomId,
+          roomName: action.roomName
+        }
+      };
+    }
     case 'MESSAGES_GET_COMPLETE':
     case 'ONE_MESSAGE_GET_COMPLETE': {
-      const currentUsername = state.username;
-      const participants = handleParticipants(action.payload, currentUsername, state.selectedRoom.participants);
+      const participants = handleParticipants(action.payload, state.selectedRoom.participants);
       if (Object.keys(participants).length > 0) {
         return { ...state,
           selectedRoom: {
+            ...state.selectedRoom,
             participants: {
-              ...state.participants,
+              ...state.selectedRoom.participants,
               ...participants
             }
           }};

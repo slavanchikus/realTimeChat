@@ -8,56 +8,48 @@ import SideBar from './SideBar/SideBar';
 import styles from './Header.module.styl';
 
 export default class Header extends Component {
-  static propTypes = {
+  /* static propTypes = {
     onCreateBackgroundSrc: PropTypes.func.isRequired,
-  };
+  }; */
 
   state = {
-    onlineUsers: [],
-    typingUsers: [],
-    visibleList: false
+    onlineUsersCount: 0,
+    typingUser: '',
   };
 
   componentDidMount() {
-    socket.on('user connect', (users) => {
-      this.setState({ onlineUsers: users });
+    socket.on('user connect', (count) => {
+      this.setState({ onlineUsersCount: count });
     });
-    socket.on('user disconnect', (users) => {
-      this.setState({ onlineUsers: users });
+    socket.on('user disconnect', () => {
+      this.setState({ onlineUsersCount: this.state.onlineUsersCount - 1 });
     });
-    socket.on('user typing', (users) => {
-      this.setState({ typingUsers: users });
+    socket.on('user typing', (user) => {
+      this.setState({ typingUser: user });
     });
-    socket.on('user stop typing', (users) => {
-      this.setState({ typingUsers: users });
+    socket.on('user stop typing', () => {
+      this.setState({ typingUser: '' });
     });
   }
 
-  handleOnlineClick = () => {
-    this.setState({ visibleList: true });
-    setTimeout(() => this.setState({ visibleList: false }), 1500);
-  };
-
   render() {
-    const { onlineUsers, typingUsers, visibleList } = this.state;
+    const { onlineUsersCount, typingUser } = this.state;
     return (
       <div className={styles.container}>
         <div className={styles.left_part}>
           <h2>Чатик</h2>
-          {onlineUsers &&
+          {onlineUsersCount &&
           <div>
-              {!visibleList &&
-              <div onClick={this.handleOnlineClick} className={styles.info}>
-                <div>{`Онлайн: ${onlineUsers.length}`}</div>
-              </div>}
-              {visibleList && <div className={styles.list}>{`${onlineUsers.join(', ')}`}</div>}
+            <div className={styles.info}>
+              <div>{`Онлайн: ${onlineUsersCount}`}</div>
+            </div>
           </div>}
         </div>
-        {typingUsers.length > 0 && !visibleList &&
+        {typingUser.length > 0 &&
         <div className={styles.typing}>
-          <span className={styles.typping_names}>{typingUsers.join(', ')}</span> печатает
+          <span className={styles.typping_names}>{typingUser}</span> печатает
         </div>}
-        <SideBar onCreateBackgroundSrc={this.props.onCreateBackgroundSrc} />
+        <SideBar />
       </div>
     );
   }

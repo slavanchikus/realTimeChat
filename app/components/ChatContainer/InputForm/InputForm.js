@@ -14,7 +14,8 @@ const emojiSrc = 'data:image/gif;base64,R0lGODlhAQABAPAAAAAAAP///yH5BAUAAAAALAAA
 export default class InputForm extends PureComponent {
   static propTypes = {
     user: PropTypes.object.isRequired,
-    onCreateMessage: PropTypes.func.isRequired
+    onCreateMessage: PropTypes.func.isRequired,
+    selectedRoom: PropTypes.object.isRequired,
   };
 
   state = {
@@ -41,7 +42,7 @@ export default class InputForm extends PureComponent {
     const { userId, username } = this.props.user;
     const content = formatContent(this.input.innerHTML);
     if (this.input.innerText !== placeholder && contentLength > 0) {
-      this.props.onCreateMessage(content, userId, username);
+      this.props.onCreateMessage(content, userId, username, this.props.selectedRoom.roomId);
       this.input.innerHTML = '';
       this.input.focus();
     }

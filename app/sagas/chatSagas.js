@@ -1,7 +1,7 @@
 import { fork, call, put, takeEvery } from 'redux-saga/effects';
 import openSocket from 'socket.io-client';
 
-import { getUser, createUser, getMeassages, createMessage, getOneMessage, createNewBackgroundSrc } from '../api/chatApi';
+import { getUser, createUser, getMeassages, createMessage, getOneMessage } from '../api/chatApi';
 
 const host = 'http://localhost:8000';
 /* http://localhost:8000 */
@@ -14,9 +14,6 @@ export function* fetchUser({ username, password }) {
     if (!localStorage.getItem('username_chat') && payload.user && payload.user.username) {
       localStorage.setItem('username_chat', username);
       localStorage.setItem('password_chat', password);
-    }
-    if (payload.user && payload.user.username) {
-      socket.emit('join chat', payload.user.username);
     }
     yield put({ type: 'USER_REQUEST_COMPLETE', payload });
   } catch (error) {
@@ -65,7 +62,7 @@ export function* fetchNewMessage({ content, userId, username, roomId }) {
   }
 }
 
-export function* fetchBackground({ backgroundSrc, roomId }) {
+/* export function* fetchBackground({ backgroundSrc, roomId }) {
   try {
     const payload = yield call(createNewBackgroundSrc, backgroundSrc, roomId);
     yield put({ type: 'CREATE_BACKGROUND_COMPLETE', payload });
@@ -73,7 +70,7 @@ export function* fetchBackground({ backgroundSrc, roomId }) {
   } catch (error) {
     yield put({ type: 'CREATE_BACKGROUND_ERROR' });
   }
-}
+} */
 
 export function* watchChatRequest() {
   yield takeEvery('USER_REQUEST', fetchUser);
@@ -81,7 +78,7 @@ export function* watchChatRequest() {
   yield takeEvery('MESSAGES_GET', fetchMessages);
   yield takeEvery('ONE_MESSAGE_GET', fetchOneMessages);
   yield takeEvery('MESSAGE_CREATE', fetchNewMessage);
-  yield takeEvery('CREATE_BACKGROUND', fetchBackground);
+  /* yield takeEvery('CREATE_BACKGROUND', fetchBackground); */
 }
 
 export function* chatSagas() {

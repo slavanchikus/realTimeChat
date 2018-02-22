@@ -16,11 +16,12 @@ module.exports = function(app, db) {
     const offset = parseInt(req.params.offset, 10);
     roomCollection.find().skip(offset).sort({ date: -1 }).limit(18)
         .toArray((err, items) => {
-          const revArr = items.reverse();
-          res.send(revArr);
-          if (offset === 0) {
-            const usersCollection = db.collection('users');
-            usersCollection.updateOne({ username: req.params.user }, { $set: { lastViewedMessage: revArr[revArr.length - 1].date }});
+          let arr = items;
+          arr = items.reverse();
+          res.send(arr);
+          if (offset === 0 && arr.length > 0) {
+            /* const usersCollection = db.collection('users');
+            usersCollection.updateOne({ username: req.params.user }, { $set: { lastViewedMessage: arr[arr.length - 1].date }}); */
           }
         });
   });
@@ -31,8 +32,8 @@ module.exports = function(app, db) {
       let response;
       if (item !== null) {
         response = item;
-        const usersCollection = db.collection('users');
-        usersCollection.updateOne({ username: req.params.user }, { $set: { lastViewedMessage: response.date }});
+        /* const usersCollection = db.collection('users');
+        usersCollection.updateOne({ username: req.params.user }, { $set: { lastViewedMessage: response.date }}); */
       } else {
         response = {
           error: 'invalid data'
@@ -55,8 +56,8 @@ module.exports = function(app, db) {
         res.send({ error: 'An error has occurred' });
       } else {
         res.send(result.ops[0]);
-        const usersCollection = db.collection('users');
-        usersCollection.updateOne({ username: message.username }, { $set: { lastViewedMessage: message.date }});
+        /* const usersCollection = db.collection('users');
+        usersCollection.updateOne({ username: message.username }, { $set: { lastViewedMessage: message.date }}); */
       }
     });
   });

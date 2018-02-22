@@ -7,12 +7,13 @@ export default class RoomSelector extends PureComponent {
   static propTypes = {
     username: PropTypes.string.isRequired,
     allRooms: PropTypes.array.isRequired,
-    onGetMessages: PropTypes.func.isRequired
+    onSelectRoom: PropTypes.func.isRequired,
+    onGetMessages: PropTypes.func.isRequired,
   };
 
-  handleClick = (id) => {
-    console.log(id);
+  handleClick = (id, roomName) => {
     this.props.onGetMessages(0, this.props.username, id);
+    this.props.onSelectRoom(id, roomName);
   };
 
   render() {
@@ -23,7 +24,7 @@ export default class RoomSelector extends PureComponent {
           <div
             key={item.roomName}
             className={styles.room}
-            onClick={() => this.handleClick(item._id)}
+            onClick={() => this.handleClick(item._id, item.roomName)}
           >
             <h2>{item.roomName}</h2>
             <div>{item.description}</div>

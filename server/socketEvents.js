@@ -1,33 +1,35 @@
 module.exports = function(io) {
-  let online = [];
-  let typing = [];
   io.on('connection', (socket) => {
-    socket.on('join chat', (username) => {
-      if (!online.includes(username)) online.push(username);
-      io.sockets.emit('user connect', online);
+    let room = null;
+
+    socket.on('join chat', (username, roomId) => {
+      room = roomId;
+      socket.join(room);
+
+      const clients = io.sockets.adapter.rooms[room].sockets;
+
+      io.sockets.in(room).emit('user connect', Object.keys(clients).length);
     });
 
-    socket.on('quit chat', (username) => {
-      online = online.filter(item => item !== username);
-      socket.broadcast.emit('user disconnect', online);
+    socket.on('quit chat', () => {
+      socket.leave(room);
+      socket.broadcast.to(room).emit('user disconnect');
     });
 
     socket.on('start typing', (username) => {
-      if (!typing.includes(username)) typing.push(username);
-      socket.broadcast.emit('user typing', typing);
+      socket.broadcast.to(room).emit('user typing', username);
     });
 
-    socket.on('stop typing', (username) => {
-      typing = typing.filter(item => item !== username);
-      socket.broadcast.emit('user stop typing', typing);
+    socket.on('stop typing', () => {
+      socket.broadcast.to(room).emit('user stop typing');
     });
 
     socket.on('new message', (id) => {
-      socket.broadcast.emit('fetch message', id);
+      socket.broadcast.to(room).emit('fetch message', id);
     });
 
     socket.on('new background', (backgroundSrc) => {
-      socket.broadcast.emit('change background', backgroundSrc);
+      socket.broadcast.to(room).emit('change background', backgroundSrc);
     });
   });
 };
