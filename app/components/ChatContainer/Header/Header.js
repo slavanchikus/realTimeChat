@@ -8,9 +8,10 @@ import SideBar from './SideBar/SideBar';
 import styles from './Header.module.styl';
 
 export default class Header extends Component {
-  /* static propTypes = {
-    onCreateBackgroundSrc: PropTypes.func.isRequired,
-  }; */
+  static propTypes = {
+    selectedRoom: PropTypes.object.isRequired,
+    onCreateBackground: PropTypes.func.isRequired,
+  };
 
   state = {
     onlineUsersCount: 0,
@@ -34,22 +35,25 @@ export default class Header extends Component {
 
   render() {
     const { onlineUsersCount, typingUser } = this.state;
+    const { selectedRoom, onCreateBackground } = this.props;
     return (
       <div className={styles.container}>
         <div className={styles.left_part}>
-          <h2>Чатик</h2>
-          {onlineUsersCount &&
+          <h3>{selectedRoom.roomName}</h3>
           <div>
             <div className={styles.info}>
               <div>{`Онлайн: ${onlineUsersCount}`}</div>
             </div>
-          </div>}
+          </div>
         </div>
         {typingUser.length > 0 &&
         <div className={styles.typing}>
           <span className={styles.typping_names}>{typingUser}</span> печатает
         </div>}
-        <SideBar />
+        <SideBar
+          selectedRoom={selectedRoom}
+          onCreateBackground={onCreateBackground}
+        />
       </div>
     );
   }

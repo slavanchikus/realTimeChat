@@ -32,13 +32,12 @@ export const createMessage = (content, userId, username, roomId) => ({
   roomId
 });
 
-export const selectRoom = (roomId, roomName) => ({
+export const selectRoom = roomId => ({
   type: 'ROOM_SELECT',
   roomId,
-  roomName
 });
 
-/* export const createBackgroundSrc = (backgroundSrc, roomId) => ({
+export const createBackgroundSrc = (backgroundSrc, roomId) => ({
   type: 'CREATE_BACKGROUND',
   backgroundSrc,
   roomId
@@ -48,4 +47,4 @@ export const changeBackgroundSrc = (backgroundSrc, roomId) => ({
   type: 'CHANGE_BACKGROUND',
   backgroundSrc,
   roomId
-}); */
+});

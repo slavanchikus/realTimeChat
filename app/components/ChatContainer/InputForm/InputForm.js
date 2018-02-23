@@ -42,7 +42,7 @@ export default class InputForm extends PureComponent {
     const { userId, username } = this.props.user;
     const content = formatContent(this.input.innerHTML);
     if (this.input.innerText !== placeholder && contentLength > 0) {
-      this.props.onCreateMessage(content, userId, username, this.props.selectedRoom.roomId);
+      this.props.onCreateMessage(content, userId, username, this.props.selectedRoom._id);
       this.input.innerHTML = '';
       this.input.focus();
     }

@@ -62,11 +62,11 @@ module.exports = function(app, db) {
     });
   });
 
-  /* app.post('/room/changebackground', (req, res) => {
+  app.post('/room/changebackground', (req, res) => {
     const collection = db.collection('rooms');
-    collection.updateOne({ _id: new ObjectId('5a8a9e1cf36d2866535eac1b') }, { $set: { backgroundSrc: req.body.backgroundSrc }});
+    collection.updateOne({ _id: new ObjectId(req.body.roomId) }, { $set: { backgroundSrc: req.body.backgroundSrc }});
     res.send({
       backgroundSrc: req.body.backgroundSrc
     });
-  }); */
+  });
 };

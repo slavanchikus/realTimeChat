@@ -45,7 +45,7 @@ export const createMessage = (content, userId, username, roomId) => fetch(`${hos
       throw error;
     });
 
-/* export const createNewBackgroundSrc = (backgroundSrc, roomId) => fetch(`${host}/changebackground`, {
+export const createBackgroundSrc = (backgroundSrc, roomId) => fetch(`${host}/room/changebackground`, {
   method: 'POST',
   headers: {
     'Content-Type': 'application/json'
@@ -54,4 +54,4 @@ export const createMessage = (content, userId, username, roomId) => fetch(`${hos
 }).then(response => response.json())
     .catch((error) => {
       throw error;
-    }); */
+    });

@@ -15,14 +15,18 @@ export default class ChatContainer extends PureComponent {
     onCreateMessage: PropTypes.func.isRequired,
     onGetMessages: PropTypes.func.isRequired,
     onGetOneMessage: PropTypes.func.isRequired,
-    /* onCreateBackgroundSrc: PropTypes.func.isRequired, */
+    onCreateBackground: PropTypes.func.isRequired,
+    onChangeBackground: PropTypes.func.isRequired,
   };
 
   render() {
-    const { user, messages, selectedRoom, onCreateMessage, onGetMessages, onGetOneMessage} = this.props;
+    const { user, messages, selectedRoom, onCreateMessage, onGetMessages, onGetOneMessage, onCreateBackground, onChangeBackground } = this.props;
     return (
       <div className={styles.container}>
-        <Header />
+        <Header
+          selectedRoom={selectedRoom}
+          onCreateBackground={onCreateBackground}
+        />
         {messages.length > 0 &&
         <MessagesContainer
           user={user}
@@ -30,6 +34,7 @@ export default class ChatContainer extends PureComponent {
           messages={messages}
           onGetMessages={onGetMessages}
           onGetOneMessage={onGetOneMessage}
+          onChangeBackground={onChangeBackground}
         />}
         <InputForm
           user={user}

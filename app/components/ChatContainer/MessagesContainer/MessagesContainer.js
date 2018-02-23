@@ -14,20 +14,21 @@ export default class MessagesContainer extends PureComponent {
     selectedRoom: PropTypes.object.isRequired,
     onGetMessages: PropTypes.func.isRequired,
     onGetOneMessage: PropTypes.func.isRequired,
+    onChangeBackground: PropTypes.func.isRequired,
   };
 
   componentDidMount() {
     this.container.scrollTop = this.container.scrollHeight;
-    socket.emit('join chat', this.props.user.username, this.props.selectedRoom.roomId);
     socket.on('fetch message', (data) => {
-      this.props.onGetOneMessage(data.id, this.props.user.username, this.props.selectedRoom.roomId);
+      this.props.onGetOneMessage(data.id, this.props.user.username, this.props.selectedRoom._id);
     });
+    socket.on('change background', (data) => {
+      this.props.onChangeBackground(data.backgroundSrc);
+    });
+    socket.emit('join chat', this.props.user.username, this.props.selectedRoom._id);
     window.onbeforeunload = () => {
       socket.emit('quit chat');
     };
-    /* socket.on('change background', (data) => {
-     this.props.changeBackgroundSrc(data.backgroundSrc);
-     }); */
   }
 
   componentDidUpdate(prevProps) {
@@ -52,7 +53,7 @@ export default class MessagesContainer extends PureComponent {
     const { messages, selectedRoom, onGetMessages } = this.props;
     if (this.container.scrollTop === 0) {
       this.previousScrollHeight = this.container.scrollHeight - this.container.scrollTop;
-      onGetMessages(messages.length, this.props.user.username, selectedRoom.roomId);
+      onGetMessages(messages.length, this.props.user.username, selectedRoom._id);
     }
   };
 
@@ -64,7 +65,7 @@ export default class MessagesContainer extends PureComponent {
         className={styles.container}
         onScroll={this.handleScroll}
         style={{
-          background: `url(https://cs6.pikabu.ru/post_img/big/2015/06/18/3/1434596941_632146314.jpg) 50% 50% / cover no-repeat rgb(54, 54, 54)`
+          background: `url(${selectedRoom.backgroundSrc}) 50% 50% / cover no-repeat rgb(54, 54, 54)`
         }}
       >
         {messages.map((message) => {

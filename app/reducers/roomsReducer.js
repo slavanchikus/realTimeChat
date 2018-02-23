@@ -22,8 +22,7 @@ export default function settingsReducer(state = initialState, action) {
       return {
         ...state,
         selectedRoom: {
-          roomId: action.roomId,
-          roomName: action.roomName
+          ...state.allRooms.find(item => item._id === action.roomId)
         }
       };
     }
@@ -42,12 +41,24 @@ export default function settingsReducer(state = initialState, action) {
       }
       return state;
     }
-    /* case 'CREATE_BACKGROUND_COMPLETE': {
-      return action.payload;
+    case 'CREATE_BACKGROUND_COMPLETE': {
+      return {
+        ...state,
+        selectedRoom: {
+          ...state.selectedRoom,
+          backgroundSrc: action.payload.backgroundSrc
+        }
+      };
     }
     case 'CHANGE_BACKGROUND': {
-      return { backgroundSrc: action.backgroundSrc };
-    } */
+      return {
+        ...state,
+        selectedRoom: {
+          ...state.selectedRoom,
+          backgroundSrc: action.backgroundSrc
+        }
+      };
+    }
     default:
       break;
   }

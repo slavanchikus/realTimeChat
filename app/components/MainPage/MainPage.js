@@ -3,7 +3,8 @@ import React, { PureComponent } from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 
-import { userRequest, userCreate, getMessages, getOneMessage, createMessage, selectRoom } from '../../actions/actions';
+import { userRequest, userCreate, getMessages, getOneMessage, createMessage,
+          selectRoom, changeBackgroundSrc, createBackgroundSrc } from '../../actions/actions';
 import { userSelector, messagesSelector, roomsSelector } from '../../selectors/mainSelector';
 
 import ChatContainer from '../ChatContainer/ChatContainer';
@@ -19,7 +20,15 @@ const mapStateToProps = state => ({
 });
 
 const mapDispatchToProps = dispatch =>
-    bindActionCreators({ userRequest, userCreate, getMessages, getOneMessage, createMessage, selectRoom }, dispatch);
+    bindActionCreators({
+      userRequest,
+      userCreate,
+      getMessages,
+      getOneMessage,
+      createMessage,
+      selectRoom,
+      changeBackgroundSrc,
+      createBackgroundSrc }, dispatch);
 
 const storageUsername = localStorage.getItem('username_chat');
 const storagePassword = localStorage.getItem('password_chat');
@@ -41,7 +50,7 @@ class MainPage extends PureComponent {
             onUserRequest={this.props.userRequest}
             onUserCreate={this.props.userCreate}
           />}
-        {user.userId && rooms.selectedRoom.roomId &&
+        {user.userId && rooms.selectedRoom._id &&
           <ChatContainer
             user={user}
             messages={messages}
@@ -49,8 +58,10 @@ class MainPage extends PureComponent {
             onCreateMessage={this.props.createMessage}
             onGetMessages={this.props.getMessages}
             onGetOneMessage={this.props.getOneMessage}
+            onCreateBackground={this.props.createBackgroundSrc}
+            onChangeBackground={this.props.changeBackgroundSrc}
           />}
-        {user.userId && !rooms.selectedRoom.roomId &&
+        {user.userId && !rooms.selectedRoom._id &&
         <RoomSelector
           username={user.username}
           allRooms={rooms.allRooms}

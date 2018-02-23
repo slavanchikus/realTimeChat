@@ -7,9 +7,10 @@ import { validateImg } from '../../../../utils/validateImg';
 import styles from './SideBar.module.styl';
 
 export default class SideBar extends Component {
-  /* static propTypes = {
-    onCreateBackgroundSrc: PropTypes.func.isRequired,
-  }; */
+  static propTypes = {
+    selectedRoom: PropTypes.object.isRequired,
+    onCreateBackground: PropTypes.func.isRequired,
+  };
 
   state = {
     expanded: false,
@@ -32,7 +33,7 @@ export default class SideBar extends Component {
       if (imgUrl) {
         const isImgValid = await validateImg(urlsArr[0]);
         if (isImgValid) {
-          /* this.props.onCreateBackgroundSrc(urlsArr[0]); */
+          this.props.onCreateBackground(urlsArr[0], this.props.selectedRoom._id);
           this.setState({ expanded: false, backgroundSetting: false });
         }
       }

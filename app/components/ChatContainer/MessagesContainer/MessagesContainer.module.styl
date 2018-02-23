@@ -3,6 +3,11 @@
   overflow-y: scroll
   padding: 0 7px 0 15px
   background-blend-mode: overlay
+  opacity: 0
+  animation-name: fadeIn
+  animation-timing-function: ease-in-out
+  animation-duration: 0.5s
+  animation-fill-mode: forwards
   &::-webkit-scrollbar-track
     background-color: #181818
   &::-webkit-scrollbar
@@ -26,3 +31,13 @@
   opacity: 0.6
   margin-top: 10px
   margin-bottom: 10px
+
+@keyframes fadeIn
+  0%
+    opacity:0
+  45%
+    opacity:0
+  55%
+    opacity:0
+  100%
+    opacity:1

@@ -1,7 +1,7 @@
 import { fork, call, put, takeEvery } from 'redux-saga/effects';
 import openSocket from 'socket.io-client';
 
-import { getUser, createUser, getMeassages, createMessage, getOneMessage } from '../api/chatApi';
+import { getUser, createUser, getMeassages, createMessage, getOneMessage, createBackgroundSrc } from '../api/chatApi';
 
 const host = 'http://localhost:8000';
 /* http://localhost:8000 */
@@ -62,15 +62,15 @@ export function* fetchNewMessage({ content, userId, username, roomId }) {
   }
 }
 
-/* export function* fetchBackground({ backgroundSrc, roomId }) {
+export function* fetchBackground({ backgroundSrc, roomId }) {
   try {
-    const payload = yield call(createNewBackgroundSrc, backgroundSrc, roomId);
+    const payload = yield call(createBackgroundSrc, backgroundSrc, roomId);
     yield put({ type: 'CREATE_BACKGROUND_COMPLETE', payload });
     socket.emit('new background', { backgroundSrc: payload.backgroundSrc });
   } catch (error) {
     yield put({ type: 'CREATE_BACKGROUND_ERROR' });
   }
-} */
+}
 
 export function* watchChatRequest() {
   yield takeEvery('USER_REQUEST', fetchUser);
@@ -78,7 +78,7 @@ export function* watchChatRequest() {
   yield takeEvery('MESSAGES_GET', fetchMessages);
   yield takeEvery('ONE_MESSAGE_GET', fetchOneMessages);
   yield takeEvery('MESSAGE_CREATE', fetchNewMessage);
-  /* yield takeEvery('CREATE_BACKGROUND', fetchBackground); */
+  yield takeEvery('CREATE_BACKGROUND', fetchBackground);
 }
 
 export function* chatSagas() {
