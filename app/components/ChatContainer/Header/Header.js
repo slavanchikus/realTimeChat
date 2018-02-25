@@ -39,12 +39,8 @@ export default class Header extends Component {
     return (
       <div className={styles.container}>
         <div className={styles.left_part}>
-          <h3>{selectedRoom.roomName}</h3>
-          <div>
-            <div className={styles.info}>
-              <div>{`Онлайн: ${onlineUsersCount}`}</div>
-            </div>
-          </div>
+          <h2>{selectedRoom.roomName}</h2>
+          <div>{`Онлайн: ${onlineUsersCount}`}</div>
         </div>
         {typingUser.length > 0 &&
         <div className={styles.typing}>

@@ -14,23 +14,29 @@ export default class RoomSelector extends PureComponent {
   handleClick = (roomId) => {
     this.props.onGetMessages(0, this.props.username, roomId);
     this.props.onSelectRoom(roomId);
+    this.props.history.push('/room');
   };
 
   render() {
     const { allRooms } = this.props;
     return (
       <div className={styles.container}>
-        <h2>Список комнат</h2>
-        {allRooms.map(item =>
-          <div
-            key={item.roomName}
-            className={styles.room}
-            onClick={() => this.handleClick(item._id, item.roomName)}
-          >
-            <h3>{item.roomName}</h3>
-            <div>{item.description}</div>
-          </div>
-        )}
+        <div className={styles.header}>
+          <h2>Список комнат</h2>
+          <div>Количество комнат: {allRooms.length}</div>
+        </div>
+        <div className={styles.rooms}>
+          {allRooms.map(item =>
+            <div
+              key={item.roomName}
+              className={styles.room}
+              onClick={() => this.handleClick(item._id, item.roomName)}
+            >
+              <h3>{item.roomName}</h3>
+              <div>{item.description}</div>
+            </div>
+          )}
+        </div>
       </div>
     );
   }
