@@ -17,7 +17,21 @@ export default class ChatContainer extends PureComponent {
     onGetOneMessage: PropTypes.func.isRequired,
     onCreateBackground: PropTypes.func.isRequired,
     onChangeBackground: PropTypes.func.isRequired,
+    onResetRoom: PropTypes.func.isRequired,
+    onSelectRoom: PropTypes.func.isRequired
   };
+
+  componentDidMount() {
+    const pathRoomId = location.pathname.split('/').slice(-1)[0];
+    if (!this.props.selectedRoom._id) {
+      this.props.onSelectRoom(pathRoomId);
+      this.props.onGetMessages(0, this.props.user.username, pathRoomId);
+    }
+  }
+
+  componentWillUnmount() {
+    this.props.onResetRoom();
+  }
 
   render() {
     const { user, messages, selectedRoom, onCreateMessage, onGetMessages, onGetOneMessage, onCreateBackground, onChangeBackground } = this.props;

@@ -1,9 +1,11 @@
 import React, { PureComponent } from 'react';
 import PropTypes from 'prop-types';
 
+import { withRouter } from 'react-router-dom';
+
 import styles from './RoomSelector.module.styl';
 
-export default class RoomSelector extends PureComponent {
+class RoomSelector extends PureComponent {
   static propTypes = {
     username: PropTypes.string.isRequired,
     allRooms: PropTypes.array.isRequired,
@@ -14,7 +16,7 @@ export default class RoomSelector extends PureComponent {
   handleClick = (roomId) => {
     this.props.onGetMessages(0, this.props.username, roomId);
     this.props.onSelectRoom(roomId);
-    this.props.history.push('/room');
+    this.props.history.push(`/room/${roomId}`);
   };
 
   render() {
@@ -41,3 +43,5 @@ export default class RoomSelector extends PureComponent {
     );
   }
 }
+
+export default withRouter(RoomSelector);

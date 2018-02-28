@@ -26,6 +26,12 @@ export default function settingsReducer(state = initialState, action) {
         }
       };
     }
+    case 'ROOM_RESET': {
+      return {
+        ...state,
+        selectedRoom: {}
+      };
+    }
     case 'MESSAGES_GET_COMPLETE':
     case 'ONE_MESSAGE_GET_COMPLETE': {
       const participants = handleParticipants(action.payload, state.selectedRoom.participants);

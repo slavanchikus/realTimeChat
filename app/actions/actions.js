@@ -37,6 +37,10 @@ export const selectRoom = roomId => ({
   roomId,
 });
 
+export const resetRoom = () => ({
+  type: 'ROOM_RESET',
+});
+
 export const createBackgroundSrc = (backgroundSrc, roomId) => ({
   type: 'CREATE_BACKGROUND',
   backgroundSrc,

@@ -37,6 +37,12 @@ export default class Message extends Component {
                                   style="background-position:${emojiData[item].backgroundPosition}"/>`);
       });
     }
+    const urlMatchs = content.match(/(?:^|[^"'])((ftp|http|https|file):\/\/[\S]+(\b|$))/gim);
+    if (urlMatchs) {
+      urlMatchs.forEach((url) => {
+        text = text.replace(url, `<a href=${url} target="_blank">cсылка</a>`);
+      });
+    }
     return text;
   };
 
