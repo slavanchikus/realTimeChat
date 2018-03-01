@@ -4,7 +4,7 @@
   "description": "chat",
   "main": "index.js",
   "scripts": {
-    "start": "webpack -d && webpack-dev-server --content-base build/ --inline --hot",
+    "start": "webpack -d && webpack-dev-server --content-base build/ --hot",
     "build": "webpack --config=webpack.build.config.babel.js -p --define process.env.NODE_ENV='\"production\"' --progress --colors",
     "dev": "nodemon ./server/server.js"
   },

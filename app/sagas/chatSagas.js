@@ -1,4 +1,5 @@
 import { fork, call, put, takeEvery } from 'redux-saga/effects';
+import { delay } from 'redux-saga';
 import openSocket from 'socket.io-client';
 
 import { getUser, createUser, getMeassages, createMessage, getOneMessage, createBackgroundSrc } from '../api/chatApi';
@@ -9,15 +10,22 @@ const host = 'http://localhost:8000';
 export const socket = openSocket(host);
 
 export function* fetchUser({ username, password }) {
-  try {
-    const payload = yield call(getUser, username, password);
-    if (!localStorage.getItem('username_chat') && payload.user && payload.user.username) {
-      localStorage.setItem('username_chat', username);
-      localStorage.setItem('password_chat', password);
+  for (let i = 0; i < 5; i += 1) {
+    try {
+      const payload = yield call(getUser, username, password);
+      if (!localStorage.getItem('username_chat') && payload.user && payload.user.username) {
+        localStorage.setItem('username_chat', username);
+        localStorage.setItem('password_chat', password);
+      }
+      yield put({ type: 'USER_REQUEST_COMPLETE', payload });
+      i = 6;
+    } catch (err) {
+      if (i < 4) {
+        yield call(delay, 200);
+      } else {
+        yield put({ type: 'USER_REQUEST_ERROR' });
+      }
     }
-    yield put({ type: 'USER_REQUEST_COMPLETE', payload });
-  } catch (error) {
-    yield put({ type: 'USER_REQUEST_ERROR' });
   }
 }
 

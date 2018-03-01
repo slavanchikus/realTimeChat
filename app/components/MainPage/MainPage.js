@@ -1,13 +1,15 @@
-import React, { PureComponent } from 'react';
+import React, { Component } from 'react';
 
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 
 import { BrowserRouter, Route } from 'react-router-dom';
 
+import cx from 'classnames';
+
 import { userRequest, userCreate, getMessages, getOneMessage, createMessage,
           selectRoom, resetRoom, changeBackgroundSrc, createBackgroundSrc } from '../../actions/actions';
-import { userSelector, messagesSelector, roomsSelector } from '../../selectors/mainSelector';
+import { userSelector, messagesSelector, roomsSelector, uiStateSelector } from '../../selectors/mainSelector';
 
 import ChatContainer from '../ChatContainer/ChatContainer';
 import Authentication from '../Authentication/Authentication';
@@ -19,6 +21,7 @@ const mapStateToProps = state => ({
   user: userSelector(state),
   messages: messagesSelector(state),
   rooms: roomsSelector(state),
+  uiState: uiStateSelector(state)
 });
 
 const mapDispatchToProps = dispatch =>
@@ -36,18 +39,35 @@ const mapDispatchToProps = dispatch =>
 const storageUsername = localStorage.getItem('username_chat');
 const storagePassword = localStorage.getItem('password_chat');
 
-class MainPage extends PureComponent {
+class MainPage extends Component {
+  state = {
+    blockUi: false
+  };
+
   componentWillMount() {
     if (storageUsername && storagePassword) {
       this.props.userRequest(storageUsername, storagePassword);
     }
   }
 
+  componentWillReceiveProps({ uiState }) {
+    if (!uiState.isFetching && this.props.uiState.isFetching) {
+      clearTimeout(this.loader);
+      if (this.state.blockUi) this.setState({ blockUi: false });
+    }
+    if (uiState.isFetching && !this.props.uiState.isFetching) {
+      this.loader = setTimeout(() => this.setState({ blockUi: true }), 1200);
+    }
+  }
+
   render() {
     const { user, messages, rooms } = this.props;
+    const containerClass = cx(styles.container, {
+      [styles.block_ui]: this.state.blockUi,
+    });
     return (
       <BrowserRouter>
-        <div className={styles.container}>
+        <div className={containerClass}>
           {(!user.userId && !storageUsername) &&
           <Route
             exact
@@ -89,6 +109,7 @@ class MainPage extends PureComponent {
                 onSelectRoom={this.props.selectRoom}
               />}
           />}
+          <div className={styles.spinner} />
         </div>
       </BrowserRouter>
     );

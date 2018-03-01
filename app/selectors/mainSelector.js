@@ -8,6 +8,8 @@ const messagesStateSelector = state => state.messages;
 
 export const roomsSelector = state => state.rooms;
 
+export const uiStateSelector = state => state.uiState;
+
 export const messagesSelector = createSelector(
     messagesStateSelector,
     (messages) => {
