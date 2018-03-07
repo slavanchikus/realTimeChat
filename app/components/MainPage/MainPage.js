@@ -3,7 +3,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 
-import { BrowserRouter, Route } from 'react-router-dom';
+import { HashRouter , Route } from 'react-router-dom';
 
 import cx from 'classnames';
 
@@ -66,7 +66,7 @@ class MainPage extends Component {
       [styles.block_ui]: this.state.blockUi,
     });
     return (
-      <BrowserRouter>
+      <HashRouter >
         <div className={containerClass}>
           {(!user.userId && !storageUsername) &&
           <Route
@@ -111,7 +111,7 @@ class MainPage extends Component {
           />}
           <div className={styles.spinner} />
         </div>
-      </BrowserRouter>
+      </HashRouter >
     );
   }
 }
