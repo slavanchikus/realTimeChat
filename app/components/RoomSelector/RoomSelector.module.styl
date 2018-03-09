@@ -4,6 +4,7 @@
   justify-content: flex-start
   width: 600px
   height: 100%
+  position: relative
   box-sizing: border-box
   background: #181818
   border: 1px solid
@@ -14,8 +15,18 @@
    margin: 0
 
 .header
+  display: flex
+  flex-direction: row
+  justify-content: space-between
+  align-items: center
   padding: 15px
   border-bottom: 1px solid #ffdb4d
+
+.plus
+  font-size: 30px
+  cursor: pointer
+  &:hover
+    color: #ffdb4d
 
 .rooms
   padding: 15px
