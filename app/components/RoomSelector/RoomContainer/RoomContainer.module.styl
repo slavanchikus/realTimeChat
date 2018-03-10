@@ -1,0 +1,18 @@
+.room
+  margin-top: 10px
+  padding: 10px
+  border-bottom: 1px solid
+  cursor: pointer
+  user-select: none
+  &:hover
+    border-color: #FF6557
+
+.locked_room
+  composes: room
+  background: url('../../../img/lock_grey.svg') no-repeat
+  background-size: 20px
+  background-position: right
+  &:hover
+    background: url('../../../img/lock_gold.svg') no-repeat
+    background-size: 20px
+    background-position: right

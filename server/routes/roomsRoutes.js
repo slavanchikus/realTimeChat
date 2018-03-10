@@ -1,20 +1,10 @@
 const ObjectId = require('mongodb').ObjectId;
 
 module.exports = function(app, db) {
-  app.get('/getrooms/:offset', (req, res) => {
-    const collection = db.collection('rooms');
-    const offset = parseInt(req.params.offset, 10);
-    collection.find().skip(offset).sort({ date: -1 }).limit(18)
-      .toArray((err, items) => {
-        const revArr = items.reverse();
-        res.send(revArr);
-      });
-  });
-
   app.get('/getmessages/:offset/user/:user/room/:roomId', (req, res) => {
     const roomCollection = db.collection(`room_${req.params.roomId}`);
     const offset = parseInt(req.params.offset, 10);
-    roomCollection.find().skip(offset).sort({ date: -1 }).limit(18)
+    roomCollection.find().skip(offset).sort({ date: -1 }).limit(24)
         .toArray((err, items) => {
           let arr = items;
           arr = items.reverse();
@@ -43,6 +33,14 @@ module.exports = function(app, db) {
     });
   });
 
+  app.post('/room/changebackground', (req, res) => {
+    const collection = db.collection('rooms');
+    collection.updateOne({ _id: new ObjectId(req.body.roomId) }, { $set: { backgroundSrc: req.body.backgroundSrc }});
+    res.send({
+      backgroundSrc: req.body.backgroundSrc
+    });
+  });
+
   app.post('/createmessage', (req, res) => {
     const message = {
       content: req.body.content,
@@ -62,11 +60,25 @@ module.exports = function(app, db) {
     });
   });
 
-  app.post('/room/changebackground', (req, res) => {
+  app.post('/createroom', (req, res) => {
+    const room = {
+      roomName: req.body.roomName,
+      description: req.body.description,
+      password: req.body.password,
+      participants: [],
+      backgroundSrc: '',
+      userId: req.body.userId,
+      isPrivate: req.body.password.length > 0
+    };
     const collection = db.collection('rooms');
-    collection.updateOne({ _id: new ObjectId(req.body.roomId) }, { $set: { backgroundSrc: req.body.backgroundSrc }});
-    res.send({
-      backgroundSrc: req.body.backgroundSrc
+    collection.insert(room, (err, result) => {
+      if (err) {
+        res.send({ error: 'room exists' });
+      } else {
+        db.createCollection(`room_${result.ops[0]._id}`, (dbErr, dbRes) => {
+          res.send(result.ops[0]);
+        });
+      }
     });
   });
 };

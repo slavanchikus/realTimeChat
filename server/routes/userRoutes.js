@@ -12,7 +12,7 @@ module.exports = function(app, db) {
           }
         };
         const roomsCollection = db.collection('rooms');
-        roomsCollection.find().skip(0).limit(18)
+        roomsCollection.find({}).project({ password: 0 }).sort({ date: -1 })
               .toArray((roomErr, roomsArr) => {
                 response.rooms = roomsArr;
                 res.send(response);

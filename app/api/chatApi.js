@@ -55,3 +55,14 @@ export const createBackgroundSrc = (backgroundSrc, roomId) => fetch(`${host}/roo
     .catch((error) => {
       throw error;
     });
+
+export const createRoom = (roomName, description, password, userId) => fetch(`${host}/createroom`, {
+  method: 'POST',
+  headers: {
+    'Content-Type': 'application/json'
+  },
+  body: JSON.stringify({ roomName, description, password, userId }),
+}).then(response => response.json())
+  .catch((error) => {
+    throw error;
+  });

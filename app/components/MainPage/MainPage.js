@@ -3,12 +3,12 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 
-import { HashRouter , Route } from 'react-router-dom';
+import { HashRouter, Route } from 'react-router-dom';
 
 import cx from 'classnames';
 
 import { userRequest, userCreate, getMessages, getOneMessage, createMessage,
-          selectRoom, resetRoom, changeBackgroundSrc, createBackgroundSrc } from '../../actions/actions';
+          selectRoom, createRoom, resetRoom, changeBackgroundSrc, createBackgroundSrc } from '../../actions/actions';
 import { userSelector, messagesSelector, roomsSelector, uiStateSelector } from '../../selectors/mainSelector';
 
 import ChatContainer from '../ChatContainer/ChatContainer';
@@ -32,6 +32,7 @@ const mapDispatchToProps = dispatch =>
       getOneMessage,
       createMessage,
       selectRoom,
+      createRoom,
       resetRoom,
       changeBackgroundSrc,
       createBackgroundSrc }, dispatch);
@@ -85,10 +86,11 @@ class MainPage extends Component {
             path="/"
             render={routeProps =>
               <RoomSelector
-                username={user.username}
+                user={user}
                 allRooms={rooms.allRooms}
                 onGetMessages={this.props.getMessages}
                 onSelectRoom={this.props.selectRoom}
+                onCreateRoom={this.props.createRoom}
                 {...routeProps}
               />}
           />}

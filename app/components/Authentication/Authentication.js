@@ -22,7 +22,7 @@ export default class Authentication extends PureComponent {
     const { username, password, isRegistration } = this.state;
     const usernameLen = !/^\s+$/.test(username) ? username.length : 0;
     const passwordLen = !/^\s+$/.test(password) ? password.length : 0;
-    if (usernameLen > 1 || passwordLen > 1) {
+    if (usernameLen > 1 && passwordLen > 1) {
       if (isRegistration) {
         this.props.onUserCreate(username, password);
       } else {

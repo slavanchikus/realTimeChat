@@ -37,6 +37,14 @@ export const selectRoom = roomId => ({
   roomId,
 });
 
+export const createRoom = (roomName, description, password, userId) => ({
+  type: 'ROOM_CREATE',
+  roomName,
+  description,
+  password,
+  userId
+});
+
 export const resetRoom = () => ({
   type: 'ROOM_RESET',
 });
