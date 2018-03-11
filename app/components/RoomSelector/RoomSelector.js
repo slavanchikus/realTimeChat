@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 
 import { withRouter } from 'react-router-dom';
 
-import RoomCreator from './RoomCreator/RoomCreater';
+import RoomPopup from './RoomPopup/RoomPopup';
 import RoomContainer from './RoomContainer/RoomContainer';
 
 import styles from './RoomSelector.module.styl';
@@ -18,27 +18,32 @@ class RoomSelector extends PureComponent {
   };
 
   state = {
-    showCreator: false
+    showCreatorForm: false,
+    lockedRoomId: '',
   };
 
   handleRoomClick = (roomId, index) => {
     const { user, allRooms, onGetMessages, onSelectRoom } = this.props;
     if (allRooms[index].isPrivate) {
-
+      this.setState({ lockedRoomId: roomId });
     } else {
-      onGetMessages(0, user.username, roomId);
+      onGetMessages(0, user.username, roomId, '');
       onSelectRoom(roomId);
       this.props.history.push(`/room/${roomId}`);
     }
   };
 
-  toggleCreatorVisibility = () => {
-    this.setState({ showCreator: !this.state.showCreator });
+  handlePlusClick = () => {
+    this.setState({ showCreatorForm: true });
+  };
+
+  handlePopupClose = () => {
+    this.setState({ lockedRoomId: '', showCreatorForm: false });
   };
 
   render() {
-    const { showCreator } = this.state;
-    const { user, allRooms, onCreateRoom } = this.props;
+    const { showCreatorForm, lockedRoomId } = this.state;
+    const { user, allRooms, onCreateRoom, onGetMessages } = this.props;
     return (
       <div className={styles.container}>
         <div className={styles.header}>
@@ -46,7 +51,7 @@ class RoomSelector extends PureComponent {
             <h2>Список комнат</h2>
             <div>Количество комнат: {allRooms.length}</div>
           </div>
-          <div className={styles.plus} onClick={this.toggleCreatorVisibility} >+</div>
+          <div className={styles.plus} onClick={this.handlePlusClick} >+</div>
         </div>
         <div className={styles.rooms}>
           {allRooms.map((item, index) =>
@@ -58,11 +63,14 @@ class RoomSelector extends PureComponent {
             />
           )}
         </div>
-        {showCreator &&
-        <RoomCreator
-          userId={user.userId}
+        {(showCreatorForm || lockedRoomId.length > 0) &&
+        <RoomPopup
+          showCreatorForm={showCreatorForm}
+          lockedRoomId={lockedRoomId}
+          user={user}
           onCreateRoom={onCreateRoom}
-          onClose={this.toggleCreatorVisibility}
+          onGetMessages={onGetMessages}
+          onClose={this.handlePopupClose}
         />}
       </div>
     );

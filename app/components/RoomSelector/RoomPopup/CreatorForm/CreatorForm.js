@@ -1,9 +1,9 @@
 import React, { PureComponent } from 'react';
 import PropTypes from 'prop-types';
 
-import styles from './RoomCreator.module.styl';
+import styles from '../RoomPopup.module.styl';
 
-export default class RoomCreater extends PureComponent {
+export default class CreatorForm extends PureComponent {
   static propTypes = {
     userId: PropTypes.string.isRequired,
     onCreateRoom: PropTypes.func.isRequired,
@@ -56,18 +56,16 @@ export default class RoomCreater extends PureComponent {
   render() {
     const { name, description, password } = this.state;
     return (
-      <div className={styles.container}>
-        <div ref={node => (this.wrapper = node)} className={styles.wrapper}>
-          <div className={styles.form}>
-            <p>Название комнаты</p>
-            <input type="text" onChange={this.putName} value={name} maxLength={15} />
-            <p>Описание комнаты</p>
-            <input type="text" onChange={this.putDescription} value={description} maxLength={30} />
-            <p>Пароль (необязательно)</p>
-            <input type="password" onChange={this.putPassword} value={password} maxLength={10} />
-          </div>
-          <div onClick={this.handleButtonClick} className={styles.button}>Создать</div>
+      <div ref={node => (this.wrapper = node)} className={styles.wrapper}>
+        <div className={styles.form}>
+          <p>Название комнаты</p>
+          <input type="text" onChange={this.putName} value={name} maxLength={15} />
+          <p>Описание комнаты</p>
+          <input type="text" onChange={this.putDescription} value={description} maxLength={30} />
+          <p>Пароль (необязательно)</p>
+          <input type="password" onChange={this.putPassword} value={password} maxLength={10} />
         </div>
+        <div onClick={this.handleButtonClick} className={styles.button}>Создать</div>
       </div>
     );
   }
