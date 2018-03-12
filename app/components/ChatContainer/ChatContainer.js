@@ -18,14 +18,13 @@ export default class ChatContainer extends PureComponent {
     onCreateBackground: PropTypes.func.isRequired,
     onChangeBackground: PropTypes.func.isRequired,
     onResetRoom: PropTypes.func.isRequired,
-    onSelectRoom: PropTypes.func.isRequired
+    onOpenRoom: PropTypes.func.isRequired
   };
 
   componentDidMount() {
     const pathRoomId = window.location.hash.split('/').slice(-1)[0];
     if (!this.props.selectedRoom._id) {
-      this.props.onSelectRoom(pathRoomId);
-      this.props.onGetMessages(0, this.props.user.username, pathRoomId);
+      this.props.onOpenRoom(0, this.props.user.username, pathRoomId);
     }
   }
 

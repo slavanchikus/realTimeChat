@@ -12,13 +12,14 @@ export default class RoomPopup extends PureComponent {
     showCreatorForm: PropTypes.bool.isRequired,
     showPasswordForm: PropTypes.bool.isRequired,
     user: PropTypes.object.isRequired,
-    onOpenLockedRoom: PropTypes.func.isRequired,
+    errors: PropTypes.object.isRequired,
+    onOpenRoom: PropTypes.func.isRequired,
     onCreateRoom: PropTypes.func.isRequired,
     onClose: PropTypes.func.isRequired,
   };
 
   render() {
-    const { user, selectedRoomId, showCreatorForm, showPasswordForm, onCreateRoom, onOpenLockedRoom, onClose } = this.props;
+    const { user, errors, selectedRoomId, showCreatorForm, showPasswordForm, onCreateRoom, onOpenRoom, onClose } = this.props;
     return (
       <div className={styles.container}>
         {showCreatorForm &&
@@ -31,7 +32,8 @@ export default class RoomPopup extends PureComponent {
         <PasswordForm
           selectedRoomId={selectedRoomId}
           username={user.username}
-          onOpenLockedRoom={onOpenLockedRoom}
+          errors={errors}
+          onOpenRoom={onOpenRoom}
           onClose={onClose}
         />}
       </div>

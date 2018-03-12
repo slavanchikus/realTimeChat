@@ -6,5 +6,6 @@ export default ({ error }) => (
   <div className={styles.container}>
     {error === 'invalid user data' && 'Неправильный логин или пароль'}
     {error === 'user exists' && 'Юзернейм занят'}
+    {error === 'invalid room data' && 'Неправильный пароль'}
   </div>
   );

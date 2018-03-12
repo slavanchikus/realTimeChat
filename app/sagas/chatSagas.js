@@ -2,7 +2,7 @@ import { fork, call, put, takeEvery } from 'redux-saga/effects';
 import { delay } from 'redux-saga';
 import openSocket from 'socket.io-client';
 
-import { getUser, createUser, getMeassages, createMessage, getOneMessage, createBackgroundSrc, createRoom, openLockedRoom } from '../api/chatApi';
+import { getUser, createUser, getMeassages, createMessage, getOneMessage, createBackgroundSrc, createRoom, openRoom } from '../api/chatApi';
 
 const host = 'http://localhost:8000';
 /* http://localhost:8000 */
@@ -84,13 +84,16 @@ export function* fetchNewRoom({ roomName, description, password, userId }) {
   }
 }
 
-export function* fetchLockedRoom({ offset, username, roomId, password }) {
+export function* fetchRoom({ offset, username, roomId, password }) {
   try {
-    const payload = yield call(openLockedRoom, offset, username, roomId, password);
+    const payload = yield call(openRoom, offset, username, roomId, password);
     if (payload.error) {
       yield put({ type: 'ROOM_OPEN_ERROR', payload });
     } else {
       yield put({ type: 'ROOM_OPEN_COMPLETE', payload });
+      if (password.length > 0 && !localStorage.getItem(`${roomId}`)) {
+        localStorage.setItem(`${roomId}`, password);
+      }
     }
   } catch (error) {
     yield put({ type: 'ROOM_OPEN_ERROR' });
@@ -114,7 +117,7 @@ export function* watchChatRequest() {
   yield takeEvery('ONE_MESSAGE_GET', fetchOneMessages);
   yield takeEvery('MESSAGE_CREATE', fetchNewMessage);
   yield takeEvery('ROOM_CREATE', fetchNewRoom);
-  yield takeEvery('ROOM_OPEN', fetchLockedRoom);
+  yield takeEvery('ROOM_OPEN', fetchRoom);
   yield takeEvery('CREATE_BACKGROUND', fetchBackground);
 }
 

@@ -41,7 +41,7 @@ export default class Authentication extends PureComponent {
   };
 
   render() {
-    const { user, errors } = this.props;
+    const { errors } = this.props;
     const { isRegistration, username, password } = this.state;
     return (
       <div className={styles.container}>

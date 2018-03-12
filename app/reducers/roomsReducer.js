@@ -18,11 +18,13 @@ export default function settingsReducer(state = initialState, action) {
         selectedRoom: {}
       };
     }
-    case 'ROOM_SELECT': {
+    case 'ROOM_OPEN_COMPLETE': {
+      const participants = handleParticipants(action.payload.messages, state.selectedRoom.participants);
       return {
         ...state,
         selectedRoom: {
-          ...state.allRooms.find(item => item._id === action.roomId)
+          ...state.allRooms.find(item => item._id === action.payload.roomId),
+          participants
         }
       };
     }
@@ -38,7 +40,6 @@ export default function settingsReducer(state = initialState, action) {
         allRooms: [...state.allRooms, action.payload]
       };
     }
-    case 'ROOM_OPEN_COMPLETE':
     case 'MESSAGES_GET_COMPLETE':
     case 'ONE_MESSAGE_GET_COMPLETE': {
       const participants = handleParticipants(action.payload, state.selectedRoom.participants);

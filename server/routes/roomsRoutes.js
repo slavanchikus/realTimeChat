@@ -33,7 +33,7 @@ module.exports = function(app, db) {
     });
   });
 
-  app.post('/getmessages/lockedroom', (req, res) => {
+  app.post('/getmessages/room', (req, res) => {
     const roomsCollection = db.collection('rooms');
     roomsCollection.findOne({ _id: new ObjectId(req.body.roomId), password: req.body.password }, (roomsErr, roomsItems) => {
       let response;
@@ -42,7 +42,10 @@ module.exports = function(app, db) {
         const offset = parseInt(req.params.offset, 10);
         roomCollection.find().skip(offset).sort({ date: -1 }).limit(24)
           .toArray((err, items) => {
-            response = items.reverse();
+            response = {
+              roomId: req.body.roomId,
+              messages: items.reverse()
+            };
             res.send(response);
             /* const usersCollection = db.collection('users');
              usersCollection.updateOne({ username: message.username }, { $set: { lastViewedMessage: message.date }}); */

@@ -32,17 +32,12 @@ export const createMessage = (content, userId, username, roomId) => ({
   roomId
 });
 
-export const openLockedRoom = (offset, username, roomId, password) => ({
+export const openRoom = (offset, username, roomId, password) => ({
   type: 'ROOM_OPEN',
   offset,
   username,
   roomId,
   password
-});
-
-export const selectRoom = roomId => ({
-  type: 'ROOM_SELECT',
-  roomId,
 });
 
 export const createRoom = (roomName, description, password, userId) => ({

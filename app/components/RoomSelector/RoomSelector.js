@@ -11,10 +11,10 @@ import styles from './RoomSelector.module.styl';
 class RoomSelector extends PureComponent {
   static propTypes = {
     user: PropTypes.object.isRequired,
+    errors: PropTypes.object.isRequired,
     allRooms: PropTypes.array.isRequired,
-    onGetMessages: PropTypes.func.isRequired,
-    onOpenLockedRoom: PropTypes.func.isRequired,
-    onSelectRoom: PropTypes.func.isRequired,
+    selectedRoom: PropTypes.object.isRequired,
+    onOpenRoom: PropTypes.func.isRequired,
     onCreateRoom: PropTypes.func.isRequired,
   };
 
@@ -24,18 +24,24 @@ class RoomSelector extends PureComponent {
     selectedRoomId: '',
   };
 
-  componentWillReceiveProps({  }) {
-    /*this.props.onSelectRoom(this.state.selectedRoomId);
-    this.props.history.push(`/room/${this.state.selectedRoomId}`);*/
+  componentWillReceiveProps({ selectedRoom }) {
+    if (Object.keys(selectedRoom).length > 0) {
+      this.props.history.push(`/room/${this.state.selectedRoomId}`);
+    }
   }
 
   handleRoomClick = (roomId, index) => {
-    const { user, allRooms, onGetMessages } = this.props;
+    const { user, allRooms, onOpenRoom } = this.props;
     if (allRooms[index].isPrivate) {
-      this.setState({ selectedRoomId: roomId, showPasswordForm: true });
+      const storageRoomPass = localStorage.getItem(`${roomId}`);
+      if (storageRoomPass) {
+        onOpenRoom(0, user.username, roomId, storageRoomPass);
+      } else {
+        this.setState({ selectedRoomId: roomId, showPasswordForm: true });
+      }
     } else {
       this.setState({ selectedRoomId: roomId });
-      onGetMessages(0, user.username, roomId);
+      onOpenRoom(0, user.username, roomId, '');
     }
   };
 
@@ -49,7 +55,7 @@ class RoomSelector extends PureComponent {
 
   render() {
     const { showCreatorForm, showPasswordForm, selectedRoomId } = this.state;
-    const { user, allRooms, onCreateRoom, onOpenLockedRoom } = this.props;
+    const { user, errors, allRooms, onCreateRoom, onOpenRoom } = this.props;
     return (
       <div className={styles.container}>
         <div className={styles.header}>
@@ -75,8 +81,9 @@ class RoomSelector extends PureComponent {
           showCreatorForm={showCreatorForm}
           showPasswordForm={showPasswordForm}
           user={user}
+          errors={errors}
           onCreateRoom={onCreateRoom}
-          onOpenLockedRoom={onOpenLockedRoom}
+          onOpenRoom={onOpenRoom}
           onClose={this.handlePopupClose}
         />}
       </div>

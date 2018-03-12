@@ -8,6 +8,11 @@ export default function errorReducer(state = initialState, action) {
         userError: action.payload.error
       };
     }
+    case 'ROOM_OPEN_ERROR': {
+      return {
+        roomError: action.payload.error
+      };
+    }
     case 'REMOVE_ERRORS': {
       return initialState;
     }

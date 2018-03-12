@@ -7,8 +7,8 @@ import { HashRouter, Route } from 'react-router-dom';
 
 import cx from 'classnames';
 
-import { userRequest, userCreate, getMessages, getOneMessage, createMessage, openLockedRoom,
-          selectRoom, createRoom, resetRoom, changeBackgroundSrc, createBackgroundSrc, removeErrors } from '../../actions/actions';
+import { userRequest, userCreate, getMessages, getOneMessage, createMessage, openRoom,
+  createRoom, resetRoom, changeBackgroundSrc, createBackgroundSrc, removeErrors } from '../../actions/actions';
 import { userSelector, messagesSelector, roomsSelector, uiStateSelector, errorsSelector } from '../../selectors/mainSelector';
 
 import ChatContainer from '../ChatContainer/ChatContainer';
@@ -32,8 +32,7 @@ const mapDispatchToProps = dispatch =>
       getMessages,
       getOneMessage,
       createMessage,
-      openLockedRoom,
-      selectRoom,
+      openRoom,
       createRoom,
       resetRoom,
       changeBackgroundSrc,
@@ -94,10 +93,10 @@ class MainPage extends Component {
             render={routeProps =>
               <RoomSelector
                 user={user}
+                errors={errors}
                 allRooms={rooms.allRooms}
-                onGetMessages={this.props.getMessages}
-                onOpenLockedRoom={this.props.openLockedRoom}
-                onSelectRoom={this.props.selectRoom}
+                selectedRoom={rooms.selectedRoom}
+                onOpenRoom={this.props.openRoom}
                 onCreateRoom={this.props.createRoom}
                 {...routeProps}
               />}
@@ -116,7 +115,7 @@ class MainPage extends Component {
                 onCreateBackground={this.props.createBackgroundSrc}
                 onChangeBackground={this.props.changeBackgroundSrc}
                 onResetRoom={this.props.resetRoom}
-                onSelectRoom={this.props.selectRoom}
+                onOpenRoom={this.props.openRoom}
               />}
           />}
           <div className={styles.spinner} />
