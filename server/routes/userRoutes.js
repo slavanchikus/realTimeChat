@@ -19,7 +19,7 @@ module.exports = function(app, db) {
               });
       } else {
         response = {
-          error: 'invalid data'
+          error: 'invalid user data'
         };
         res.send(response);
       }

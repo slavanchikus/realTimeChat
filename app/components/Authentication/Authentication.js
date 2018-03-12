@@ -1,13 +1,14 @@
 import React, { PureComponent } from 'react';
 import PropTypes from 'prop-types';
 
-import ErrorContainer from './ErrorContainer/ErrorContainer';
+import ErrorContainer from '../ErrorContainer/ErrorContainer';
 
 import styles from './Authentication.module.styl';
 
 export default class Authentication extends PureComponent {
   static propTypes = {
     user: PropTypes.object.isRequired,
+    errors: PropTypes.object.isRequired,
     onUserRequest: PropTypes.func.isRequired,
     onUserCreate: PropTypes.func.isRequired,
   };
@@ -40,7 +41,7 @@ export default class Authentication extends PureComponent {
   };
 
   render() {
-    const { user } = this.props;
+    const { user, errors } = this.props;
     const { isRegistration, username, password } = this.state;
     return (
       <div className={styles.container}>
@@ -55,9 +56,9 @@ export default class Authentication extends PureComponent {
         <div className={styles.choose} onClick={() => this.setState({ isRegistration: !this.state.isRegistration, username: '', password: '' })}>
           {isRegistration ? 'Авторизоваться' : 'Зарегистрироваться'}
         </div>
-        {user.error &&
+        {errors.userError &&
           <ErrorContainer
-            error={user.error}
+            error={errors.userError}
           />}
       </div>
     );

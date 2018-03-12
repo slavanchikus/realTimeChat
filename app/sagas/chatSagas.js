@@ -13,12 +13,17 @@ export function* fetchUser({ username, password }) {
   for (let i = 0; i < 5; i += 1) {
     try {
       const payload = yield call(getUser, username, password);
-      if (!localStorage.getItem('username_chat') && payload.user && payload.user.username) {
-        localStorage.setItem('username_chat', username);
-        localStorage.setItem('password_chat', password);
+      if (payload.error) {
+        yield put({ type: 'USER_REQUEST_ERROR', payload });
+        i = 6;
+      } else {
+        if (!localStorage.getItem('username_chat') && payload.user && payload.user.username) {
+          localStorage.setItem('username_chat', username);
+          localStorage.setItem('password_chat', password);
+        }
+        yield put({ type: 'USER_REQUEST_COMPLETE', payload });
+        i = 6;
       }
-      yield put({ type: 'USER_REQUEST_COMPLETE', payload });
-      i = 6;
     } catch (err) {
       if (i < 4) {
         yield call(delay, 200);
@@ -32,10 +37,10 @@ export function* fetchUser({ username, password }) {
 export function* fetchNewUser({ username, password }) {
   try {
     const payload = yield call(createUser, username, password);
-    if (payload.userId) {
+    if (payload.error) {
+      yield put({ type: 'USER_CREATE_ERROR', payload });
+    } else {
       yield fetchUser({ username, password });
-    } else if (payload.error) {
-      yield put({ type: 'USER_CREATE_COMPLETE', payload });
     }
   } catch (error) {
     yield put({ type: 'USER_CREATE_ERROR' });

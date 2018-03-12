@@ -8,8 +8,8 @@ import { HashRouter, Route } from 'react-router-dom';
 import cx from 'classnames';
 
 import { userRequest, userCreate, getMessages, getOneMessage, createMessage,
-          selectRoom, createRoom, resetRoom, changeBackgroundSrc, createBackgroundSrc } from '../../actions/actions';
-import { userSelector, messagesSelector, roomsSelector, uiStateSelector } from '../../selectors/mainSelector';
+          selectRoom, createRoom, resetRoom, changeBackgroundSrc, createBackgroundSrc, removeErrors } from '../../actions/actions';
+import { userSelector, messagesSelector, roomsSelector, uiStateSelector, errorsSelector } from '../../selectors/mainSelector';
 
 import ChatContainer from '../ChatContainer/ChatContainer';
 import Authentication from '../Authentication/Authentication';
@@ -21,7 +21,8 @@ const mapStateToProps = state => ({
   user: userSelector(state),
   messages: messagesSelector(state),
   rooms: roomsSelector(state),
-  uiState: uiStateSelector(state)
+  uiState: uiStateSelector(state),
+  errors: errorsSelector(state)
 });
 
 const mapDispatchToProps = dispatch =>
@@ -35,7 +36,8 @@ const mapDispatchToProps = dispatch =>
       createRoom,
       resetRoom,
       changeBackgroundSrc,
-      createBackgroundSrc }, dispatch);
+      createBackgroundSrc,
+      removeErrors }, dispatch);
 
 const storageUsername = localStorage.getItem('username_chat');
 const storagePassword = localStorage.getItem('password_chat');
@@ -51,7 +53,7 @@ class MainPage extends Component {
     }
   }
 
-  componentWillReceiveProps({ uiState }) {
+  componentWillReceiveProps({ uiState, errors }) {
     if (!uiState.isFetching && this.props.uiState.isFetching) {
       clearTimeout(this.loader);
       if (this.state.blockUi) this.setState({ blockUi: false });
@@ -59,10 +61,13 @@ class MainPage extends Component {
     if (uiState.isFetching && !this.props.uiState.isFetching) {
       this.loader = setTimeout(() => this.setState({ blockUi: true }), 1200);
     }
+    if (errors !== this.props.errors) {
+      this.errorDelay = setTimeout(() => this.props.removeErrors(), 1200);
+    }
   }
 
   render() {
-    const { user, messages, rooms } = this.props;
+    const { user, messages, rooms, errors } = this.props;
     const containerClass = cx(styles.container, {
       [styles.block_ui]: this.state.blockUi,
     });
@@ -75,7 +80,8 @@ class MainPage extends Component {
             path="/"
             render={() =>
               <Authentication
-                user={this.props.user}
+                user={user}
+                errors={errors}
                 onUserRequest={this.props.userRequest}
                 onUserCreate={this.props.userCreate}
               />}

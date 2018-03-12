@@ -10,6 +10,8 @@ export const roomsSelector = state => state.rooms;
 
 export const uiStateSelector = state => state.uiState;
 
+export const errorsSelector = state => state.errors;
+
 export const messagesSelector = createSelector(
     messagesStateSelector,
     (messages) => {

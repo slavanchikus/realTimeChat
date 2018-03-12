@@ -60,3 +60,7 @@ export const changeBackgroundSrc = (backgroundSrc, roomId) => ({
   backgroundSrc,
   roomId
 });
+
+export const removeErrors = () => ({
+  type: 'REMOVE_ERRORS'
+});
