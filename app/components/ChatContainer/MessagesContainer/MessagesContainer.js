@@ -44,6 +44,7 @@ export default class MessagesContainer extends PureComponent {
   }
 
   componentWillUnmount() {
+    socket.emit('quit chat');
     window.onbeforeunload = () => {
       socket.emit('quit chat');
     };

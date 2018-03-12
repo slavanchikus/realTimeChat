@@ -22,9 +22,14 @@ export default class ChatContainer extends PureComponent {
   };
 
   componentDidMount() {
-    const pathRoomId = window.location.hash.split('/').slice(-1)[0];
     if (!this.props.selectedRoom._id) {
-      this.props.onOpenRoom(0, this.props.user.username, pathRoomId);
+      const pathRoomId = window.location.hash.split('/').slice(-1)[0];
+      const storageRoomPass = localStorage.getItem(`${pathRoomId}`);
+      if (storageRoomPass) {
+        this.props.onOpenRoom(0, this.props.user.username, pathRoomId, storageRoomPass);
+      } else {
+        this.props.history.push('/');
+      }
     }
   }
 

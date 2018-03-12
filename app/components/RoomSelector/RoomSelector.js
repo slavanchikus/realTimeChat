@@ -36,6 +36,7 @@ class RoomSelector extends PureComponent {
       const storageRoomPass = localStorage.getItem(`${roomId}`);
       if (storageRoomPass) {
         onOpenRoom(0, user.username, roomId, storageRoomPass);
+        this.setState({ selectedRoomId: roomId });
       } else {
         this.setState({ selectedRoomId: roomId, showPasswordForm: true });
       }

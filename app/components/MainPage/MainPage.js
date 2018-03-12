@@ -104,7 +104,7 @@ class MainPage extends Component {
           {user.userId &&
           <Route
             path="/room"
-            render={() =>
+            render={routeProps =>
               <ChatContainer
                 user={user}
                 messages={messages}
@@ -116,6 +116,7 @@ class MainPage extends Component {
                 onChangeBackground={this.props.changeBackgroundSrc}
                 onResetRoom={this.props.resetRoom}
                 onOpenRoom={this.props.openRoom}
+                {...routeProps}
               />}
           />}
           <div className={styles.spinner} />

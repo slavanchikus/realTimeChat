@@ -39,7 +39,7 @@ export default class Header extends Component {
     return (
       <div className={styles.container}>
         <div className={styles.left_part}>
-          <h2>{selectedRoom.roomName}</h2>
+          <h2>{selectedRoom.roomName ? selectedRoom.roomName : 'Комната'}</h2>
           <div>{`Онлайн: ${onlineUsersCount}`}</div>
         </div>
         {typingUser.length > 0 &&
