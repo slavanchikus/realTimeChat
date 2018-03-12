@@ -33,6 +33,29 @@ module.exports = function(app, db) {
     });
   });
 
+  app.post('/getmessages/lockedroom', (req, res) => {
+    const roomsCollection = db.collection('rooms');
+    roomsCollection.findOne({ _id: new ObjectId(req.body.roomId), password: req.body.password }, (roomsErr, roomsItems) => {
+      let response;
+      if (roomsItems !== null) {
+        const roomCollection = db.collection(`room_${req.body.roomId}`);
+        const offset = parseInt(req.params.offset, 10);
+        roomCollection.find().skip(offset).sort({ date: -1 }).limit(24)
+          .toArray((err, items) => {
+            response = items.reverse();
+            res.send(response);
+            /* const usersCollection = db.collection('users');
+             usersCollection.updateOne({ username: message.username }, { $set: { lastViewedMessage: message.date }}); */
+          });
+      } else {
+        response = {
+          error: 'invalid room data'
+        };
+        res.send(response);
+      }
+    });
+  });
+
   app.post('/room/changebackground', (req, res) => {
     const collection = db.collection('rooms');
     collection.updateOne({ _id: new ObjectId(req.body.roomId) }, { $set: { backgroundSrc: req.body.backgroundSrc }});

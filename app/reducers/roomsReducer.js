@@ -38,6 +38,7 @@ export default function settingsReducer(state = initialState, action) {
         allRooms: [...state.allRooms, action.payload]
       };
     }
+    case 'ROOM_OPEN_COMPLETE':
     case 'MESSAGES_GET_COMPLETE':
     case 'ONE_MESSAGE_GET_COMPLETE': {
       const participants = handleParticipants(action.payload, state.selectedRoom.participants);

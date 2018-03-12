@@ -13,23 +13,29 @@ class RoomSelector extends PureComponent {
     user: PropTypes.object.isRequired,
     allRooms: PropTypes.array.isRequired,
     onGetMessages: PropTypes.func.isRequired,
+    onOpenLockedRoom: PropTypes.func.isRequired,
     onSelectRoom: PropTypes.func.isRequired,
     onCreateRoom: PropTypes.func.isRequired,
   };
 
   state = {
     showCreatorForm: false,
-    lockedRoomId: '',
+    showPasswordForm: false,
+    selectedRoomId: '',
   };
 
+  componentWillReceiveProps({  }) {
+    /*this.props.onSelectRoom(this.state.selectedRoomId);
+    this.props.history.push(`/room/${this.state.selectedRoomId}`);*/
+  }
+
   handleRoomClick = (roomId, index) => {
-    const { user, allRooms, onGetMessages, onSelectRoom } = this.props;
+    const { user, allRooms, onGetMessages } = this.props;
     if (allRooms[index].isPrivate) {
-      this.setState({ lockedRoomId: roomId });
+      this.setState({ selectedRoomId: roomId, showPasswordForm: true });
     } else {
-      onGetMessages(0, user.username, roomId, '');
-      onSelectRoom(roomId);
-      this.props.history.push(`/room/${roomId}`);
+      this.setState({ selectedRoomId: roomId });
+      onGetMessages(0, user.username, roomId);
     }
   };
 
@@ -38,12 +44,12 @@ class RoomSelector extends PureComponent {
   };
 
   handlePopupClose = () => {
-    this.setState({ lockedRoomId: '', showCreatorForm: false });
+    this.setState({ showPasswordForm: false, showCreatorForm: false });
   };
 
   render() {
-    const { showCreatorForm, lockedRoomId } = this.state;
-    const { user, allRooms, onCreateRoom, onGetMessages } = this.props;
+    const { showCreatorForm, showPasswordForm, selectedRoomId } = this.state;
+    const { user, allRooms, onCreateRoom, onOpenLockedRoom } = this.props;
     return (
       <div className={styles.container}>
         <div className={styles.header}>
@@ -63,13 +69,14 @@ class RoomSelector extends PureComponent {
             />
           )}
         </div>
-        {(showCreatorForm || lockedRoomId.length > 0) &&
+        {(showCreatorForm || showPasswordForm) &&
         <RoomPopup
+          selectedRoomId={selectedRoomId}
           showCreatorForm={showCreatorForm}
-          lockedRoomId={lockedRoomId}
+          showPasswordForm={showPasswordForm}
           user={user}
           onCreateRoom={onCreateRoom}
-          onGetMessages={onGetMessages}
+          onOpenLockedRoom={onOpenLockedRoom}
           onClose={this.handlePopupClose}
         />}
       </div>

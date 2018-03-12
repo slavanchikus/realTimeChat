@@ -7,7 +7,7 @@ import { HashRouter, Route } from 'react-router-dom';
 
 import cx from 'classnames';
 
-import { userRequest, userCreate, getMessages, getOneMessage, createMessage,
+import { userRequest, userCreate, getMessages, getOneMessage, createMessage, openLockedRoom,
           selectRoom, createRoom, resetRoom, changeBackgroundSrc, createBackgroundSrc, removeErrors } from '../../actions/actions';
 import { userSelector, messagesSelector, roomsSelector, uiStateSelector, errorsSelector } from '../../selectors/mainSelector';
 
@@ -32,6 +32,7 @@ const mapDispatchToProps = dispatch =>
       getMessages,
       getOneMessage,
       createMessage,
+      openLockedRoom,
       selectRoom,
       createRoom,
       resetRoom,
@@ -95,6 +96,7 @@ class MainPage extends Component {
                 user={user}
                 allRooms={rooms.allRooms}
                 onGetMessages={this.props.getMessages}
+                onOpenLockedRoom={this.props.openLockedRoom}
                 onSelectRoom={this.props.selectRoom}
                 onCreateRoom={this.props.createRoom}
                 {...routeProps}

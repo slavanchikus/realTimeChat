@@ -5,6 +5,7 @@ export default function messagesReducer(state = initialState, action) {
     case 'ONE_MESSAGE_GET_COMPLETE': {
       return [...state, ...action.payload];
     }
+    case 'ROOM_OPEN_COMPLETE':
     case 'MESSAGES_GET_COMPLETE': {
       return [...action.payload, ...state];
     }

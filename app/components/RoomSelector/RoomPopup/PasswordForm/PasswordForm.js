@@ -5,9 +5,9 @@ import styles from '../RoomPopup.module.styl';
 
 export default class PasswordForm extends PureComponent {
   static propTypes = {
-    lockedRoomId: PropTypes.string.isRequired,
+    selectedRoomId: PropTypes.string.isRequired,
     username: PropTypes.string.isRequired,
-    onGetMessages: PropTypes.func.isRequired,
+    onOpenLockedRoom: PropTypes.func.isRequired,
     onClose: PropTypes.func.isRequired
   };
 
@@ -35,10 +35,10 @@ export default class PasswordForm extends PureComponent {
 
   handleButtonClick = () => {
     const { password } = this.state;
-    const { lockedRoomId, username, onGetMessages } = this.props;
+    const { selectedRoomId, username, onOpenLockedRoom } = this.props;
     const passLen = !/^\s+$/.test(password) ? password.length : 0;
     if (passLen > 1) {
-      onGetMessages(0, username, lockedRoomId, password);
+      onOpenLockedRoom(0, username, selectedRoomId, password);
     }
   };
 

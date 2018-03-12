@@ -8,16 +8,17 @@ import styles from './RoomPopup.module.styl';
 
 export default class RoomPopup extends PureComponent {
   static propTypes = {
+    selectedRoomId: PropTypes.string.isRequired,
     showCreatorForm: PropTypes.bool.isRequired,
-    lockedRoomId: PropTypes.string.isRequired,
+    showPasswordForm: PropTypes.bool.isRequired,
     user: PropTypes.object.isRequired,
-    onGetMessages: PropTypes.func.isRequired,
+    onOpenLockedRoom: PropTypes.func.isRequired,
     onCreateRoom: PropTypes.func.isRequired,
     onClose: PropTypes.func.isRequired,
   };
 
   render() {
-    const { user, showCreatorForm, lockedRoomId, onCreateRoom, onGetMessages, onClose } = this.props;
+    const { user, selectedRoomId, showCreatorForm, showPasswordForm, onCreateRoom, onOpenLockedRoom, onClose } = this.props;
     return (
       <div className={styles.container}>
         {showCreatorForm &&
@@ -26,11 +27,11 @@ export default class RoomPopup extends PureComponent {
           onCreateRoom={onCreateRoom}
           onClose={onClose}
         />}
-        {lockedRoomId.length > 0 &&
+        {showPasswordForm &&
         <PasswordForm
+          selectedRoomId={selectedRoomId}
           username={user.username}
-          lockedRoomId={lockedRoomId}
-          onGetMessages={onGetMessages}
+          onOpenLockedRoom={onOpenLockedRoom}
           onClose={onClose}
         />}
       </div>

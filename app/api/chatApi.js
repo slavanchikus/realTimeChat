@@ -56,6 +56,17 @@ export const createBackgroundSrc = (backgroundSrc, roomId) => fetch(`${host}/roo
       throw error;
     });
 
+export const openLockedRoom = (offset, username, roomId, password) => fetch(`${host}/getmessages/lockedroom`, {
+  method: 'POST',
+  headers: {
+    'Content-Type': 'application/json'
+  },
+  body: JSON.stringify({ offset, username, roomId, password }),
+}).then(response => response.json())
+  .catch((error) => {
+    throw error;
+  });
+
 export const createRoom = (roomName, description, password, userId) => fetch(`${host}/createroom`, {
   method: 'POST',
   headers: {
