@@ -28,9 +28,9 @@ export default function settingsReducer(state = initialState, action) {
         }
       };
     }
-    case 'ROOM_RESET': {
+    case 'ROOM_RESET_COMPLETE': {
       return {
-        ...state,
+        allRooms: action.payload,
         selectedRoom: {}
       };
     }

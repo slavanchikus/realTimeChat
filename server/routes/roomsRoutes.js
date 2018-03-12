@@ -1,6 +1,14 @@
 const ObjectId = require('mongodb').ObjectId;
 
 module.exports = function(app, db) {
+  app.get('/getrooms', (req, res) => {
+    const roomsCollection = db.collection('rooms');
+    roomsCollection.find({}).project({ password: 0 }).sort({ date: -1 })
+      .toArray((roomErr, roomsArr) => {
+        res.send(roomsArr);
+      });
+  });
+
   app.get('/getmessages/:offset/user/:user/room/:roomId', (req, res) => {
     const roomCollection = db.collection(`room_${req.params.roomId}`);
     const offset = parseInt(req.params.offset, 10);

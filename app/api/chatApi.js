@@ -23,6 +23,11 @@ export const createUser = (username, password) => fetch(`${host}/createuser`, {
       throw error;
     });
 
+export const getRooms = () => fetch(`${host}/getrooms`).then(response => response.json())
+  .catch((error) => {
+    throw error;
+  });
+
 export const getMeassages = (offset, username, roomId) => fetch(`${host}/getmessages/${offset}/user/${username}/room/${roomId}`).then(response => response.json())
     .catch((error) => {
       throw error;

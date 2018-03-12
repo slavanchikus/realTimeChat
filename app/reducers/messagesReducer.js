@@ -14,7 +14,7 @@ export default function messagesReducer(state = initialState, action) {
     case 'ROOM_OPEN_COMPLETE': {
       return [...action.payload.messages, ...state];
     }
-    case 'ROOM_RESET': {
+    case 'ROOM_RESET_COMPLETE': {
       return initialState;
     }
     default:
