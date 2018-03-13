@@ -8,7 +8,7 @@ import { HashRouter, Route } from 'react-router-dom';
 import cx from 'classnames';
 
 import { userRequest, userCreate, getMessages, getOneMessage, createMessage, openRoom,
-  createRoom, resetRoom, changeBackgroundSrc, createBackgroundSrc, removeErrors } from '../../actions/actions';
+  createRoom, resetRoom, setRoomBackground, changeRoomBackground, removeErrors } from '../../actions/actions';
 import { userSelector, messagesSelector, roomsSelector, uiStateSelector, errorsSelector } from '../../selectors/mainSelector';
 
 import ChatContainer from '../ChatContainer/ChatContainer';
@@ -16,6 +16,8 @@ import Authentication from '../Authentication/Authentication';
 import RoomSelector from '../RoomSelector/RoomSelector';
 
 import styles from './MainPage.module.styl';
+
+import { registerServiceWorker } from '../../utils/registerServiceWorker';
 
 const mapStateToProps = state => ({
   user: userSelector(state),
@@ -35,8 +37,8 @@ const mapDispatchToProps = dispatch =>
       openRoom,
       createRoom,
       resetRoom,
-      changeBackgroundSrc,
-      createBackgroundSrc,
+      setRoomBackground,
+      changeRoomBackground,
       removeErrors }, dispatch);
 
 const storageUsername = localStorage.getItem('username_chat');
@@ -51,6 +53,7 @@ class MainPage extends Component {
     if (storageUsername && storagePassword) {
       this.props.userRequest(storageUsername, storagePassword);
     }
+    registerServiceWorker();
   }
 
   componentWillReceiveProps({ uiState, errors }) {
@@ -112,8 +115,8 @@ class MainPage extends Component {
                 onCreateMessage={this.props.createMessage}
                 onGetMessages={this.props.getMessages}
                 onGetOneMessage={this.props.getOneMessage}
-                onCreateBackground={this.props.createBackgroundSrc}
-                onChangeBackground={this.props.changeBackgroundSrc}
+                onSetRoomBackground={this.props.setRoomBackground}
+                onChangeRoomBackground={this.props.changeRoomBackground}
                 onResetRoom={this.props.resetRoom}
                 onOpenRoom={this.props.openRoom}
                 {...routeProps}

@@ -10,7 +10,7 @@ import styles from './Header.module.styl';
 export default class Header extends Component {
   static propTypes = {
     selectedRoom: PropTypes.object.isRequired,
-    onCreateBackground: PropTypes.func.isRequired,
+    onSetRoomBackground: PropTypes.func.isRequired,
   };
 
   state = {
@@ -35,7 +35,7 @@ export default class Header extends Component {
 
   render() {
     const { onlineUsersCount, typingUser } = this.state;
-    const { selectedRoom, onCreateBackground } = this.props;
+    const { selectedRoom, onSetRoomBackground } = this.props;
     return (
       <div className={styles.container}>
         <div className={styles.left_part}>
@@ -48,7 +48,7 @@ export default class Header extends Component {
         </div>}
         <SideBar
           selectedRoom={selectedRoom}
-          onCreateBackground={onCreateBackground}
+          onSetRoomBackground={onSetRoomBackground}
         />
       </div>
     );

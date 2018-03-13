@@ -52,14 +52,14 @@ export const resetRoom = () => ({
   type: 'ROOM_RESET',
 });
 
-export const createBackgroundSrc = (backgroundSrc, roomId) => ({
-  type: 'CREATE_BACKGROUND',
+export const setRoomBackground = (backgroundSrc, roomId) => ({
+  type: 'SET_ROOM_BACKGROUND',
   backgroundSrc,
   roomId
 });
 
-export const changeBackgroundSrc = (backgroundSrc, roomId) => ({
-  type: 'CHANGE_BACKGROUND',
+export const changeRoomBackground = (backgroundSrc, roomId) => ({
+  type: 'CHANGE_ROOM_BACKGROUND',
   backgroundSrc,
   roomId
 });

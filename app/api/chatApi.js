@@ -50,7 +50,7 @@ export const createMessage = (content, userId, username, roomId) => fetch(`${hos
       throw error;
     });
 
-export const createBackgroundSrc = (backgroundSrc, roomId) => fetch(`${host}/room/changebackground`, {
+export const setRoomBackground = (backgroundSrc, roomId) => fetch(`${host}/room/setbackground`, {
   method: 'POST',
   headers: {
     'Content-Type': 'application/json'

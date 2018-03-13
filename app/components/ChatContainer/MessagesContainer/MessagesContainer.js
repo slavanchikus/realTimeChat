@@ -14,7 +14,7 @@ export default class MessagesContainer extends PureComponent {
     selectedRoom: PropTypes.object.isRequired,
     onGetMessages: PropTypes.func.isRequired,
     onGetOneMessage: PropTypes.func.isRequired,
-    onChangeBackground: PropTypes.func.isRequired,
+    onChangeRoomBackground: PropTypes.func.isRequired,
   };
 
   componentDidMount() {
@@ -23,7 +23,7 @@ export default class MessagesContainer extends PureComponent {
       this.props.onGetOneMessage(data.id, this.props.user.username, this.props.selectedRoom._id);
     });
     socket.on('change background', (data) => {
-      this.props.onChangeBackground(data.backgroundSrc);
+      this.props.onChangeRoomBackground(data.backgroundSrc);
     });
     socket.emit('join chat', this.props.user.username, this.props.selectedRoom._id);
     window.onbeforeunload = () => {

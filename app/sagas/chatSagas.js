@@ -2,7 +2,7 @@ import { fork, call, put, takeEvery } from 'redux-saga/effects';
 import { delay } from 'redux-saga';
 import openSocket from 'socket.io-client';
 
-import { getUser, createUser, getRooms, getMeassages, createMessage, getOneMessage, createBackgroundSrc, createRoom, openRoom } from '../api/chatApi';
+import { getUser, createUser, getRooms, getMeassages, createMessage, getOneMessage, setRoomBackground, createRoom, openRoom } from '../api/chatApi';
 
 const host = 'http://localhost:8000';
 /* http://localhost:8000 */
@@ -109,13 +109,13 @@ export function* fetchRoom({ offset, username, roomId, password }) {
   }
 }
 
-export function* fetchBackground({ backgroundSrc, roomId }) {
+export function* fetchRoomBackground({ backgroundSrc, roomId }) {
   try {
-    const payload = yield call(createBackgroundSrc, backgroundSrc, roomId);
-    yield put({ type: 'CREATE_BACKGROUND_COMPLETE', payload });
+    const payload = yield call(setRoomBackground, backgroundSrc, roomId);
+    yield put({ type: 'SET_ROOM_BACKGROUND_COMPLETE', payload });
     socket.emit('new background', { backgroundSrc: payload.backgroundSrc });
   } catch (error) {
-    yield put({ type: 'CREATE_BACKGROUND_ERROR' });
+    yield put({ type: 'SET_ROOM_BACKGROUND_ERROR' });
   }
 }
 
@@ -128,7 +128,7 @@ export function* watchChatRequest() {
   yield takeEvery('ROOM_RESET', fetchRooms);
   yield takeEvery('ROOM_CREATE', fetchNewRoom);
   yield takeEvery('ROOM_OPEN', fetchRoom);
-  yield takeEvery('CREATE_BACKGROUND', fetchBackground);
+  yield takeEvery('SET_ROOM_BACKGROUND', fetchRoomBackground);
 }
 
 export function* chatSagas() {

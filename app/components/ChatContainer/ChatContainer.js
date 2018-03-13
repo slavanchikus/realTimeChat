@@ -15,8 +15,8 @@ export default class ChatContainer extends PureComponent {
     onCreateMessage: PropTypes.func.isRequired,
     onGetMessages: PropTypes.func.isRequired,
     onGetOneMessage: PropTypes.func.isRequired,
-    onCreateBackground: PropTypes.func.isRequired,
-    onChangeBackground: PropTypes.func.isRequired,
+    onSetRoomBackground: PropTypes.func.isRequired,
+    onChangeRoomBackground: PropTypes.func.isRequired,
     onResetRoom: PropTypes.func.isRequired,
     onOpenRoom: PropTypes.func.isRequired
   };
@@ -38,12 +38,12 @@ export default class ChatContainer extends PureComponent {
   }
 
   render() {
-    const { user, messages, selectedRoom, onCreateMessage, onGetMessages, onGetOneMessage, onCreateBackground, onChangeBackground } = this.props;
+    const { user, messages, selectedRoom, onCreateMessage, onGetMessages, onGetOneMessage, onSetRoomBackground, onChangeRoomBackground } = this.props;
     return (
       <div className={styles.container}>
         <Header
           selectedRoom={selectedRoom}
-          onCreateBackground={onCreateBackground}
+          onSetRoomBackground={onSetRoomBackground}
         />
         {messages.length > 0 &&
         <MessagesContainer
@@ -52,7 +52,7 @@ export default class ChatContainer extends PureComponent {
           messages={messages}
           onGetMessages={onGetMessages}
           onGetOneMessage={onGetOneMessage}
-          onChangeBackground={onChangeBackground}
+          onChangeRoomBackground={onChangeRoomBackground}
         />}
         <InputForm
           user={user}

@@ -55,7 +55,7 @@ export default function settingsReducer(state = initialState, action) {
       }
       return state;
     }
-    case 'CREATE_BACKGROUND_COMPLETE': {
+    case 'SET_ROOM_BACKGROUND_COMPLETE': {
       return {
         ...state,
         selectedRoom: {
@@ -64,7 +64,7 @@ export default function settingsReducer(state = initialState, action) {
         }
       };
     }
-    case 'CHANGE_BACKGROUND': {
+    case 'CHANGE_ROOM_BACKGROUND': {
       return {
         ...state,
         selectedRoom: {

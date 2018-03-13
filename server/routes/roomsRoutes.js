@@ -67,7 +67,7 @@ module.exports = function(app, db) {
     });
   });
 
-  app.post('/room/changebackground', (req, res) => {
+  app.post('/room/setbackground', (req, res) => {
     const collection = db.collection('rooms');
     collection.updateOne({ _id: new ObjectId(req.body.roomId) }, { $set: { backgroundSrc: req.body.backgroundSrc }});
     res.send({

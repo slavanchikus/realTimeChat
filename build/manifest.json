@@ -1,0 +1,15 @@
+{
+  "short_name": "Black Chat",
+  "name": "Black Chat",
+  "icons": [
+    {
+      "src": "img/logo.png",
+      "sizes": "512x512",
+      "type": "image/png"
+    }
+  ],
+  "start_url": "/",
+  "display": "standalone",
+  "theme_color": "#0f0f0f",
+  "background_color": "#0f0f0f"
+}

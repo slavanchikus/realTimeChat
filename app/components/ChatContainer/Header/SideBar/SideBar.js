@@ -9,7 +9,7 @@ import styles from './SideBar.module.styl';
 export default class SideBar extends Component {
   static propTypes = {
     selectedRoom: PropTypes.object.isRequired,
-    onCreateBackground: PropTypes.func.isRequired,
+    onSetRoomBackground: PropTypes.func.isRequired,
   };
 
   state = {
@@ -33,7 +33,7 @@ export default class SideBar extends Component {
       if (imgUrl) {
         const isImgValid = await validateImg(urlsArr[0]);
         if (isImgValid) {
-          this.props.onCreateBackground(urlsArr[0], this.props.selectedRoom._id);
+          this.props.onSetRoomBackground(urlsArr[0], this.props.selectedRoom._id);
           this.setState({ expanded: false, backgroundSetting: false });
         }
       }
