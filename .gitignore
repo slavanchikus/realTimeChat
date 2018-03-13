@@ -1,3 +1,5 @@
 node_modules
 build/assets
+build/service-worker.js
+build/asset-manifest.json
 .idea

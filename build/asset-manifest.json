@@ -1,0 +1,8 @@
+{
+  "app.js": "/assets/bundle.js",
+  "static/emoji_sheet.png": "/assets/static/68f35d6969bfecae402c84c3a775a76e.png",
+  "static/post.svg": "/assets/static/bfafd424a9193ae9b53e524de5d182bb.svg",
+  "static/emoji.svg": "/assets/static/a576dc368ab55a9e74a0fa28d4bbfc2d.svg",
+  "static/lock_grey.svg": "/assets/static/4dc1e76afbcc03a36ccf0a375bd54d47.svg",
+  "static/lock_gold.svg": "/assets/static/3d28e88a830acc7a307814f9c4bdcee7.svg"
+}
