@@ -2,7 +2,7 @@ import { fork, call, put, takeEvery } from 'redux-saga/effects';
 import { delay } from 'redux-saga';
 
 import socket from '../utils/socket';
-import { getUser, createUser, getRooms, getMeassages, createMessage, getOneMessage, setRoomBackground, createRoom, openRoom } from '../api/chatApi';
+import { getUser, createUser, getRooms, getMeassages, createMessage, getOneMessage, setRoomBackground, createRoom, openRoom, uploadFile } from '../api/chatApi';
 
 export function* fetchUser({ username, password }) {
   for (let i = 0; i < 5; i += 1) {
@@ -114,6 +114,15 @@ export function* fetchRoomBackground({ backgroundSrc, roomId }) {
   }
 }
 
+export function* fetchNewFile({ file }) {
+  try {
+    const payload = yield call(uploadFile, file);
+    yield put({ type: 'UPLOAD_FILE_COMPLETE', payload });
+  } catch (error) {
+    yield put({ type: 'UPLOAD_FILE_ERROR' });
+  }
+}
+
 export function* watchChatRequest() {
   yield takeEvery('USER_REQUEST', fetchUser);
   yield takeEvery('USER_CREATE', fetchNewUser);
@@ -124,6 +133,7 @@ export function* watchChatRequest() {
   yield takeEvery('ROOM_CREATE', fetchNewRoom);
   yield takeEvery('ROOM_OPEN', fetchRoom);
   yield takeEvery('SET_ROOM_BACKGROUND', fetchRoomBackground);
+  yield takeEvery('UPLOAD_FILE', fetchNewFile);
 }
 
 export function* chatSagas() {

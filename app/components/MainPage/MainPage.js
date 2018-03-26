@@ -8,7 +8,7 @@ import { HashRouter, Route } from 'react-router-dom';
 import cx from 'classnames';
 
 import { userRequest, userCreate, getMessages, getOneMessage, createMessage, openRoom,
-  createRoom, resetRoom, setRoomBackground, changeRoomBackground, removeErrors } from '../../actions/actions';
+  createRoom, resetRoom, setRoomBackground, changeRoomBackground, uploadFile, removeErrors } from '../../actions/actions';
 import { userSelector, messagesSelector, roomsSelector, uiStateSelector, errorsSelector } from '../../selectors/mainSelector';
 
 import ChatContainer from '../ChatContainer/ChatContainer';
@@ -39,6 +39,7 @@ const mapDispatchToProps = dispatch =>
       resetRoom,
       setRoomBackground,
       changeRoomBackground,
+      uploadFile,
       removeErrors }, dispatch);
 
 const storageUsername = localStorage.getItem('username_chat');
@@ -124,6 +125,7 @@ class MainPage extends Component {
                 onChangeRoomBackground={this.props.changeRoomBackground}
                 onResetRoom={this.props.resetRoom}
                 onOpenRoom={this.props.openRoom}
+                onUploadFile={this.props.uploadFile}
                 {...routeProps}
               />}
           />}

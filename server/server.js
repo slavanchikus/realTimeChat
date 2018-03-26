@@ -1,6 +1,7 @@
 const express = require('express');
 const MongoClient = require('mongodb').MongoClient;
 const bodyParser = require('body-parser');
+const multer = require('multer');
 
 const socketEvents = require('./socketEvents');
 const connectRoutes = require('./routes/index');
@@ -16,8 +17,9 @@ app.use((req, res, next) => {
   res.setHeader('Access-Control-Allow-Credentials', true);
   next();
 });
-app.use(bodyParser.urlencoded({ extended: true }));
+app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
+/* app.use(multer({ dest: './build/uploads/' })); */
 
 /* process.env.PORT || port */
 

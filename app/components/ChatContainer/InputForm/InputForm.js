@@ -14,13 +14,15 @@ const emojiSrc = 'data:image/gif;base64,R0lGODlhAQABAPAAAAAAAP///yH5BAUAAAAALAAA
 export default class InputForm extends PureComponent {
   static propTypes = {
     user: PropTypes.object.isRequired,
-    onCreateMessage: PropTypes.func.isRequired,
     selectedRoom: PropTypes.object.isRequired,
+    onCreateMessage: PropTypes.func.isRequired,
+    onUploadFile: PropTypes.func.isRequired
   };
 
   state = {
     inputRange: null,
     isTyping: false,
+    isFocused: false,
     expandEmoji: false,
     contentLength: 0
   };
@@ -73,6 +75,7 @@ export default class InputForm extends PureComponent {
     if (content === placeholder) {
       this.input.innerText = '';
     }
+    this.setState({ isFocused: true });
     this.input.addEventListener('keydown', this.handleKeyDown);
     this.input.addEventListener('paste', this.handlePaste);
   };
@@ -82,6 +85,7 @@ export default class InputForm extends PureComponent {
     if (contentLength < 1) {
       this.input.innerHTML = placeholder;
     }
+    this.setState({ isFocused: false });
     this.input.removeEventListener('keydown', this.handleKeyDown);
     this.input.removeEventListener('paste', this.handlePaste);
   };
@@ -146,34 +150,48 @@ export default class InputForm extends PureComponent {
     return null;
   };
 
+  handleUpload = (e) => {
+    if (e.target.files) {
+      this.props.onUploadFile(e.target.files);
+    }
+  };
+
   render() {
-    const { expandEmoji } = this.state;
+    const { expandEmoji, isFocused, contentLength } = this.state;
     return (
       <div className={styles.container}>
-        <div className={styles.emoji_wrapper}>
-          <div
-            className={styles.emoji_picker}
-            onMouseEnter={this.handleMouseEnter}
-            onMouseLeave={this.handleMouseLeave}
-          />
-          {expandEmoji &&
-          <EmojiPicker
-            onMouseDown={this.handleEmojiPick}
-            onMouseEnter={this.handleMouseEnter}
-            onMouseLeave={this.handleMouseLeave}
-          />}
+        <div className={styles.upload}>
+          <form encType="multipart/form-data">
+            <input name="image" type="file" onChange={this.handleUpload} />
+          </form>
         </div>
-        <div
-          contentEditable
-          ref={node => (this.input = node)}
-          className={styles.input}
-          spellCheck={false}
-          onFocus={this.handleFocus}
-          onBlur={this.handleBlur}
-          onInput={this.handleInput}
-          onSelect={this.handleSelection}
-          onKeyPress={this.handleKeyPress}
-        />
+        <div className={styles.input_wrapper}>
+          <div
+            contentEditable
+            ref={node => (this.input = node)}
+            className={styles.input}
+            spellCheck={false}
+            onFocus={this.handleFocus}
+            onBlur={this.handleBlur}
+            onInput={this.handleInput}
+            onSelect={this.handleSelection}
+            onKeyPress={this.handleKeyPress}
+          />
+          {(isFocused || contentLength > 0) &&
+          <div className={styles.emoji_wrapper}>
+            <div
+              className={styles.emoji_picker}
+              onMouseEnter={this.handleMouseEnter}
+              onMouseLeave={this.handleMouseLeave}
+            />
+            {expandEmoji &&
+            <EmojiPicker
+              onMouseDown={this.handleEmojiPick}
+              onMouseEnter={this.handleMouseEnter}
+              onMouseLeave={this.handleMouseLeave}
+            />}
+          </div>}
+        </div>
         <div
           ref={node => (this.post = node)}
           className={styles.post}
