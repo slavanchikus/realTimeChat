@@ -64,7 +64,12 @@ class MainPage extends Component {
     if (uiState.isFetching && !this.props.uiState.isFetching) {
       this.loader = setTimeout(() => this.setState({ blockUi: true }), 1200);
     }
-    if (errors !== this.props.errors) {
+    if (errors !== this.props.errors && Object.keys(errors).length > 0) {
+      if (storagePassword && storageUsername && errors.userError === 'invalid user data') {
+        localStorage.removeItem('username_chat');
+        localStorage.removeItem('password_chat');
+        this.setState({ blockUi: true });
+      }
       this.errorDelay = setTimeout(() => this.props.removeErrors(), 1200);
     }
   }

@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 
-import { socket } from '../../../sagas/chatSagas';
+import socket from '../../../utils/socket';
 
 import SideBar from './SideBar/SideBar';
 

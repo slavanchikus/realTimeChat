@@ -1,13 +1,8 @@
 import { fork, call, put, takeEvery } from 'redux-saga/effects';
 import { delay } from 'redux-saga';
-import openSocket from 'socket.io-client';
 
+import socket from '../utils/socket';
 import { getUser, createUser, getRooms, getMeassages, createMessage, getOneMessage, setRoomBackground, createRoom, openRoom } from '../api/chatApi';
-
-const host = 'http://localhost:8000';
-/* http://localhost:8000 */
-
-export const socket = openSocket(host);
 
 export function* fetchUser({ username, password }) {
   for (let i = 0; i < 5; i += 1) {

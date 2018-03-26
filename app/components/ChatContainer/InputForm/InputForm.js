@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 
 import EmojiPicker from './EmojiPicker/EmojiPicker';
 
-import { socket } from '../../../sagas/chatSagas';
+import socket from '../../../utils/socket';
 import { saveSelection, pasteNodeAtCaret, formatContent, countLength } from './inputUtils/inputUtils';
 
 import styles from './InputForm.module.styl';
@@ -48,13 +48,7 @@ export default class InputForm extends PureComponent {
     }
   };
 
-  handleKeyDown = (e) => {
-    if (e.ctrlKey && e.keyCode === 13) {
-      this.post.click();
-    }
-  };
-
-  handleKeyPress = (e) => {
+  handleInput = () => {
     if (!this.state.isTyping) {
       this.setState({ isTyping: true });
     }
@@ -62,6 +56,15 @@ export default class InputForm extends PureComponent {
       clearTimeout(this.typingDelay);
     }
     this.typingDelay = setTimeout(() => this.setState({ isTyping: false }), 1000);
+  };
+
+  handleKeyDown = (e) => {
+    if (e.ctrlKey && e.keyCode === 13) {
+      this.post.click();
+    }
+  };
+
+  handleKeyPress = (e) => {
     if (this.state.contentLength > 199) e.preventDefault();
   };
 
@@ -167,6 +170,7 @@ export default class InputForm extends PureComponent {
           spellCheck={false}
           onFocus={this.handleFocus}
           onBlur={this.handleBlur}
+          onInput={this.handleInput}
           onSelect={this.handleSelection}
           onKeyPress={this.handleKeyPress}
         />
