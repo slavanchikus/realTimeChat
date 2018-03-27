@@ -39,12 +39,12 @@ export const getOneMessage = (id, username, roomId) => fetch(`${host}/getmessage
       throw error;
     });
 
-export const createMessage = (content, userId, username, roomId) => fetch(`${host}/createmessage`, {
+export const createMessage = (content, files, userId, username, roomId) => fetch(`${host}/createmessage`, {
   method: 'POST',
   headers: {
     'Content-Type': 'application/json'
   },
-  body: JSON.stringify({ content, userId, username, roomId }),
+  body: JSON.stringify({ content, files, userId, username, roomId }),
 }).then(response => response.json())
     .catch((error) => {
       throw error;
@@ -78,14 +78,6 @@ export const createRoom = (roomName, description, password, userId) => fetch(`${
     'Content-Type': 'application/json'
   },
   body: JSON.stringify({ roomName, description, password, userId }),
-}).then(response => response.json())
-  .catch((error) => {
-    throw error;
-  });
-
-export const uploadFile = data => fetch(`${host}/upload`, {
-  method: 'POST',
-  body: data,
 }).then(response => response.json())
   .catch((error) => {
     throw error;

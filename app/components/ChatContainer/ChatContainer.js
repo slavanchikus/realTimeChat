@@ -21,7 +21,6 @@ export default class ChatContainer extends PureComponent {
     onChangeRoomBackground: PropTypes.func.isRequired,
     onResetRoom: PropTypes.func.isRequired,
     onOpenRoom: PropTypes.func.isRequired,
-    onUploadFile: PropTypes.func.isRequired
   };
 
   componentDidMount() {
@@ -52,7 +51,7 @@ export default class ChatContainer extends PureComponent {
   }
 
   render() {
-    const { user, messages, selectedRoom, onCreateMessage, onGetMessages, onSetRoomBackground, onUploadFile } = this.props;
+    const { user, messages, selectedRoom, onCreateMessage, onGetMessages, onSetRoomBackground } = this.props;
     return (
       <div className={styles.container}>
         <Header
@@ -70,7 +69,6 @@ export default class ChatContainer extends PureComponent {
           user={user}
           selectedRoom={selectedRoom}
           onCreateMessage={onCreateMessage}
-          onUploadFile={onUploadFile}
         />
       </div>
     );

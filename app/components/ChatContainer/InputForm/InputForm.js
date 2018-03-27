@@ -2,9 +2,10 @@ import React, { PureComponent } from 'react';
 import PropTypes from 'prop-types';
 
 import EmojiPicker from './EmojiPicker/EmojiPicker';
+import AttachmentsContainer from './AttachmentsContainer/AttachmentsContainer';
 
 import socket from '../../../utils/socket';
-import { saveSelection, pasteNodeAtCaret, formatContent, countLength } from './inputUtils/inputUtils';
+import { saveSelection, pasteNodeAtCaret, formatContent, countLength } from './inputUtils';
 
 import styles from './InputForm.module.styl';
 
@@ -16,7 +17,6 @@ export default class InputForm extends PureComponent {
     user: PropTypes.object.isRequired,
     selectedRoom: PropTypes.object.isRequired,
     onCreateMessage: PropTypes.func.isRequired,
-    onUploadFile: PropTypes.func.isRequired
   };
 
   state = {
@@ -24,6 +24,7 @@ export default class InputForm extends PureComponent {
     isTyping: false,
     isFocused: false,
     expandEmoji: false,
+    files: [],
     contentLength: 0,
   };
 
@@ -40,11 +41,11 @@ export default class InputForm extends PureComponent {
   }
 
   handleClick = () => {
-    const { contentLength } = this.state;
+    const { contentLength, files } = this.state;
     const { userId, username } = this.props.user;
     const content = formatContent(this.input.innerHTML);
     if (this.input.innerText !== placeholder && contentLength > 0) {
-      this.props.onCreateMessage(content, userId, username, this.props.selectedRoom._id);
+      this.props.onCreateMessage(content, files, userId, username, this.props.selectedRoom._id);
       this.input.innerHTML = '';
       this.input.focus();
     }
@@ -150,25 +151,18 @@ export default class InputForm extends PureComponent {
     return null;
   };
 
-  handleUpload = (e) => {
-    const file = e.target.files[0];
-    if (file) {
-      const data = new FormData();
-      data.append('file', file, file.name);
-      this.props.onUploadFile(data);
-    }
+  handleFileState = (file) => {
+    this.setState({ files: [...this.state.files, file]});
   };
 
   render() {
     const { expandEmoji, isFocused, contentLength } = this.state;
     return (
       <div className={styles.container}>
-        <div className={styles.upload}>
-          <form>
-            <input name="image" type="file" accept="image/png, image/jpeg" onChange={this.handleUpload} />
-          </form>
-        </div>
         <div className={styles.input_wrapper}>
+          <AttachmentsContainer
+            onHandleFileState={this.handleFileState}
+          />
           <div
             contentEditable
             ref={node => (this.input = node)}

@@ -2,7 +2,7 @@ import { fork, call, put, takeEvery } from 'redux-saga/effects';
 import { delay } from 'redux-saga';
 
 import socket from '../utils/socket';
-import { getUser, createUser, getRooms, getMeassages, createMessage, getOneMessage, setRoomBackground, createRoom, openRoom, uploadFile } from '../api/chatApi';
+import { getUser, createUser, getRooms, getMeassages, createMessage, getOneMessage, setRoomBackground, createRoom, openRoom } from '../api/chatApi';
 
 export function* fetchUser({ username, password }) {
   for (let i = 0; i < 5; i += 1) {
@@ -69,9 +69,9 @@ export function* fetchOneMessages({ id, username, roomId }) {
   }
 }
 
-export function* fetchNewMessage({ content, userId, username, roomId }) {
+export function* fetchNewMessage({ content, files, userId, username, roomId }) {
   try {
-    const payload = yield call(createMessage, content, userId, username, roomId);
+    const payload = yield call(createMessage, content, files, userId, username, roomId);
     yield put({ type: 'MESSAGE_CREATE_COMPLETE', payload });
     socket.emit('new message', { id: payload._id });
   } catch (error) {
@@ -114,15 +114,6 @@ export function* fetchRoomBackground({ backgroundSrc, roomId }) {
   }
 }
 
-export function* fetchNewFile({ data }) {
-  try {
-    const payload = yield call(uploadFile, data);
-    yield put({ type: 'UPLOAD_FILE_COMPLETE', payload });
-  } catch (error) {
-    yield put({ type: 'UPLOAD_FILE_ERROR' });
-  }
-}
-
 export function* watchChatRequest() {
   yield takeEvery('USER_REQUEST', fetchUser);
   yield takeEvery('USER_CREATE', fetchNewUser);
@@ -133,7 +124,6 @@ export function* watchChatRequest() {
   yield takeEvery('ROOM_CREATE', fetchNewRoom);
   yield takeEvery('ROOM_OPEN', fetchRoom);
   yield takeEvery('SET_ROOM_BACKGROUND', fetchRoomBackground);
-  yield takeEvery('UPLOAD_FILE', fetchNewFile);
 }
 
 export function* chatSagas() {

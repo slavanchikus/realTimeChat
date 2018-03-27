@@ -24,9 +24,10 @@ export const getOneMessage = (id, username, roomId) => ({
   roomId
 });
 
-export const createMessage = (content, userId, username, roomId) => ({
+export const createMessage = (content, files, userId, username, roomId) => ({
   type: 'MESSAGE_CREATE',
   content,
+  files,
   userId,
   username,
   roomId
@@ -62,11 +63,6 @@ export const changeRoomBackground = (backgroundSrc, roomId) => ({
   type: 'CHANGE_ROOM_BACKGROUND',
   backgroundSrc,
   roomId
-});
-
-export const uploadFile = data => ({
-  type: 'UPLOAD_FILE',
-  data
 });
 
 export const removeErrors = () => ({
