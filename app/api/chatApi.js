@@ -83,12 +83,9 @@ export const createRoom = (roomName, description, password, userId) => fetch(`${
     throw error;
   });
 
-export const uploadFile = file => fetch(`${host}/upload`, {
+export const uploadFile = data => fetch(`${host}/upload`, {
   method: 'POST',
-  headers: {
-    'Content-Type': 'application/json'
-  },
-  body: JSON.stringify({ file }),
+  body: data,
 }).then(response => response.json())
   .catch((error) => {
     throw error;

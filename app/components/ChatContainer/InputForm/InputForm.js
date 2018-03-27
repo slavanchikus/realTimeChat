@@ -24,7 +24,7 @@ export default class InputForm extends PureComponent {
     isTyping: false,
     isFocused: false,
     expandEmoji: false,
-    contentLength: 0
+    contentLength: 0,
   };
 
   componentDidMount() {
@@ -151,8 +151,11 @@ export default class InputForm extends PureComponent {
   };
 
   handleUpload = (e) => {
-    if (e.target.files) {
-      this.props.onUploadFile(e.target.files);
+    const file = e.target.files[0];
+    if (file) {
+      const data = new FormData();
+      data.append('file', file, file.name);
+      this.props.onUploadFile(data);
     }
   };
 
@@ -161,8 +164,8 @@ export default class InputForm extends PureComponent {
     return (
       <div className={styles.container}>
         <div className={styles.upload}>
-          <form encType="multipart/form-data">
-            <input name="image" type="file" onChange={this.handleUpload} />
+          <form>
+            <input name="image" type="file" accept="image/png, image/jpeg" onChange={this.handleUpload} />
           </form>
         </div>
         <div className={styles.input_wrapper}>

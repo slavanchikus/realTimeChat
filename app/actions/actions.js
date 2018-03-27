@@ -64,9 +64,9 @@ export const changeRoomBackground = (backgroundSrc, roomId) => ({
   roomId
 });
 
-export const uploadFile = file => ({
+export const uploadFile = data => ({
   type: 'UPLOAD_FILE',
-  file
+  data
 });
 
 export const removeErrors = () => ({

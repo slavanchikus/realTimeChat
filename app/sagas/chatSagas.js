@@ -114,9 +114,9 @@ export function* fetchRoomBackground({ backgroundSrc, roomId }) {
   }
 }
 
-export function* fetchNewFile({ file }) {
+export function* fetchNewFile({ data }) {
   try {
-    const payload = yield call(uploadFile, file);
+    const payload = yield call(uploadFile, data);
     yield put({ type: 'UPLOAD_FILE_COMPLETE', payload });
   } catch (error) {
     yield put({ type: 'UPLOAD_FILE_ERROR' });
