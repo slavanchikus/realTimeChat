@@ -8,16 +8,16 @@ import { HashRouter, Route } from 'react-router-dom';
 import cx from 'classnames';
 
 import { userRequest, userCreate, getMessages, getOneMessage, createMessage, openRoom,
-  createRoom, resetRoom, setRoomBackground, changeRoomBackground, removeErrors } from '../../actions/actions';
-import { userSelector, messagesSelector, roomsSelector, uiStateSelector, errorsSelector } from '../../selectors/mainSelector';
+  createRoom, resetRoom, setRoomBackground, changeRoomBackground, removeErrors } from '../actions/actions';
+import { userSelector, messagesSelector, roomsSelector, uiStateSelector, errorsSelector } from '../selectors/mainSelector';
 
-import ChatContainer from '../ChatContainer/ChatContainer';
-import Authentication from '../Authentication/Authentication';
-import RoomSelector from '../RoomSelector/RoomSelector';
+import ChatWrapper from './pages/ChatWrapper/ChatWrapper';
+import Authentication from './pages/Authentication/Authentication';
+import RoomSelector from './pages/RoomSelector/RoomSelector';
 
-import styles from './MainPage.module.styl';
+import styles from './App.module.styl';
 
-import { registerServiceWorker } from '../../utils/registerServiceWorker';
+import { registerServiceWorker } from '../utils/registerServiceWorker';
 
 const mapStateToProps = state => ({
   user: userSelector(state),
@@ -113,7 +113,7 @@ class MainPage extends Component {
           <Route
             path="/room"
             render={routeProps =>
-              <ChatContainer
+              <ChatWrapper
                 user={user}
                 messages={messages}
                 selectedRoom={rooms.selectedRoom}

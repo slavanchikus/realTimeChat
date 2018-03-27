@@ -4,7 +4,7 @@ import PropTypes from 'prop-types';
 import EmojiPicker from './EmojiPicker/EmojiPicker';
 import AttachmentsContainer from './AttachmentsContainer/AttachmentsContainer';
 
-import socket from '../../../utils/socket';
+import socket from '../../../../utils/socket';
 import { saveSelection, pasteNodeAtCaret, formatContent, countLength } from './inputUtils';
 
 import styles from './InputForm.module.styl';

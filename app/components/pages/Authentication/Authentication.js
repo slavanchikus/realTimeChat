@@ -1,7 +1,7 @@
 import React, { PureComponent } from 'react';
 import PropTypes from 'prop-types';
 
-import ErrorContainer from '../ErrorContainer/ErrorContainer';
+import ErrorContainer from '../../shared/ErrorContainer/ErrorContainer';
 
 import styles from './Authentication.module.styl';
 

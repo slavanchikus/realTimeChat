@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 
 import cx from 'classnames';
 
-import { validateImg } from '../../../../utils/validateImg';
+import { validateImg } from '../../../../../utils/validateImg';
 import styles from './SideBar.module.styl';
 
 export default class SideBar extends Component {

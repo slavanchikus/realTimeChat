@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 
 import cx from 'classnames';
 
-import { emojiData } from '../../../../utils/emojiData';
+import { emojiData } from '../../../../../utils/emojiData';
 import styles from './Message.module.styl';
 
 const emojiSrc = 'data:image/gif;base64,R0lGODlhAQABAPAAAAAAAP///yH5BAUAAAAALAAAAAABAAEAAAICRAEAOw==';

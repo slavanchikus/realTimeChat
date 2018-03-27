@@ -1,15 +1,15 @@
 import React, { PureComponent } from 'react';
 import PropTypes from 'prop-types';
 
-import socket from '../../utils/socket';
+import socket from '../../../utils/socket';
 
 import Header from './Header/Header';
 import InputForm from './InputForm/InputForm';
 import MessagesContainer from './MessagesContainer/MessagesContainer';
 
-import styles from './ChatContainer.module.styl';
+import styles from './ChatWrapper.module.styl';
 
-export default class ChatContainer extends PureComponent {
+export default class ChatWrapper extends PureComponent {
   static propTypes = {
     user: PropTypes.object.isRequired,
     messages: PropTypes.array.isRequired,
