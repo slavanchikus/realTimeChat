@@ -1,20 +1,20 @@
 .message
   display: table
   width: auto
-  min-width: 120px
+  min-width: 90px
   min-height: 30px
   position: relative
   margin-left: 0
   border: 1px solid
   margin-top: 10px
   padding: 7px
+  padding-right: 30px
   border-color: rgba(255,255,255,0.10)
   background: #181818
   border-radius: 5px
   p
     font-size: 13px
     margin: 2px 0 0 0
-    padding-right: 30px
     max-width: 460px
     overflow: hidden
     text-overflow: ellipsis
@@ -24,6 +24,7 @@
     font-weight: 600
   a
     color: #ECC948
+    margin-right: 5px
 
 .own_message
   margin-left: auto
@@ -33,10 +34,10 @@
   min-height: 15px
 
 .date
+  font-size: 10px
   position: absolute
-  right: 4px
   bottom: 4px
-  font-size: 11px
+  right: 4px
 
 .emoji
   background: url('../../../../../img/emoji_sheet.png')
@@ -50,4 +51,4 @@
 @media (max-width: 500px)
   .message
     p
-      max-width: 300px
+      max-width: 230px

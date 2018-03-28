@@ -41,6 +41,7 @@ export default class MessagesContainer extends PureComponent {
     const { messages, user, selectedRoom } = this.props;
     return (
       <div
+        id="messagescontainer"
         ref={node => (this.container = node)}
         className={styles.container}
         onScroll={this.handleScroll}

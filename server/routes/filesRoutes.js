@@ -1,4 +1,5 @@
 const multer = require('multer');
+const fs = require('fs');
 
 const storage = multer.diskStorage({
   destination: './upload/img',
@@ -15,9 +16,13 @@ module.exports = function(app, db) {
       if (err) {
         res.status(400).json({ message: err.message });
       } else {
-        const path = `upload/img/${Date.now()}${req.file.filename}`;
+        const path = `upload/img/${req.file.filename}`;
         res.status(200).json({ path });
       }
     });
+  });
+
+  app.post('/delete/img', (req, res) => {
+    fs.unlinkSync(req.body.path);
   });
 };

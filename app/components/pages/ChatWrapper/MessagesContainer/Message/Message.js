@@ -3,6 +3,8 @@ import PropTypes from 'prop-types';
 
 import cx from 'classnames';
 
+import MediaContainer from '../../../../shared/MediaContainer/MediaContainer';
+
 import { emojiData } from '../../../../../utils/emojiData';
 import styles from './Message.module.styl';
 
@@ -14,7 +16,6 @@ export default class Message extends Component {
     message: PropTypes.object.isRequired,
     selectedRoom: PropTypes.object.isRequired,
   };
-
 
   shouldComponentUpdate() {
     return false;
@@ -58,6 +59,8 @@ export default class Message extends Component {
           {message.username}
         </span>
         <p dangerouslySetInnerHTML={{ __html: this.handleText(message.content) }} />
+        {message.files && message.files.length > 0 &&
+        <MediaContainer viewOnly files={message.files} />}
         <span className={styles.date}>
           {message.date}
         </span>
