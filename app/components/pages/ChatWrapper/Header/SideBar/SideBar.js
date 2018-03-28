@@ -17,6 +17,14 @@ export default class SideBar extends Component {
     backgroundSetting: false
   };
 
+  componentDidUpdate(prevProps, prevState) {
+    if (!prevState.expanded && this.state.expanded) {
+      document.addEventListener('click', this.handleOutsideClick);
+    } else if (prevState.expanded && !this.state.expanded) {
+      document.removeEventListener('click', this.handleOutsideClick);
+    }
+  }
+
   toggleExpandState = () => {
     this.setState({ expanded: !this.state.expanded, backgroundSetting: false });
   };
@@ -40,13 +48,19 @@ export default class SideBar extends Component {
     }
   };
 
+  handleOutsideClick = (e) => {
+    if (!this.wrapper.contains(e.target)) {
+      this.setState({ expanded: false, backgroundSetting: false });
+    }
+  };
+
   render() {
     const { expanded, backgroundSetting } = this.state;
     const hamburgerClass = cx(styles.hamburger, {
       [styles.active_hamburger]: expanded,
     });
     return (
-      <div className={styles.container}>
+      <div className={styles.container} ref={node => (this.wrapper = node)}>
         <div className={styles.menu_icon} onClick={this.toggleExpandState}>
           <div className={hamburgerClass} />
         </div>

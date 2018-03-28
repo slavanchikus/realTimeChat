@@ -5,7 +5,8 @@ import EmojiPicker from './EmojiPicker/EmojiPicker';
 import MediaContainer from '../../../shared/MediaContainer/MediaContainer';
 
 import socket from '../../../../utils/socket';
-import { saveSelection, pasteNodeAtCaret, formatContent, countLength, validateImg } from './utils/inputUtils';
+import { saveSelection, pasteNodeAtCaret, formatContent, countLength } from './utils/inputUtils';
+import { validateImg } from '../../../../utils/validateImg';
 import { uploadImg, deleteImg } from './utils/uploadApi';
 
 import styles from './InputForm.module.styl';

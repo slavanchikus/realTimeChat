@@ -62,10 +62,3 @@ export const formatContent = (html) => {
   }
   return content.trim();
 };
-
-export const validateImg = url => new Promise((resolve, reject) => {
-  const img = new Image();
-  img.onload = () => resolve(true);
-  img.onerror = () => reject(false);
-  img.src = url;
-});
