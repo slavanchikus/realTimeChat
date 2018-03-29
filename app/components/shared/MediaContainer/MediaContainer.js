@@ -22,16 +22,16 @@ export default class MediaPreview extends PureComponent {
   state = {
     expandView: false,
     fileIndex: null,
-    files: []
+    files: this.props.files
   };
 
   async componentDidMount() {
-    const promises = this.props.files.map(async (item) => {
+    const promises = this.state.files.map(async (item) => {
       const isImgValid = await validateImg(item.path);
       if (isImgValid) {
         return { ...item, valid: true };
       }
-      return { ...item, valid: false };
+      return { ...item, valid: false, path: 'http://www.clker.com/cliparts/0/4/6/1/11949904011525963418file_broken.svg.med.png' };
     });
     const files = await Promise.all(promises);
     this.setState({ files });
@@ -40,7 +40,6 @@ export default class MediaPreview extends PureComponent {
   render() {
     const { expandView, files, fileIndex } = this.state;
     const { viewOnly, onDelete } = this.props;
-    if (files.length < 0) return null;
     return (
       <div className={styles.container}>
         {files.map((item, index) =>
@@ -48,7 +47,7 @@ export default class MediaPreview extends PureComponent {
             <img
               src={item.path}
               className={styles.preview}
-              onClick={() => this.setState({ expandView: true, fileIndex: index })}
+              onClick={() => item.valid && this.setState({ expandView: true, fileIndex: index })}
             />
             {!viewOnly &&
             <div className={styles.delete} onClick={() => onDelete(index)} />}

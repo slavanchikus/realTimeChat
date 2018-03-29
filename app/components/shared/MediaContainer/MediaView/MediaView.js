@@ -69,7 +69,7 @@ export default class MediaView extends PureComponent {
 
   render() {
     const { fileIndex } = this.state;
-    const { files } = this.props;
+    const { files, onClose } = this.props;
     return (
       <div className={styles.overlay} onClick={this.handleOutsideClick}>
         <div ref={(node) => { this.wrapper = node; }} className={styles.file_wrapper}>
@@ -79,6 +79,7 @@ export default class MediaView extends PureComponent {
             className={styles.view}
             onClick={this.moveRight}
           />
+          <div className={styles.delete} onClick={() => onClose()} />
         </div>
       </div>
     );
