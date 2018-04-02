@@ -88,7 +88,6 @@ class MainPage extends Component {
             path="/"
             render={() =>
               <Authentication
-                user={user}
                 errors={errors}
                 onUserRequest={this.props.userRequest}
                 onUserCreate={this.props.userCreate}

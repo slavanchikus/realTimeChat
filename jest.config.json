@@ -1,0 +1,14 @@
+{
+  "moduleDirectories": [
+    "app",
+    "node_modules"
+  ],
+  "moduleNameMapper": {
+    "^.+\\.module\\.styl": "<rootDir>/__mocks__/styleMock.js"
+  },
+  "transform": {
+    "^.+\\.js$": "babel-jest",
+    "\\.js$": "babel-jest"
+  },
+  "setupFiles": ["./jestSetupFile.js"]
+}

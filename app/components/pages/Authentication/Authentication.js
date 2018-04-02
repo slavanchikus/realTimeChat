@@ -7,7 +7,6 @@ import styles from './Authentication.module.styl';
 
 export default class Authentication extends PureComponent {
   static propTypes = {
-    user: PropTypes.object.isRequired,
     errors: PropTypes.object.isRequired,
     onUserRequest: PropTypes.func.isRequired,
     onUserCreate: PropTypes.func.isRequired,
