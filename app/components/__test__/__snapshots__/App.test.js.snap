@@ -1,0 +1,39 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`App when requred props are defined for reply ChatWrapper renders correctly 1`] = `
+<MainPage
+  changeRoomBackground={[Function]}
+  createMessage={[Function]}
+  createRoom={[Function]}
+  getMessages={[Function]}
+  getOneMessage={[Function]}
+  messages={Array []}
+  openRoom={[Function]}
+  removeErrors={[Function]}
+  resetRoom={[Function]}
+  rooms={
+    Object {
+      "allRooms": Object {
+        "_id": "5abba5f56243f5939c7b17b5",
+        "backgroundSrc": "",
+        "description": "123",
+        "isPrivate": true,
+        "participants": Array [],
+        "roomName": "123",
+        "userId": "5a66ea7ba831d74870af4885",
+      },
+      "selectedRoom": Object {},
+    }
+  }
+  setRoomBackground={[Function]}
+  user={
+    Object {
+      "lastViewedMessage": 1519307926006,
+      "userId": "5a66ea7ba831d74870af4885",
+      "username": "test",
+    }
+  }
+  userCreate={[Function]}
+  userRequest={[Function]}
+/>
+`;

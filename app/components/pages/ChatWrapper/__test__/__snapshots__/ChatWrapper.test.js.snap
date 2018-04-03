@@ -1,0 +1,293 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`ChatWrapper when requred props are defined for reply ChatWrapper renders correctly 1`] = `
+<ChatWrapper
+  messages={
+    Array [
+      "26 марта",
+      Object {
+        "_id": "5ab8f0559cb87d32f0e5205b",
+        "content": "17",
+        "date": "16:06",
+        "userId": "5a698c38eeaed821644cfb96",
+        "username": "admin",
+      },
+    ]
+  }
+  onChangeRoomBackground={[MockFunction]}
+  onCreateMessage={[MockFunction]}
+  onGetMessages={[MockFunction]}
+  onGetOneMessage={[MockFunction]}
+  onOpenRoom={[MockFunction]}
+  onResetRoom={[MockFunction]}
+  onSetRoomBackground={[MockFunction]}
+  selectedRoom={
+    Object {
+      "_id": "5ab613f11a9c4a57a48233a1",
+      "backgroundSrc": "https://2ch.hk/b/src/173280275/15221806039983.jpg",
+      "description": "----------------",
+      "isPrivate": false,
+      "participants": Object {
+        "admin": Object {
+          "color": "a10009",
+        },
+      },
+      "roomName": "test",
+      "userId": "5a66ea7ba831d74870af4885",
+    }
+  }
+  user={
+    Object {
+      "lastViewedMessage": 1519307926006,
+      "userId": "5a698c38eeaed821644cfb96",
+      "username": "admin",
+    }
+  }
+>
+  <div
+    className="container"
+  >
+    <Header
+      onSetRoomBackground={[MockFunction]}
+      selectedRoom={
+        Object {
+          "_id": "5ab613f11a9c4a57a48233a1",
+          "backgroundSrc": "https://2ch.hk/b/src/173280275/15221806039983.jpg",
+          "description": "----------------",
+          "isPrivate": false,
+          "participants": Object {
+            "admin": Object {
+              "color": "a10009",
+            },
+          },
+          "roomName": "test",
+          "userId": "5a66ea7ba831d74870af4885",
+        }
+      }
+    >
+      <div
+        className="container"
+      >
+        <div
+          className="left_part"
+        >
+          <h2>
+            test
+          </h2>
+          <div>
+            Онлайн: 0
+          </div>
+        </div>
+        <SideBar
+          onSetRoomBackground={[MockFunction]}
+          selectedRoom={
+            Object {
+              "_id": "5ab613f11a9c4a57a48233a1",
+              "backgroundSrc": "https://2ch.hk/b/src/173280275/15221806039983.jpg",
+              "description": "----------------",
+              "isPrivate": false,
+              "participants": Object {
+                "admin": Object {
+                  "color": "a10009",
+                },
+              },
+              "roomName": "test",
+              "userId": "5a66ea7ba831d74870af4885",
+            }
+          }
+        >
+          <div
+            className="container"
+          >
+            <div
+              className="menu_icon"
+              onClick={[Function]}
+            >
+              <div
+                className="hamburger"
+              />
+            </div>
+          </div>
+        </SideBar>
+      </div>
+    </Header>
+    <MessagesContainer
+      messages={
+        Array [
+          "26 марта",
+          Object {
+            "_id": "5ab8f0559cb87d32f0e5205b",
+            "content": "17",
+            "date": "16:06",
+            "userId": "5a698c38eeaed821644cfb96",
+            "username": "admin",
+          },
+        ]
+      }
+      onGetMessages={[MockFunction]}
+      selectedRoom={
+        Object {
+          "_id": "5ab613f11a9c4a57a48233a1",
+          "backgroundSrc": "https://2ch.hk/b/src/173280275/15221806039983.jpg",
+          "description": "----------------",
+          "isPrivate": false,
+          "participants": Object {
+            "admin": Object {
+              "color": "a10009",
+            },
+          },
+          "roomName": "test",
+          "userId": "5a66ea7ba831d74870af4885",
+        }
+      }
+      user={
+        Object {
+          "lastViewedMessage": 1519307926006,
+          "userId": "5a698c38eeaed821644cfb96",
+          "username": "admin",
+        }
+      }
+    >
+      <div
+        className="container"
+        id="messagescontainer"
+        onScroll={[Function]}
+        style={
+          Object {
+            "background": "url(https://2ch.hk/b/src/173280275/15221806039983.jpg) 50% 50% / cover no-repeat rgb(54, 54, 54)",
+          }
+        }
+      >
+        <div
+          className="day"
+          key="26 марта"
+        >
+          26 марта
+        </div>
+        <Message
+          key="5ab8f0559cb87d32f0e5205b"
+          message={
+            Object {
+              "_id": "5ab8f0559cb87d32f0e5205b",
+              "content": "17",
+              "date": "16:06",
+              "userId": "5a698c38eeaed821644cfb96",
+              "username": "admin",
+            }
+          }
+          selectedRoom={
+            Object {
+              "_id": "5ab613f11a9c4a57a48233a1",
+              "backgroundSrc": "https://2ch.hk/b/src/173280275/15221806039983.jpg",
+              "description": "----------------",
+              "isPrivate": false,
+              "participants": Object {
+                "admin": Object {
+                  "color": "a10009",
+                },
+              },
+              "roomName": "test",
+              "userId": "5a66ea7ba831d74870af4885",
+            }
+          }
+          user={
+            Object {
+              "lastViewedMessage": 1519307926006,
+              "userId": "5a698c38eeaed821644cfb96",
+              "username": "admin",
+            }
+          }
+        >
+          <div
+            className="message own_message"
+          >
+            <span
+              className="username"
+              style={
+                Object {
+                  "color": "#a10009",
+                }
+              }
+            >
+              admin
+            </span>
+            <p
+              dangerouslySetInnerHTML={
+                Object {
+                  "__html": "17",
+                }
+              }
+            />
+            <span
+              className="date"
+            >
+              16:06
+            </span>
+          </div>
+        </Message>
+      </div>
+    </MessagesContainer>
+    <InputForm
+      onCreateMessage={[MockFunction]}
+      selectedRoom={
+        Object {
+          "_id": "5ab613f11a9c4a57a48233a1",
+          "backgroundSrc": "https://2ch.hk/b/src/173280275/15221806039983.jpg",
+          "description": "----------------",
+          "isPrivate": false,
+          "participants": Object {
+            "admin": Object {
+              "color": "a10009",
+            },
+          },
+          "roomName": "test",
+          "userId": "5a66ea7ba831d74870af4885",
+        }
+      }
+      user={
+        Object {
+          "lastViewedMessage": 1519307926006,
+          "userId": "5a698c38eeaed821644cfb96",
+          "username": "admin",
+        }
+      }
+    >
+      <div
+        className="container"
+      >
+        <div
+          className="input_wrapper"
+        >
+          <div
+            className="upload"
+          >
+            <form>
+              <input
+                accept="image/png, image/jpeg"
+                disabled={false}
+                name="image"
+                onChange={[Function]}
+                type="file"
+              />
+            </form>
+          </div>
+          <div
+            className="input"
+            contentEditable={true}
+            onBlur={[Function]}
+            onFocus={[Function]}
+            onInput={[Function]}
+            onKeyPress={[Function]}
+            onSelect={[Function]}
+            spellCheck={false}
+          />
+          <div
+            className="post"
+            onClick={[Function]}
+          />
+        </div>
+      </div>
+    </InputForm>
+  </div>
+</ChatWrapper>
+`;

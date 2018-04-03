@@ -1,0 +1,43 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Authentication when requred props are defined for reply Authentication renders correctly 1`] = `
+<Authentication
+  errors={Object {}}
+  onUserCreate={[MockFunction]}
+  onUserRequest={[MockFunction]}
+>
+  <div
+    className="container"
+  >
+    <h2>
+      Авторизация
+    </h2>
+    <input
+      maxLength={15}
+      onChange={[Function]}
+      placeholder="Юзернейм"
+      type="text"
+      value=""
+    />
+    <input
+      maxLength={10}
+      onChange={[Function]}
+      placeholder="Пароль"
+      type="password"
+      value=""
+    />
+    <div
+      className="button"
+      onClick={[Function]}
+    >
+      Войти
+    </div>
+    <div
+      className="choose"
+      onClick={[Function]}
+    >
+      Зарегистрироваться
+    </div>
+  </div>
+</Authentication>
+`;
