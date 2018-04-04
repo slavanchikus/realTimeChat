@@ -1,39 +1,957 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`App when requred props are defined for reply ChatWrapper renders correctly 1`] = `
-<MainPage
-  changeRoomBackground={[Function]}
-  createMessage={[Function]}
-  createRoom={[Function]}
-  getMessages={[Function]}
-  getOneMessage={[Function]}
-  messages={Array []}
-  openRoom={[Function]}
-  removeErrors={[Function]}
-  resetRoom={[Function]}
-  rooms={
+exports[`App when requred props are defined for reply App renders correctly 1`] = `
+<Provider
+  store={
     Object {
-      "allRooms": Object {
-        "_id": "5abba5f56243f5939c7b17b5",
-        "backgroundSrc": "",
-        "description": "123",
-        "isPrivate": true,
-        "participants": Array [],
-        "roomName": "123",
-        "userId": "5a66ea7ba831d74870af4885",
-      },
-      "selectedRoom": Object {},
+      "clearActions": [Function],
+      "dispatch": [Function],
+      "getActions": [Function],
+      "getState": [Function],
+      "replaceReducer": [Function],
+      "subscribe": [Function],
     }
   }
-  setRoomBackground={[Function]}
-  user={
+>
+  <MemoryRouter
+    initialEntries={
+      Array [
+        "/",
+      ]
+    }
+  >
+    <Router
+      history={
+        Object {
+          "action": "POP",
+          "block": [Function],
+          "canGo": [Function],
+          "createHref": [Function],
+          "entries": Array [
+            Object {
+              "hash": "",
+              "key": "x4urks",
+              "pathname": "/",
+              "search": "",
+              "state": undefined,
+            },
+          ],
+          "go": [Function],
+          "goBack": [Function],
+          "goForward": [Function],
+          "index": 0,
+          "length": 1,
+          "listen": [Function],
+          "location": Object {
+            "hash": "",
+            "key": "x4urks",
+            "pathname": "/",
+            "search": "",
+            "state": undefined,
+          },
+          "push": [Function],
+          "replace": [Function],
+        }
+      }
+    >
+      <Connect(MainPage)>
+        <MainPage
+          changeRoomBackground={[Function]}
+          createMessage={[Function]}
+          createRoom={[Function]}
+          errors={Object {}}
+          getMessages={[Function]}
+          getOneMessage={[Function]}
+          messages={Array []}
+          openRoom={[Function]}
+          removeErrors={[Function]}
+          resetRoom={[Function]}
+          rooms={
+            Object {
+              "allRooms": Array [
+                Object {
+                  "_id": "5abba5f56243f5939c7b17b5",
+                  "backgroundSrc": "",
+                  "description": "123",
+                  "isPrivate": true,
+                  "participants": Array [],
+                  "roomName": "123",
+                  "userId": "5a66ea7ba831d74870af4885",
+                },
+              ],
+              "selectedRoom": Object {},
+            }
+          }
+          setRoomBackground={[Function]}
+          uiState={
+            Object {
+              "isFetching": false,
+            }
+          }
+          user={
+            Object {
+              "lastViewedMessage": 1519307926006,
+              "userId": "5a66ea7ba831d74870af4885",
+              "username": "test",
+            }
+          }
+          userCreate={[Function]}
+          userRequest={[Function]}
+        >
+          <Component>
+            <div>
+              <div
+                className="container"
+              >
+                <Route
+                  exact={true}
+                  path="/"
+                  render={[Function]}
+                >
+                  <withRouter(RoomSelector)
+                    allRooms={
+                      Array [
+                        Object {
+                          "_id": "5abba5f56243f5939c7b17b5",
+                          "backgroundSrc": "",
+                          "description": "123",
+                          "isPrivate": true,
+                          "participants": Array [],
+                          "roomName": "123",
+                          "userId": "5a66ea7ba831d74870af4885",
+                        },
+                      ]
+                    }
+                    errors={Object {}}
+                    history={
+                      Object {
+                        "action": "POP",
+                        "block": [Function],
+                        "canGo": [Function],
+                        "createHref": [Function],
+                        "entries": Array [
+                          Object {
+                            "hash": "",
+                            "key": "x4urks",
+                            "pathname": "/",
+                            "search": "",
+                            "state": undefined,
+                          },
+                        ],
+                        "go": [Function],
+                        "goBack": [Function],
+                        "goForward": [Function],
+                        "index": 0,
+                        "length": 1,
+                        "listen": [Function],
+                        "location": Object {
+                          "hash": "",
+                          "key": "x4urks",
+                          "pathname": "/",
+                          "search": "",
+                          "state": undefined,
+                        },
+                        "push": [Function],
+                        "replace": [Function],
+                      }
+                    }
+                    location={
+                      Object {
+                        "hash": "",
+                        "key": "x4urks",
+                        "pathname": "/",
+                        "search": "",
+                        "state": undefined,
+                      }
+                    }
+                    match={
+                      Object {
+                        "isExact": true,
+                        "params": Object {},
+                        "path": "/",
+                        "url": "/",
+                      }
+                    }
+                    onCreateRoom={[Function]}
+                    onOpenRoom={[Function]}
+                    selectedRoom={Object {}}
+                    user={
+                      Object {
+                        "lastViewedMessage": 1519307926006,
+                        "userId": "5a66ea7ba831d74870af4885",
+                        "username": "test",
+                      }
+                    }
+                  >
+                    <Route
+                      render={[Function]}
+                    >
+                      <RoomSelector
+                        allRooms={
+                          Array [
+                            Object {
+                              "_id": "5abba5f56243f5939c7b17b5",
+                              "backgroundSrc": "",
+                              "description": "123",
+                              "isPrivate": true,
+                              "participants": Array [],
+                              "roomName": "123",
+                              "userId": "5a66ea7ba831d74870af4885",
+                            },
+                          ]
+                        }
+                        errors={Object {}}
+                        history={
+                          Object {
+                            "action": "POP",
+                            "block": [Function],
+                            "canGo": [Function],
+                            "createHref": [Function],
+                            "entries": Array [
+                              Object {
+                                "hash": "",
+                                "key": "x4urks",
+                                "pathname": "/",
+                                "search": "",
+                                "state": undefined,
+                              },
+                            ],
+                            "go": [Function],
+                            "goBack": [Function],
+                            "goForward": [Function],
+                            "index": 0,
+                            "length": 1,
+                            "listen": [Function],
+                            "location": Object {
+                              "hash": "",
+                              "key": "x4urks",
+                              "pathname": "/",
+                              "search": "",
+                              "state": undefined,
+                            },
+                            "push": [Function],
+                            "replace": [Function],
+                          }
+                        }
+                        location={
+                          Object {
+                            "hash": "",
+                            "key": "x4urks",
+                            "pathname": "/",
+                            "search": "",
+                            "state": undefined,
+                          }
+                        }
+                        match={
+                          Object {
+                            "isExact": true,
+                            "params": Object {},
+                            "path": "/",
+                            "url": "/",
+                          }
+                        }
+                        onCreateRoom={[Function]}
+                        onOpenRoom={[Function]}
+                        selectedRoom={Object {}}
+                        user={
+                          Object {
+                            "lastViewedMessage": 1519307926006,
+                            "userId": "5a66ea7ba831d74870af4885",
+                            "username": "test",
+                          }
+                        }
+                      >
+                        <div
+                          className="container"
+                        >
+                          <div
+                            className="header"
+                          >
+                            <div>
+                              <h2>
+                                Список комнат
+                              </h2>
+                              <div>
+                                Количество комнат: 
+                                1
+                              </div>
+                            </div>
+                            <div
+                              className="plus"
+                              onClick={[Function]}
+                            >
+                              +
+                            </div>
+                          </div>
+                          <div
+                            className="rooms"
+                          >
+                            <RoomContainer
+                              key="123"
+                              onClick={[Function]}
+                              room={
+                                Object {
+                                  "_id": "5abba5f56243f5939c7b17b5",
+                                  "backgroundSrc": "",
+                                  "description": "123",
+                                  "isPrivate": true,
+                                  "participants": Array [],
+                                  "roomName": "123",
+                                  "userId": "5a66ea7ba831d74870af4885",
+                                }
+                              }
+                              roomIndex={0}
+                            >
+                              <div
+                                className="locked_room"
+                                onClick={[Function]}
+                              >
+                                <h3>
+                                  123
+                                </h3>
+                                <div>
+                                  123
+                                </div>
+                              </div>
+                            </RoomContainer>
+                          </div>
+                        </div>
+                      </RoomSelector>
+                    </Route>
+                  </withRouter(RoomSelector)>
+                </Route>
+                <Route
+                  path="/room"
+                  render={[Function]}
+                />
+                <div
+                  className="spinner"
+                />
+              </div>
+            </div>
+          </Component>
+        </MainPage>
+      </Connect(MainPage)>
+    </Router>
+  </MemoryRouter>
+</Provider>
+`;
+
+exports[`App when requred props are defined for reply App show Authentication if user are not login 1`] = `
+<Provider
+  store={
     Object {
-      "lastViewedMessage": 1519307926006,
-      "userId": "5a66ea7ba831d74870af4885",
-      "username": "test",
+      "clearActions": [Function],
+      "dispatch": [Function],
+      "getActions": [Function],
+      "getState": [Function],
+      "replaceReducer": [Function],
+      "subscribe": [Function],
+      "user": Object {},
     }
   }
-  userCreate={[Function]}
-  userRequest={[Function]}
-/>
+>
+  <MemoryRouter
+    initialEntries={
+      Array [
+        "/",
+      ]
+    }
+  >
+    <Router
+      history={
+        Object {
+          "action": "POP",
+          "block": [Function],
+          "canGo": [Function],
+          "createHref": [Function],
+          "entries": Array [
+            Object {
+              "hash": "",
+              "key": "yoka1b",
+              "pathname": "/",
+              "search": "",
+              "state": undefined,
+            },
+          ],
+          "go": [Function],
+          "goBack": [Function],
+          "goForward": [Function],
+          "index": 0,
+          "length": 1,
+          "listen": [Function],
+          "location": Object {
+            "hash": "",
+            "key": "yoka1b",
+            "pathname": "/",
+            "search": "",
+            "state": undefined,
+          },
+          "push": [Function],
+          "replace": [Function],
+        }
+      }
+    >
+      <Connect(MainPage)>
+        <MainPage
+          changeRoomBackground={[Function]}
+          createMessage={[Function]}
+          createRoom={[Function]}
+          errors={Object {}}
+          getMessages={[Function]}
+          getOneMessage={[Function]}
+          messages={Array []}
+          openRoom={[Function]}
+          removeErrors={[Function]}
+          resetRoom={[Function]}
+          rooms={
+            Object {
+              "allRooms": Array [
+                Object {
+                  "_id": "5abba5f56243f5939c7b17b5",
+                  "backgroundSrc": "",
+                  "description": "123",
+                  "isPrivate": true,
+                  "participants": Array [],
+                  "roomName": "123",
+                  "userId": "5a66ea7ba831d74870af4885",
+                },
+              ],
+              "selectedRoom": Object {},
+            }
+          }
+          setRoomBackground={[Function]}
+          uiState={
+            Object {
+              "isFetching": false,
+            }
+          }
+          user={
+            Object {
+              "lastViewedMessage": 1519307926006,
+              "userId": "5a66ea7ba831d74870af4885",
+              "username": "test",
+            }
+          }
+          userCreate={[Function]}
+          userRequest={[Function]}
+        >
+          <Component>
+            <div>
+              <div
+                className="container"
+              >
+                <Route
+                  exact={true}
+                  path="/"
+                  render={[Function]}
+                >
+                  <withRouter(RoomSelector)
+                    allRooms={
+                      Array [
+                        Object {
+                          "_id": "5abba5f56243f5939c7b17b5",
+                          "backgroundSrc": "",
+                          "description": "123",
+                          "isPrivate": true,
+                          "participants": Array [],
+                          "roomName": "123",
+                          "userId": "5a66ea7ba831d74870af4885",
+                        },
+                      ]
+                    }
+                    errors={Object {}}
+                    history={
+                      Object {
+                        "action": "POP",
+                        "block": [Function],
+                        "canGo": [Function],
+                        "createHref": [Function],
+                        "entries": Array [
+                          Object {
+                            "hash": "",
+                            "key": "yoka1b",
+                            "pathname": "/",
+                            "search": "",
+                            "state": undefined,
+                          },
+                        ],
+                        "go": [Function],
+                        "goBack": [Function],
+                        "goForward": [Function],
+                        "index": 0,
+                        "length": 1,
+                        "listen": [Function],
+                        "location": Object {
+                          "hash": "",
+                          "key": "yoka1b",
+                          "pathname": "/",
+                          "search": "",
+                          "state": undefined,
+                        },
+                        "push": [Function],
+                        "replace": [Function],
+                      }
+                    }
+                    location={
+                      Object {
+                        "hash": "",
+                        "key": "yoka1b",
+                        "pathname": "/",
+                        "search": "",
+                        "state": undefined,
+                      }
+                    }
+                    match={
+                      Object {
+                        "isExact": true,
+                        "params": Object {},
+                        "path": "/",
+                        "url": "/",
+                      }
+                    }
+                    onCreateRoom={[Function]}
+                    onOpenRoom={[Function]}
+                    selectedRoom={Object {}}
+                    user={
+                      Object {
+                        "lastViewedMessage": 1519307926006,
+                        "userId": "5a66ea7ba831d74870af4885",
+                        "username": "test",
+                      }
+                    }
+                  >
+                    <Route
+                      render={[Function]}
+                    >
+                      <RoomSelector
+                        allRooms={
+                          Array [
+                            Object {
+                              "_id": "5abba5f56243f5939c7b17b5",
+                              "backgroundSrc": "",
+                              "description": "123",
+                              "isPrivate": true,
+                              "participants": Array [],
+                              "roomName": "123",
+                              "userId": "5a66ea7ba831d74870af4885",
+                            },
+                          ]
+                        }
+                        errors={Object {}}
+                        history={
+                          Object {
+                            "action": "POP",
+                            "block": [Function],
+                            "canGo": [Function],
+                            "createHref": [Function],
+                            "entries": Array [
+                              Object {
+                                "hash": "",
+                                "key": "yoka1b",
+                                "pathname": "/",
+                                "search": "",
+                                "state": undefined,
+                              },
+                            ],
+                            "go": [Function],
+                            "goBack": [Function],
+                            "goForward": [Function],
+                            "index": 0,
+                            "length": 1,
+                            "listen": [Function],
+                            "location": Object {
+                              "hash": "",
+                              "key": "yoka1b",
+                              "pathname": "/",
+                              "search": "",
+                              "state": undefined,
+                            },
+                            "push": [Function],
+                            "replace": [Function],
+                          }
+                        }
+                        location={
+                          Object {
+                            "hash": "",
+                            "key": "yoka1b",
+                            "pathname": "/",
+                            "search": "",
+                            "state": undefined,
+                          }
+                        }
+                        match={
+                          Object {
+                            "isExact": true,
+                            "params": Object {},
+                            "path": "/",
+                            "url": "/",
+                          }
+                        }
+                        onCreateRoom={[Function]}
+                        onOpenRoom={[Function]}
+                        selectedRoom={Object {}}
+                        user={
+                          Object {
+                            "lastViewedMessage": 1519307926006,
+                            "userId": "5a66ea7ba831d74870af4885",
+                            "username": "test",
+                          }
+                        }
+                      >
+                        <div
+                          className="container"
+                        >
+                          <div
+                            className="header"
+                          >
+                            <div>
+                              <h2>
+                                Список комнат
+                              </h2>
+                              <div>
+                                Количество комнат: 
+                                1
+                              </div>
+                            </div>
+                            <div
+                              className="plus"
+                              onClick={[Function]}
+                            >
+                              +
+                            </div>
+                          </div>
+                          <div
+                            className="rooms"
+                          >
+                            <RoomContainer
+                              key="123"
+                              onClick={[Function]}
+                              room={
+                                Object {
+                                  "_id": "5abba5f56243f5939c7b17b5",
+                                  "backgroundSrc": "",
+                                  "description": "123",
+                                  "isPrivate": true,
+                                  "participants": Array [],
+                                  "roomName": "123",
+                                  "userId": "5a66ea7ba831d74870af4885",
+                                }
+                              }
+                              roomIndex={0}
+                            >
+                              <div
+                                className="locked_room"
+                                onClick={[Function]}
+                              >
+                                <h3>
+                                  123
+                                </h3>
+                                <div>
+                                  123
+                                </div>
+                              </div>
+                            </RoomContainer>
+                          </div>
+                        </div>
+                      </RoomSelector>
+                    </Route>
+                  </withRouter(RoomSelector)>
+                </Route>
+                <Route
+                  path="/room"
+                  render={[Function]}
+                />
+                <div
+                  className="spinner"
+                />
+              </div>
+            </div>
+          </Component>
+        </MainPage>
+      </Connect(MainPage)>
+    </Router>
+  </MemoryRouter>
+</Provider>
+`;
+
+exports[`App when requred props are defined for reply App show ChatWrapper if room is selected 1`] = `
+<Provider
+  store={
+    Object {
+      "clearActions": [Function],
+      "dispatch": [Function],
+      "getActions": [Function],
+      "getState": [Function],
+      "replaceReducer": [Function],
+      "subscribe": [Function],
+    }
+  }
+>
+  <MemoryRouter
+    initialEntries={
+      Array [
+        "/room",
+      ]
+    }
+  >
+    <Router
+      history={
+        Object {
+          "action": "POP",
+          "block": [Function],
+          "canGo": [Function],
+          "createHref": [Function],
+          "entries": Array [
+            Object {
+              "hash": "",
+              "key": "sk8r27",
+              "pathname": "/room",
+              "search": "",
+              "state": undefined,
+            },
+          ],
+          "go": [Function],
+          "goBack": [Function],
+          "goForward": [Function],
+          "index": 0,
+          "length": 1,
+          "listen": [Function],
+          "location": Object {
+            "hash": "",
+            "key": "sk8r27",
+            "pathname": "/room",
+            "search": "",
+            "state": undefined,
+          },
+          "push": [Function],
+          "replace": [Function],
+        }
+      }
+    >
+      <Connect(MainPage)>
+        <MainPage
+          changeRoomBackground={[Function]}
+          createMessage={[Function]}
+          createRoom={[Function]}
+          errors={Object {}}
+          getMessages={[Function]}
+          getOneMessage={[Function]}
+          messages={Array []}
+          openRoom={[Function]}
+          removeErrors={[Function]}
+          resetRoom={[Function]}
+          rooms={
+            Object {
+              "allRooms": Array [
+                Object {
+                  "_id": "5abba5f56243f5939c7b17b5",
+                  "backgroundSrc": "",
+                  "description": "123",
+                  "isPrivate": true,
+                  "participants": Array [],
+                  "roomName": "123",
+                  "userId": "5a66ea7ba831d74870af4885",
+                },
+              ],
+              "selectedRoom": Object {},
+            }
+          }
+          setRoomBackground={[Function]}
+          uiState={
+            Object {
+              "isFetching": false,
+            }
+          }
+          user={
+            Object {
+              "lastViewedMessage": 1519307926006,
+              "userId": "5a66ea7ba831d74870af4885",
+              "username": "test",
+            }
+          }
+          userCreate={[Function]}
+          userRequest={[Function]}
+        >
+          <Component>
+            <div>
+              <div
+                className="container"
+              >
+                <Route
+                  exact={true}
+                  path="/"
+                  render={[Function]}
+                />
+                <Route
+                  path="/room"
+                  render={[Function]}
+                >
+                  <ChatWrapper
+                    history={
+                      Object {
+                        "action": "POP",
+                        "block": [Function],
+                        "canGo": [Function],
+                        "createHref": [Function],
+                        "entries": Array [
+                          Object {
+                            "hash": "",
+                            "key": "sk8r27",
+                            "pathname": "/room",
+                            "search": "",
+                            "state": undefined,
+                          },
+                        ],
+                        "go": [Function],
+                        "goBack": [Function],
+                        "goForward": [Function],
+                        "index": 0,
+                        "length": 1,
+                        "listen": [Function],
+                        "location": Object {
+                          "hash": "",
+                          "key": "sk8r27",
+                          "pathname": "/room",
+                          "search": "",
+                          "state": undefined,
+                        },
+                        "push": [Function],
+                        "replace": [Function],
+                      }
+                    }
+                    location={
+                      Object {
+                        "hash": "",
+                        "key": "sk8r27",
+                        "pathname": "/room",
+                        "search": "",
+                        "state": undefined,
+                      }
+                    }
+                    match={
+                      Object {
+                        "isExact": true,
+                        "params": Object {},
+                        "path": "/room",
+                        "url": "/room",
+                      }
+                    }
+                    messages={Array []}
+                    onChangeRoomBackground={[Function]}
+                    onCreateMessage={[Function]}
+                    onGetMessages={[Function]}
+                    onGetOneMessage={[Function]}
+                    onOpenRoom={[Function]}
+                    onResetRoom={[Function]}
+                    onSetRoomBackground={[Function]}
+                    selectedRoom={Object {}}
+                    user={
+                      Object {
+                        "lastViewedMessage": 1519307926006,
+                        "userId": "5a66ea7ba831d74870af4885",
+                        "username": "test",
+                      }
+                    }
+                  >
+                    <div
+                      className="container"
+                    >
+                      <Header
+                        onSetRoomBackground={[Function]}
+                        selectedRoom={Object {}}
+                      >
+                        <div
+                          className="container"
+                        >
+                          <div
+                            className="left_part"
+                          >
+                            <h2>
+                              Комната
+                            </h2>
+                            <div>
+                              Онлайн: 0
+                            </div>
+                          </div>
+                          <SideBar
+                            onSetRoomBackground={[Function]}
+                            selectedRoom={Object {}}
+                          >
+                            <div
+                              className="container"
+                            >
+                              <div
+                                className="menu_icon"
+                                onClick={[Function]}
+                              >
+                                <div
+                                  className="hamburger"
+                                />
+                              </div>
+                            </div>
+                          </SideBar>
+                        </div>
+                      </Header>
+                      <InputForm
+                        onCreateMessage={[Function]}
+                        selectedRoom={Object {}}
+                        user={
+                          Object {
+                            "lastViewedMessage": 1519307926006,
+                            "userId": "5a66ea7ba831d74870af4885",
+                            "username": "test",
+                          }
+                        }
+                      >
+                        <div
+                          className="container"
+                        >
+                          <div
+                            className="input_wrapper"
+                          >
+                            <div
+                              className="upload"
+                            >
+                              <form>
+                                <input
+                                  accept="image/png, image/jpeg"
+                                  disabled={false}
+                                  name="image"
+                                  onChange={[Function]}
+                                  type="file"
+                                />
+                              </form>
+                            </div>
+                            <div
+                              className="input"
+                              contentEditable={true}
+                              onBlur={[Function]}
+                              onFocus={[Function]}
+                              onInput={[Function]}
+                              onKeyPress={[Function]}
+                              onSelect={[Function]}
+                              spellCheck={false}
+                            />
+                            <div
+                              className="post"
+                              onClick={[Function]}
+                            />
+                          </div>
+                        </div>
+                      </InputForm>
+                    </div>
+                  </ChatWrapper>
+                </Route>
+                <div
+                  className="spinner"
+                />
+              </div>
+            </div>
+          </Component>
+        </MainPage>
+      </Connect(MainPage)>
+    </Router>
+  </MemoryRouter>
+</Provider>
 `;
